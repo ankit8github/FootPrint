@@ -92,7 +92,8 @@ verified in actions/python-versions' manifest, and guard DB cleanup on `.env`
 existence when setup fails before database initialization. These are Phase 0
 validation fixes, with no product behavior or dependency changes.
 The Phase 0 report distinguishes observed local results, native PostgreSQL
-fallback checks, configured CI, and unverified Docker clean-checkout startup.
+fallback checks, local Docker Engine absence, the failed initial CI run, and
+the successful Docker-enabled clean-checkout run on Ubuntu 22.04.
 
 Reference checks: [Vite prerequisites](https://vite.dev/guide/),
 [FastAPI output contracts](https://fastapi.tiangolo.com/tutorial/response-model/),

@@ -2,11 +2,12 @@
 
 Date: 2026-11-22 (Asia/Calcutta). Scope: document 06, Phase 0 only.
 
-**Status: Phase 0 validation continues; exit gate remains open.** Standalone
-Compose configuration validation and local clean-source checks pass. There is
-no local Docker Engine. The user supplied a GitHub repository for a Phase 0 push
-and remote clean-checkout CI; that execution is pending below. No Phase 1 work
-is authorized by this validation.
+**Status: Phase 0 exit gates passed via executed clean-checkout CI.**
+[Run 2](https://github.com/ankit8github/FootPrint/actions/runs/45051777287)
+completed successfully for `06ae179a3ba11f2045c64c78e99c543ae3d7719a`, including
+Compose DB startup, migrations, browser startup and cleanup. Local Windows
+Docker startup was not executed because this machine has no Docker Engine.
+No Phase 1 work or real-user access is authorized by this validation.
 
 ## Scope and architecture
 
@@ -143,8 +144,10 @@ At the initial handoff, the remaining gate was to use a fresh checkout on a Dock
 follow README from generated `.env` through Compose startup, Alembic upgrade,
 API/client startup, all checks, migration roundtrip, and shutdown. The configured
 CI job provides the same Compose check, but must actually run successfully.
-Docker image pull/start, container health, volume behavior, and Linux CI remain
-unverified here. Keep the exit gate open until evidence is recorded.
+At that point Docker image pull/start, container health, volume behavior and
+Linux CI were unverified. The executed remote results below close the required
+startup/migration/cleanup gate; they do not assert local Windows Docker startup
+or persistence across a container/host restart.
 
 Later phases require a separate instruction. Phase 1 would need a reviewed
 fictional fixture catalog and truth manifest before any classifier work. Parser
@@ -298,21 +301,104 @@ only two workflow fixes: pin `runs-on: ubuntu-22.04`, and guard cleanup with
 `if [ -f .env ]; then docker compose down --volumes; fi`. This still runs actual
 cleanup whenever database initialization created `.env`; it avoids a secondary
 failure when an earlier setup step prevents initialization. Product code and
-dependency versions are unchanged. Remote rerun results remain pending.
+dependency versions are unchanged.
+
+Executed and passed after that fix:
+
+```powershell
+.local\phase0-validation\tools\actionlint.exe -shellcheck= -pyflakes= .github/workflows/phase0.yml
+git -c safe.directory=I:/FootPrint diff --check
+git -c safe.directory=I:/FootPrint add -- .github/workflows/phase0.yml docs/DECISIONS.md docs/PHASE0-REPORT.md
+git -c safe.directory=I:/FootPrint commit -m "Fix Phase 0 CI runner compatibility and early cleanup"
+git -c safe.directory=I:/FootPrint push origin main
+git -c safe.directory=I:/FootPrint rev-parse HEAD
+```
+
+All exited 0. Pushed SHA: `06ae179a3ba11f2045c64c78e99c543ae3d7719a`.
+[Remote run 2](https://github.com/ankit8github/FootPrint/actions/runs/45051777287)
+is the push-triggered validation of that SHA. It completed with **success**.
+Job `scaffold` (ID `137298256638`) and every configured step succeeded.
+Observed run interval: 2026-11-22 23:21:32–23:23:19 IST (API timestamps
+17:51:32–17:53:19 UTC). Runner: Ubuntu 22.04.5, image ubuntu-22.04.
+
+| Executed remote command / step | Observed result |
+| --- | --- |
+| `actions/checkout@v4` | Clean checkout of the pushed SHA succeeded |
+| `actions/setup-python@v5`, `actions/setup-node@v4`, `astral-sh/setup-uv@v6` | Pinned tool setup succeeded on Ubuntu 22.04 |
+| `uv sync --project backend --frozen`; `npm ci --prefix frontend` | Locked clean-checkout installs succeeded |
+| `uv run --frozen ruff check .`; `uv run --frozen ruff format --check .`; `uv run --frozen mypy` | All passed, 9 Python files |
+| `uv run --frozen pytest -q` | 10 passed |
+| `uv run --frozen python -m scripts.export_openapi --check`; `npm run contracts:check` | Both generated-contract checks passed |
+| `npm run lint`; `npm run typecheck`; `npm test`; `npm run build` | Passed; 3 frontend tests |
+| `uv run --frozen pip-audit`; `npm audit --audit-level=low` | No known vulnerabilities reported |
+| `python -c "import pathlib,secrets; pathlib.Path('.env').write_text('POSTGRES_PASSWORD='+secrets.token_hex(24)+'\nPOSTGRES_PORT=55432\n')"` | Generated a disposable runner-local DB credential; no real secrets supplied |
+| `docker compose config --quiet` | Passed on the Docker-enabled runner |
+| `docker compose up -d --wait db` | Image pulled, network/volume/container created; `pv1-local-db-1` became Healthy |
+| `uv run --frozen python -m scripts.check_database` | Passed: PostgreSQL upgrade, CHECK rejection, downgrade, re-upgrade; no personal tables |
+| `npx playwright install --with-deps chromium`; `npm run test:smoke` | Browser installed; 1 smoke test passed, starting real local API and client |
+| `if [ -f .env ]; then docker compose down --volumes; fi` | Executed actual cleanup: container, named volume and network removed |
+
+The configured database image and port mapping were unchanged from the locally
+validated Compose model. These are Docker-enabled Linux clean-checkout results,
+not inferred from the native Windows PostgreSQL fallback.
+
+Runs and steps were observed through the GitHub connector's `fetch` with
+`https://api.github.com/repos/ankit8github/FootPrint/actions/runs?head_sha=06ae179a3ba11f2045c64c78e99c543ae3d7719a&per_page=5`
+and `/actions/runs/45051777287/jobs`. Failed-run logs were read with
+`fetch_workflow_job_logs(repo_full_name="ankit8github/FootPrint", job_id=137297779054)`.
+No workflow pass is inferred from configuration validation or merely triggering
+a run.
+
+Successful job logs were read with
+`fetch_workflow_job_logs(repo_full_name="ankit8github/FootPrint", job_id=137298256638)`;
+final run status was read with `fetch` on
+`https://api.github.com/repos/ankit8github/FootPrint/actions/runs/45051777287`.
+Both the overall conclusion and individual step outcomes were inspected.
+
+### Remaining blockers and limits
+
+- No remaining blocker for the documented Phase 0 exit: Docker-enabled remote
+  clean-checkout validation passed, in addition to local Windows code checks.
+- Local Windows Docker Engine/Desktop remains absent; local container startup
+  and VS Code's complete Docker-backed Windows path were **not run**. The
+  successful Linux CI run does not claim otherwise.
+- Container/host restart persistence, image vulnerability scanning, production
+  security, auth/tenancy, backup/deletion operations, real-user readiness, and
+  deployment were not tested or added; they are outside this scaffold's exit.
+- actionlint's internal workflow checks ran; ShellCheck/Pyflakes integrations
+  did not. The remote workflow's actual shell commands nevertheless executed.
+- The initial all-files whitespace check still reports preserved baseline
+  Markdown hard breaks and `.gitignore` EOF spacing; no unrelated reformatting
+  was performed. Changed-file/source checks passed.
+
+The documentation-only follow-up uses commit message
+`Record executed Phase 0 validation and exit gates [skip ci]`, so the
+already-passed checks are not rerun for report/decision text. The validated source
+and workflow are those at SHA `06ae179a3ba11f2045c64c78e99c543ae3d7719a`;
+no claim is made that a separate workflow ran on the report-only follow-up.
+
+Publication commands for that documentation-only follow-up:
+
+```powershell
+git -c safe.directory=I:/FootPrint diff --check
+git -c safe.directory=I:/FootPrint add -- docs/DECISIONS.md docs/PHASE0-REPORT.md
+git -c safe.directory=I:/FootPrint commit -m "Record executed Phase 0 validation and exit gates [skip ci]"
+git -c safe.directory=I:/FootPrint push origin main
+```
 
 ## Final Phase 0 exit-gate table
 
 | Gate | Current status | Evidence / remaining requirement |
 | --- | --- | --- |
 | Phase 0 scope only; no real-data processing or deployment | PASS | Read-only empty scaffold; validation/doc changes only |
-| Locked clean-source installation and synthetic tests | PASS locally | Fresh 46-file source copy, both fresh installs, 10 backend + 3 frontend tests |
-| Accessible obviously synthetic shell and API health | PASS locally | Executed real-browser smoke; 1 passed |
-| Versioned empty contracts; lint/type/build checks | PASS locally | Executed checks in table above |
-| Reviewed migration mechanics | PASS for offline/native checks | Initial native PostgreSQL roundtrip; repeated offline SQL tests; container execution pending |
-| Docker Compose configuration | PASS statically | Official Compose parser, rendered model assertions, missing-password rejection |
-| Clean Git checkout starts DB, API and client; migration and shutdown | BLOCKED locally / PENDING remote | Local engine pipe absent; must execute Docker-enabled remote CI |
+| Locked clean-source installation and synthetic tests | PASS locally and remotely | Fresh local installs plus remote Git checkout; 10 backend + 3 frontend tests |
+| Accessible obviously synthetic shell and API health | PASS locally and remotely | Executed browser smoke; 1 passed on each platform |
+| Versioned empty contracts; lint/type/build checks | PASS locally and remotely | Executed checks and individual successful CI steps |
+| Reviewed migration mechanics | PASS | Offline tests, initial native roundtrip, and executed Docker PostgreSQL roundtrip in run 2 |
+| Docker Compose configuration | PASS | Official parser/model/negative tests locally; actual runner config check and startup |
+| Clean Git checkout starts DB, API and client; migration and shutdown | PASS on Ubuntu 22.04 CI | Run 2: healthy DB, migration roundtrip, client/API smoke, resource removal; local Windows engine unavailable |
 | GitHub Actions configuration | PASS statically | actionlint 1.7.12, internal validation; no ShellCheck/Pyflakes integration |
-| Remote CI on pushed repository | PENDING | Repository connected; reviewed commit/push and observed run still required |
+| Remote CI on pushed repository | PASS | Run 2, SHA 06ae179a3ba11f2045c64c78e99c543ae3d7719a, overall and every step success |
 | Secrets/user data excluded; no unnecessary permissions | PASS within Phase 0 checks | Git exclusions and all 46 staged files reviewed; no actual user-source files or targeted credential matches |
-| Documentation and measured results | IN PROGRESS | Final remote outcome and remaining blockers to be recorded |
-| Overall Phase 0 exit | OPEN | No Phase 1 authorization; await executed remote clean-checkout evidence |
+| Documentation and measured results | PASS | Exact commands, actual first failure and fix, successful run, limits and this table recorded |
+| Overall Phase 0 exit | PASS for Phase 0 only | Required clean-checkout evidence executed; no Phase 1 work, real-user processing or deployment |
