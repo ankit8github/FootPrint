@@ -39,6 +39,8 @@ without editing its steps. No deployment or merge was performed.
 | `tests/fixtures/pv1/v1/manifest.json` | Version 1.0.0; 48 source-event cards, SHA-256 inventory, literal evidence anchors, 29 proposed scenario snapshots, six independently authored after-delete snapshots |
 | `tests/fixtures/pv1/v1/CATALOG.md` | Human-readable source list and scenario labels/reasons |
 | `tests/fixtures/pv1/v1/README.md`, `REVIEW.md` | Format/label semantics, independent review protocol and unfilled checklist |
+| `tests/fixtures/pv1/v1/HUMAN-REVIEW-WORKSHEET.md` | Blind-first raw references and blank human judgments for all 29 scenarios and all six deletion snapshots; added in the 2026-11-23 review-preparation follow-up |
+| `docs/PHASE1-TAXONOMY-PROPOSAL.md` | Unapproved taxonomy discussion, alternatives and blank decision record; no labels changed |
 | `tests/fixtures/pv1/v1/metrics.json` | Deterministic inventory benchmark and coverage map; precision/recall/agreement are null |
 | `backend/scripts/validate_corpus.py` | Offline structural/integrity validator and inventory benchmark CLI |
 | `backend/tests/test_phase1_corpus.py` | Proposed-label policy tests and mutation/negative validation cases |
@@ -217,6 +219,67 @@ validator, test, workflow or dependency changes follow the tested SHA. This
 avoids repeating unchanged checks and makes no claim of a separate workflow
 execution on documentation-only text.
 
+## 2026-11-23 review-preparation follow-up (documentation only)
+
+Prepared an [independent human worksheet](../tests/fixtures/pv1/v1/HUMAN-REVIEW-WORKSHEET.md)
+with all 29 initial scenarios, direct raw-file links, event IDs/locators, and
+blank judgment, provenance, comparison and human decision fields. No proposed
+manifest judgments were copied into reviewer cells. Only source references,
+scenario IDs and deletion source sets were taken from structural setup metadata;
+neutral prompts were authored separately. Filenames/context can reveal hints,
+so reviewers record prior exposure and save a blind pass before consulting
+the proposed manifest, catalog labels, tests or taxonomy guidance.
+
+c07 (contradictory payment), c12 (malformed/absent timestamps, with six separate
+blank row judgments), c21 (unpaid invoice), and every deletion snapshot receive
+focused prompts. The six removal setups are c23-d1, c24-d1/d2/d3 and c25-d1/d2.
+Each resets to its original case source set, with surviving raw references;
+none contains prefilled post-removal relationship judgments.
+
+The [proposed taxonomy note](PHASE1-TAXONOMY-PROPOSAL.md), indexed as proposed
+ADR-008, distinguishes coexisting relationship types from evidence state,
+claim-specific confidence, priority and temporal validity. It exposes the broad
+transaction-indication interpretation and a narrower completed-payment
+alternative for human adjudication. It does not settle c07/c12/c21, rename a
+type, change labels or approve timestamp handling. The guide now directs humans
+to the blank worksheet before the original checklist's label-oriented questions.
+
+Validation below was executed locally on 2026-11-23. The one-time authoring and
+document-verification helpers are ignored under `.local/phase1-validation/`;
+they are not product features, classifiers or additions to the committed tests.
+The document helper checks metadata references and empty cells, not semantic
+correctness or independence of any future reviewer.
+
+| Working directory | Exact executed command/check | Observed outcome |
+| --- | --- | --- |
+| root | `python .local/phase1-validation/prepare_review_docs.py` | Exit 0; wrote the blank worksheet using source/setup metadata only |
+| root | `python .local/phase1-validation/check_review_docs.py` | Final exit 0; all 29 case sections, six independent deletion setups, 67 wholly blank judgment/provenance/comparison tables and six blank timestamp-row judgments verified; local links/anchors resolve |
+| backend | `uv run --frozen python -m scripts.validate_corpus` | Exit 0; unchanged 27 raw sources, 48 events, 29 scenarios, six snapshots, 32 coverage categories and committed metrics validated |
+| backend | `uv run --frozen pytest -q` | Exit 0; 46 passed in 5.88 seconds, including existing Phase 0 and Phase 1 tests |
+| root | `git -c safe.directory=I:/FootPrint diff --check` | Exit 0; no whitespace errors |
+| root | `git -c safe.directory=I:/FootPrint ls-remote origin refs/heads/main refs/heads/phase1/synthetic-corpus-v1` | Exit 0 before publication; main unchanged at 4b016f9 and PR branch at prior documentation SHA 3a2436e |
+| GitHub connector | `fetch_pr(repo_full_name="ankit8github/FootPrint", pr_number=1)` | Observed open, merged=false, head phase1/synthetic-corpus-v1, base main |
+
+The first document-check attempt failed because the ignored helper split a
+section at its own heading. Corrected that helper and reran it successfully;
+no fixture, expected label or existing test was changed to satisfy the check.
+During authoring, corrected relative links and separated HTML anchors from
+Markdown headings before the final link check.
+
+Compared all 79 existing tracked files outside the six-document allowlist with
+commit `3a2436e15e6e18686f066fc1c7358efa0562f6f7`: unchanged, allowing normal Git
+checkout CRLF/LF conversion outside byte-stable emails. All 27 raw SHA-256 values
+also match the unchanged manifest. Runtime, tests, labels, metrics, source bytes,
+CI, dependencies and Phase 0 contracts are preserved. Backend checks used
+`UV_CACHE_DIR=I:\FootPrint\.cache\uv`.
+
+This follow-up is documentation only and uses `[skip ci]`; no new remote CI,
+frontend, browser, Docker, dependency-audit or full tooling rerun is claimed.
+The earlier executed results above remain tied to their recorded source SHA.
+Independent human judgments, c07/c12/c21 adjudication, all six deletion reviews,
+and the taxonomy decision remain open. No independent approval, merge,
+reviewer-approved correction, corpus-version change or Phase 2 work is recorded.
+
 ## Phase 1 exit gates
 
 | Gate | Status | Evidence / limitation |
@@ -224,7 +287,8 @@ execution on documentation-only text.
 | Entirely fictional versioned raw corpus, no real user data/secrets | PASS for authored inputs | 20 emails, seven history files, explicit synthetic provenance, reserved addresses/domains and obvious inert sentinel values |
 | Required representative and adversarial coverage | PASS | 32 categories, 48 source events, 29 scenarios; all requested classes present |
 | Expected labels independent of classifier output | PASS for reviewability | Raw source locators/anchors, human-readable reasons, separate confidence/sensitivity and unknowns; no classifier exists |
-| Manually adjudicated independent truth baseline | PENDING | REVIEW.md unfilled, manifest explicitly awaiting_independent_review; reviewer must resolve disagreements before accepting corpus as settled truth |
+| Manually adjudicated independent truth baseline | PENDING | Blank HUMAN-REVIEW-WORKSHEET.md covers 29 cases and six snapshots; manifest explicitly awaiting_independent_review; human judgments and adjudication required |
+| Review worksheet and explicit taxonomy discussion | PREPARED; DECISION PENDING | c07/c12/c21 and six deletions highlighted; ADR-008/taxonomy note proposed only, existing labels unchanged |
 | Duplicate/conflict/deletion oracles and integrity validation | PASS for artifacts | Exact-copy checks and six explicit surviving-source snapshots; no product dedupe/deletion engine tested |
 | Versioned catalog, benchmark script and metrics report | PASS | README/CATALOG, validator CLI, metrics.json; efficacy metrics correctly null |
 | Phase 0 contracts, tests and CI preserved | PASS locally and remotely | No runtime/contract/workflow/dependency diff; original tests and Docker/browser regression pass |

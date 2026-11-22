@@ -5,6 +5,13 @@ and browsing events were authored from scratch. No user export, mailbox, actual
 purchase, diagnosis, name, street address, credential or payment card was used.
 The proposed truth labels await independent human review; no classifier exists.
 
+For independent human review, start with the blank
+[HUMAN-REVIEW-WORKSHEET.md](HUMAN-REVIEW-WORKSHEET.md) and save judgments before
+reading the proposed labels or annotation choices below. It includes all 29
+scenarios, all six deletion snapshots and raw references. After the blind pass,
+consult the [proposed taxonomy clarification](../../../../docs/PHASE1-TAXONOMY-PROPOSAL.md);
+no definition change or human approval is implied by that note.
+
 Use [CATALOG.md](CATALOG.md) to locate 27 raw files and 29 scenarios,
 [manifest.json](manifest.json) for evidence anchors and explicit expected labels,
 [metrics.json](metrics.json) for inventory/coverage results, and

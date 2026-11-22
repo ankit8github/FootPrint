@@ -126,3 +126,20 @@ and reserved fictional domains make review reproducible. General `.eml`
 ignoring stays in force, with one narrow corpus-directory exception. Scoped
 Git attributes preserve fixture hashes across Windows/Linux. Corpus inventory
 metrics do not measure product precision/recall or deletion correctness.
+
+## ADR-008 - Relationship taxonomy clarification (PROPOSED, NOT APPROVED)
+
+The [Phase 1 taxonomy proposal](PHASE1-TAXONOMY-PROPOSAL.md) makes the four
+existing, coexisting relationship types and their independent evidence/priority
+dimensions explicit for review. It calls out the ambiguous meaning of
+`transaction` for contradictory payment evidence (c07) and an unpaid invoice
+(c21), plus the separate record-validity/time questions in c12. The broad
+transaction-indication interpretation and a narrower alternative require human
+adjudication; neither is silently adopted as a new settled definition here.
+
+The [blank human worksheet](../tests/fixtures/pv1/v1/HUMAN-REVIEW-WORKSHEET.md)
+provides raw references for all 29 cases and six independent deletion setups.
+Reviewers save blind judgments before comparing the proposed manifest or this
+note. Existing source bytes, manifest labels, metrics, tests, contracts and CI
+remain unchanged. No independent approval, corpus-version change, merge or
+Phase 2 authorization is recorded by preparing these review materials.

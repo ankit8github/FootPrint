@@ -4,9 +4,17 @@ No completed independent human review is recorded. This checklist is an input
 to PR review, not a fabricated reviewer attestation. Do not add real source
 data or personal contact information while reviewing.
 
-1. Read the PR scope, corpus README and source catalog. Open raw files as text.
-2. Label each source/case independently before consulting the proposed snapshot.
-   Use only facts visible in the raw evidence and explicit scenario context.
+**Start with [HUMAN-REVIEW-WORKSHEET.md](HUMAN-REVIEW-WORKSHEET.md).** It provides
+raw references and blank judgments for all 29 scenarios and six deletion
+snapshots, including focused c07/c12/c21 prompts. Save a blind-pass copy before
+reading proposed labels or the comparison questions below. No judgments have
+been copied from the manifest into that worksheet.
+
+1. Open the worksheet's raw files as text and follow its blind-first procedure.
+   Defer CATALOG labels, manifest expectations, proposed-label tests, the corpus
+   guide's annotation choices and the taxonomy proposal until after this pass.
+2. Label each source/case independently using raw facts and scenario setup only.
+   Record literal anchors, uncertainty and any prior exposure to proposed labels.
 3. Compare relationship type, observed/inferred state, confidence, priority,
    unresolved/excluded records, event dates, duplicate groups and source support.
 4. Check each deletion snapshot against the named surviving sources; independently
@@ -16,6 +24,13 @@ data or personal contact information while reviewing.
    as the authority. Re-run validation after reviewed corrections.
 6. Only after adjudication, explicitly record acceptance and a reviewed version
    decision. The current manifest intentionally remains awaiting_independent_review.
+
+## Post-blind comparison guidance (authored expectations, not human judgments)
+
+The table below reflects the original proposal's questions. It must not be used
+as an answer key for blind labeling. The separate
+[taxonomy note](../../../../docs/PHASE1-TAXONOMY-PROPOSAL.md) is proposed,
+not approved; in particular, `transaction` semantics remain open for discussion.
 
 | Case group | Review questions | Independent result |
 | --- | --- | --- |
