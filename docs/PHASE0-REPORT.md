@@ -155,8 +155,9 @@ Phase 0 features or authorization to proceed.
 ## Validation continuation — 2026-11-22
 
 Scope remained Phase 0 validation and documentation. No application code,
-workflow, dependency, lockfile, or Compose service was changed during this
-continuation. Read this report, decisions, README, handoff, and current code and
+dependency, lockfile, or Compose service was changed during this continuation.
+The workflow received only the runner/cleanup fixes evidenced below. Read this
+report, decisions, README, handoff, and current code and
 configuration before checking them. The restricted shell failed to initialize
 (`helper_unknown_error: setup refresh had errors`); checks used the approved
 unrestricted shell with workspace-local ignored artifacts.
@@ -277,8 +278,27 @@ staged blobs found no ignored data/dependency paths, prohibited raw export/key
 files, or common private-key/AWS/GitHub/Bearer credential patterns. This is a
 bounded source review, not a comprehensive security audit.
 
-Commit, push, GitHub Actions run URL, tested SHA, jobs, conclusions, and Docker
-startup results will be recorded after execution. No remote pass is claimed yet.
+Executed `git -c safe.directory=I:/FootPrint commit -m "Initialize local-only PV1 Phase 0 scaffold"`
+and `git -c safe.directory=I:/FootPrint push -u origin main` (both exit 0), with
+`GIT_TERMINAL_PROMPT=0` and `GCM_INTERACTIVE=never` for the push. Remote main was
+confirmed by `git -c safe.directory=I:/FootPrint ls-remote origin refs/heads/main`.
+Initial SHA: `ac3ddd7ca56fa519531a07b7bd4f8f5cba888eb9`.
+
+[Remote run 1](https://github.com/ankit8github/FootPrint/actions/runs/45051621907)
+executed and **failed**. Checkout succeeded. `actions/setup-python@v5` reported
+that Python 3.11.9 is unavailable for Ubuntu 26.04 selected by ubuntu-latest.
+All dependency/test/database/browser steps were skipped. The always-cleanup
+step also failed because setup had not yet created `.env`; its required password
+therefore could not interpolate. No container startup or remote test pass is
+claimed from this run.
+
+Checked the primary `actions/python-versions/main/versions-manifest.json` with
+Python urllib/json and confirmed an x64 Linux 22.04 build for 3.11.9. Applied
+only two workflow fixes: pin `runs-on: ubuntu-22.04`, and guard cleanup with
+`if [ -f .env ]; then docker compose down --volumes; fi`. This still runs actual
+cleanup whenever database initialization created `.env`; it avoids a secondary
+failure when an earlier setup step prevents initialization. Product code and
+dependency versions are unchanged. Remote rerun results remain pending.
 
 ## Final Phase 0 exit-gate table
 

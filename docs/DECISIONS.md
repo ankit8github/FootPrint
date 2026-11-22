@@ -86,6 +86,11 @@ At the initial handoff Git had no commit or remote. During Phase 0 validation,
 the user supplied `https://github.com/ankit8github/FootPrint.git` for the reviewed
 scaffold push and remote CI. See the report for executed commands and outcomes.
 No deployment workflow exists.
+The first remote run showed that ubuntu-latest now selects Ubuntu 26.04, which
+has no setup-python build for the pinned Python 3.11.9. Pin CI to Ubuntu 22.04,
+verified in actions/python-versions' manifest, and guard DB cleanup on `.env`
+existence when setup fails before database initialization. These are Phase 0
+validation fixes, with no product behavior or dependency changes.
 The Phase 0 report distinguishes observed local results, native PostgreSQL
 fallback checks, configured CI, and unverified Docker clean-checkout startup.
 

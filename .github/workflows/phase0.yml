@@ -4,7 +4,8 @@ permissions:
   contents: read
 jobs:
   scaffold:
-    runs-on: ubuntu-latest
+    # Python 3.11.9 has a published setup-python build for Ubuntu 22.04.
+    runs-on: ubuntu-22.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -55,4 +56,7 @@ jobs:
           npm run test:smoke
       - name: Stop disposable database
         if: always()
-        run: docker compose down --volumes
+        run: |
+          if [ -f .env ]; then
+            docker compose down --volumes
+          fi
