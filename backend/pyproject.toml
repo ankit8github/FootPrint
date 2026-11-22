@@ -1,0 +1,42 @@
+[project]
+name = "pv1-phase0"
+version = "0.1.0"
+description = "Local synthetic-only PV1 scaffold"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "alembic==1.20.1",
+    "fastapi==0.165.0",
+    "psycopg[binary]==3.3.9",
+    "pydantic==2.14.4",
+    "python-dotenv==1.2.4",
+    "sqlalchemy==2.1.9",
+    "uvicorn==0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx2==2.16.2",
+    "mypy==2.4.1",
+    "pip-audit==2.10.1",
+    "pytest==9.2.0",
+    "ruff==0.17.6",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["app", "tests", "scripts", "migrations"]

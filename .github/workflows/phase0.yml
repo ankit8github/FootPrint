@@ -1,0 +1,58 @@
+name: Phase 0 checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  scaffold:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.9'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.15.0'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.9.29'
+      - name: Install locked dependencies
+        run: |
+          uv sync --project backend --frozen
+          npm ci --prefix frontend
+      - name: Python checks
+        working-directory: backend
+        run: |
+          uv run --frozen ruff check .
+          uv run --frozen ruff format --check .
+          uv run --frozen mypy
+          uv run --frozen pytest -q
+          uv run --frozen python -m scripts.export_openapi --check
+          uv run --frozen pip-audit
+      - name: Client checks
+        working-directory: frontend
+        run: |
+          npm run contracts:check
+          npm run lint
+          npm run typecheck
+          npm test
+          npm run build
+          npm audit --audit-level=low
+      - name: Local database and migration roundtrip
+        run: |
+          python -c "import pathlib,secrets; pathlib.Path('.env').write_text('POSTGRES_PASSWORD='+secrets.token_hex(24)+'\nPOSTGRES_PORT=55432\n')"
+          docker compose config --quiet
+          docker compose up -d --wait db
+          cd backend
+          uv run --frozen python -m scripts.check_database
+      - name: Browser smoke
+        working-directory: frontend
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:smoke
+      - name: Stop disposable database
+        if: always()
+        run: docker compose down --volumes

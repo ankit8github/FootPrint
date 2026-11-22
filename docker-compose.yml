@@ -1,0 +1,21 @@
+name: pv1-local
+services:
+  db:
+    image: postgres:17.12-bookworm
+    environment:
+      POSTGRES_USER: pv1_dev
+      POSTGRES_DB: pv1_dev
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Generate a local password in .env first}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-55432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pv1_dev -d pv1_dev"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    security_opt:
+      - no-new-privileges:true
+volumes:
+  pgdata:
