@@ -1,0 +1,12 @@
+From: Fictional News <newsletter@fictional-news.test>
+To: synthetic-person-01@person.test
+Subject: SYNTHETIC: Fictional News weekly newsletter
+Date: Sat, 17 Oct 2026 12:00:00 +0000
+Message-ID: <e03@fixture.test>
+X-PV1-Fixture: synthetic-only; corpus=1.0.0
+MIME-Version: 1.0
+List-Unsubscribe: <https://fictional-news.test/newsletter/preferences>
+Content-Type: text/plain; charset=UTF-8
+
+SYNTHETIC ONLY. This is a weekly promotional newsletter, with no account claim.
+Unsubscribe instructions: https://fictional-news.test/newsletter/preferences.

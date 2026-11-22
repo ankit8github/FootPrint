@@ -1,0 +1,11 @@
+From: Fictional Notes <settings@fictional-notes.test>
+To: synthetic-person-01@person.test
+Subject: SYNTHETIC: Account notification settings changed
+Date: Sat, 17 Oct 2026 12:00:00 +0000
+Message-ID: <e06@fixture.test>
+X-PV1-Fixture: synthetic-only; corpus=1.0.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+
+SYNTHETIC ONLY. Notification preferences on a fictional account were changed.
+No password, reset token or login credential is included.

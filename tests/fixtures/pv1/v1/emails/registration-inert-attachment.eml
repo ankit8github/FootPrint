@@ -1,0 +1,19 @@
+From: Fictional Parcel <welcome@fictional-parcel.test>
+To: synthetic-person-01@person.test
+Subject: SYNTHETIC: Fictional Parcel registration with inert attachment
+Date: Sat, 17 Oct 2026 12:00:00 +0000
+Message-ID: <e14@fixture.test>
+X-PV1-Fixture: synthetic-only; corpus=1.0.0
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="SYNTHETIC_BOUNDARY"
+
+--SYNTHETIC_BOUNDARY
+Content-Type: text/plain; charset=UTF-8
+
+SYNTHETIC ONLY. A fictional account was requested for this recipient.
+--SYNTHETIC_BOUNDARY
+Content-Type: text/plain
+Content-Disposition: attachment; filename="SYNTHETIC-NOT-A-REAL-DOCUMENT.txt"
+
+SYNTHETIC_ATTACHMENT_NOT_EVIDENCE
+--SYNTHETIC_BOUNDARY--

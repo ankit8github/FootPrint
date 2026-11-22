@@ -99,3 +99,30 @@ Reference checks: [Vite prerequisites](https://vite.dev/guide/),
 [FastAPI output contracts](https://fastapi.tiangolo.com/tutorial/response-model/),
 [PostgreSQL 17.12 release](https://www.postgresql.org/docs/release/17.12/).
 These inform tooling choices; they do not replace local validation.
+
+## ADR-007 — Explicitly authorized Phase 1 artifacts only
+
+The user's subsequent Phase 1 request supersedes the historical Phase 0-only
+working scope for this corpus work. Runtime behavior and Phase 0 contracts,
+tests, lockfiles, migrations, and CI remain unchanged. The new corpus is under
+`tests/fixtures/pv1/v1/`; the only executable addition is offline artifact
+validation and its tests, discovered through existing pytest configuration.
+The scripts package marker gives mypy a single stable module name for the new
+test-helper import. There is no import adapter, parser, normalizer, classifier,
+deletion engine, external model call or new API endpoint.
+
+Ground-truth labels are hand-authored proposals with source-byte hashes, literal
+evidence anchors, reasons and explicit before/after-deletion snapshots. The
+validator checks integrity and references, not the semantic truth of a label.
+Independent human adjudication remains pending in the review PR; no fictional
+reviewer approval or accuracy metric is invented. Timestamp/sensitivity/source
+handling expectations are corpus proposals, not implementation of Phase 2+
+policy. Invalid times are annotated null; missing required history time is an
+explicit excluded-record case. Existing unresolved parser limits stay open.
+
+The Chrome wrapper and UNIX-microsecond timestamp meaning were checked against
+the official source linked in the corpus README. The fixed reference clock
+and reserved fictional domains make review reproducible. General `.eml`
+ignoring stays in force, with one narrow corpus-directory exception. Scoped
+Git attributes preserve fixture hashes across Windows/Linux. Corpus inventory
+metrics do not measure product precision/recall or deletion correctness.

@@ -154,3 +154,17 @@ privacy actions, deletion/recomputation, auth/tenancy, retention, cloud hosting,
 or third-party integrations. Those need later phase instructions and security
 gates. Email/history evidence does not prove current company retention or sale.
 Do not start Phase 1 based on this scaffold. See the report for remaining gates.
+
+## Phase 1 test-data corpus (separate from the running shell)
+
+The separately authorized Phase 1 work adds only fictional test artifacts and
+offline validation. Start with [the corpus guide](tests/fixtures/pv1/v1/README.md)
+and [review catalog](tests/fixtures/pv1/v1/CATALOG.md). The app/API still behave
+exactly as the Phase 0 shell; no raw fixture is uploaded or processed by it.
+
+From `backend/`, run `uv run --frozen python -m scripts.validate_corpus` for
+integrity, coverage and proposed-label checks, or `uv run --frozen pytest -q`
+for the existing suite plus corpus regression/mutation tests. The original CI
+workflow discovers these tests without modification. Proposed truth labels
+await independent human review. No parser/classifier accuracy is measured.
+See [PHASE1-REPORT.md](docs/PHASE1-REPORT.md) for executed results and exit gates.

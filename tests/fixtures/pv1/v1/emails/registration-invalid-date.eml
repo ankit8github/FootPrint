@@ -1,0 +1,11 @@
+From: Fictional Date Shop <welcome@fictional-date.test>
+To: synthetic-person-01@person.test
+Subject: SYNTHETIC: Your Fictional Date account
+Date: definitely-not-a-date
+Message-ID: <e11@fixture.test>
+X-PV1-Fixture: synthetic-only; corpus=1.0.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+
+SYNTHETIC ONLY. A fictional account was requested for this recipient.
+The Date header is deliberately malformed; do not substitute import time.

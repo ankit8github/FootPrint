@@ -1,0 +1,12 @@
+From: Fictional Shop <welcome@fictional-shop.test>
+To: synthetic-person-01@person.test
+Subject: SYNTHETIC: Welcome to your Fictional Shop account
+Date: Sat, 17 Oct 2026 12:00:00 +0000
+Message-ID: <e01@fixture.test>
+X-PV1-Fixture: synthetic-only; corpus=1.0.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+
+SYNTHETIC ONLY. An account was requested for this fictional recipient.
+Review the account at https://fictional-shop.test/account.
+This message does not verify a currently active account.

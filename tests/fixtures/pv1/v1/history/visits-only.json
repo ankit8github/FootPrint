@@ -1,0 +1,18 @@
+{
+  "Browser History": [
+    {
+      "url": "https://fictional-museum.test/signup",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "https://fictional-library.test/checkout",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "http://fictional-museum.test/archive",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1735689600000000
+    }
+  ]
+}

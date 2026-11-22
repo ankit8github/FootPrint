@@ -1,0 +1,19 @@
+{
+  "Browser History": [
+    {
+      "url": "https://fictional-shop.test/path?token=SYNTHETIC_NOT_A_SECRET",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "https://fictional-shop.test/path#SYNTHETIC_FRAGMENT_NOT_A_SECRET",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "https://SYNTHETIC_USER:SYNTHETIC_NOT_A_PASSWORD@fictional-shop.test/private",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    }
+  ]
+}

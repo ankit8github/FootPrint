@@ -1,0 +1,13 @@
+From: Fictional Shop <alerts@phish-origin.test>
+To: synthetic-person-01@person.test
+Subject: SYNTHETIC: Verify your Fictional Shop account immediately
+Date: Sat, 17 Oct 2026 12:00:00 +0000
+Message-ID: <e08@fixture.test>
+X-PV1-Fixture: synthetic-only; corpus=1.0.0
+MIME-Version: 1.0
+Authentication-Results: receiver.test; spf=fail; dkim=fail; dmarc=fail
+Content-Type: text/plain; charset=UTF-8
+
+SYNTHETIC ONLY. This is an intentionally fictional impersonation message.
+Visit https://phish-origin.test/verify?token=SYNTHETIC_NOT_A_SECRET.
+The display name impersonates Fictional Shop; the sender and link use a different origin.

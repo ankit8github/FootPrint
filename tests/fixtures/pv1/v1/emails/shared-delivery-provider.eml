@@ -1,0 +1,12 @@
+From: Fictional Garden via Delivery <campaign@shared-delivery.test>
+To: synthetic-person-01@person.test
+Subject: SYNTHETIC: Fictional Garden newsletter via a shared provider
+Date: Sat, 17 Oct 2026 12:00:00 +0000
+Message-ID: <e10@fixture.test>
+X-PV1-Fixture: synthetic-only; corpus=1.0.0
+MIME-Version: 1.0
+Reply-To: offers@fictional-garden.test
+Content-Type: text/plain; charset=UTF-8
+
+SYNTHETIC ONLY. The display name advertises Fictional Garden, but mail is sent through shared-delivery.test.
+No reviewed mapping proves which organization owns this marketing relationship.

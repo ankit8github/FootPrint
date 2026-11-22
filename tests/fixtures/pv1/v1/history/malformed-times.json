@@ -1,0 +1,33 @@
+{
+  "Browser History": [
+    {
+      "url": "https://fictional-clock.test/page",
+      "title": "SYNTHETIC invalid time",
+      "time_usec": "not-a-number"
+    },
+    {
+      "url": "https://fictional-clock.test/page",
+      "title": "SYNTHETIC invalid time",
+      "time_usec": null
+    },
+    {
+      "url": "https://fictional-clock.test/page",
+      "title": "SYNTHETIC invalid time",
+      "time_usec": -1
+    },
+    {
+      "url": "https://fictional-clock.test/page",
+      "title": "SYNTHETIC invalid time",
+      "time_usec": 9223372036854775808
+    },
+    {
+      "url": "https://fictional-clock.test/page",
+      "title": "SYNTHETIC invalid time",
+      "time_usec": 1792238400000000.5
+    },
+    {
+      "url": "https://fictional-clock.test/missing",
+      "title": "SYNTHETIC missing required time"
+    }
+  ]
+}
