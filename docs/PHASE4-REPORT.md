@@ -2,9 +2,11 @@
 
 Date: 2026-11-23 (Asia/Calcutta). Branch: `phase4/local-synthetic-assessments`.
 Base current main: `018a85b08c7a26828a8c5fcfe8535c35610cfdd3`, after Phase 3 merge
-`3e4843e1aef7a739a44892209ca7c8c12c5837b4`. Status: implemented and validated for
-review. [PR #4](https://github.com/ankit8github/FootPrint/pull/4) is open and
-unmerged; no deployment or real-user processing.
+`3e4843e1aef7a739a44892209ca7c8c12c5837b4`. Status: Phase 4 complete.
+[PR #4](https://github.com/ankit8github/FootPrint/pull/4) is merged into `main`
+under the subsequent explicit finalization instruction. The implementation handoff
+and validation history remain below; the authoritative merge and final-head CI
+evidence are recorded in the completion section. No deployment or real-user processing.
 
 ## Implementation plan and evidence gap
 
@@ -231,9 +233,10 @@ security assessment, performance guarantee or real-user readiness is claimed.
   general imports, external AI or production deployment. No real personal data.
 - Exit requires successful local and clean-checkout/CI/Docker checks, unchanged
   oracles, defined agreement/Unknown measurements, explained limitations and an
-  open review PR. Human review and merge are separate gates. PR #4 must remain
-  open/unmerged; main stays at the pre-Phase-4 base. Implementation/validation
-  gates are met by the evidence below; human review/merge remain pending.
+  open review PR at the implementation handoff. Human review and merge were
+  separate gates at that handoff. The subsequent explicit finalization instruction
+  authorized the merge after the final-head checks and review-state verification
+  recorded below; no independent human review is claimed.
 
 ## Fresh-checkout and GitHub CI/Docker evidence
 
@@ -290,7 +293,73 @@ error. PR #4 was opened through the repository's existing Git credential helper;
 credentials stayed in memory and were never logged or saved. This changes no
 application permission or authentication behavior.
 
-Final review remains a human gate. Main remains
-`018a85b08c7a26828a8c5fcfe8535c35610cfdd3`; no PR merge is authorized here.
-No Phase 5 dashboard/actions/deletion, deployment, real personal data, persistence
-or external AI was implemented or enabled. Work ends with the open review PR.
+The implementation handoff ended with PR #4 open for review and main unchanged at
+`018a85b08c7a26828a8c5fcfe8535c35610cfdd3`. That original instruction did not
+authorize a merge. The subsequent explicit finalization instruction authorized
+the Phase 4 merge only, recorded below. No independent human review or reviewer
+is claimed. No Phase 5 dashboard/actions/deletion, deployment, real personal data,
+persistence or external AI was implemented or enabled.
+
+
+## Final Phase 4 completion record
+
+Date: 2026-11-23 (Asia/Calcutta). Authority: the user's explicit PR #4 finalization
+instruction. Phase 4 is complete.
+
+- PR: [#4](https://github.com/ankit8github/FootPrint/pull/4), merged into `main`
+  using a merge commit, with no squash or rebase.
+- Authoritative merge SHA: `f3dd579db4ef87d4adbbb2d771224deba6923133`.
+- GitHub merge timestamp (UTC): `2026-11-23T07:33:10Z`.
+- Rechecked unchanged PR head: `56cbbbf665c8a6b035393c2827c2904286de80b2`.
+- Prior main: `018a85b08c7a26828a8c5fcfe8535c35610cfdd3`.
+- [Final PR CI 45130140199](https://github.com/ankit8github/FootPrint/actions/runs/45130140199):
+  **SUCCESS**, every job and step at the exact final PR head.
+- [Final push CI 45130136007](https://github.com/ankit8github/FootPrint/actions/runs/45130136007):
+  **SUCCESS**, every job and step at the exact final PR head.
+- [GitGuardian Security Checks](https://github.com/ankit8github/FootPrint/runs/137543506603):
+  **SUCCESS** at the exact final PR head. All three reported check runs were
+  completed/successful. No required branch-protection contexts or repository
+  rulesets were configured.
+
+Immediately before merging, GitHub and local refs agreed on the exact head/base
+and expected 19-file Phase 4 diff. The final PR-head follow-up changed only this
+report relative to the validated executable commit. There were no review
+submissions, inline comments, conversation comments or review threads, hence no
+unresolved blocking review comments. No unexpected changes were found, and no
+independent human review or reviewer is claimed. The feature branch and full
+review/version history are retained.
+
+The GitHub integration could read but could not merge the PR (permission-denied
+integration response). The already authorized merge used the repository's existing
+Git credential helper with the exact head SHA guard. Credentials remained in
+memory and were neither saved nor logged; application permissions were unchanged.
+
+GitHub and local Git confirmed exactly two merge parents, prior main then the
+validated head, and a merge tree identical to the reviewed PR tree. Preservation
+checks passed again before finalization: immutable corpus 1.1.0 and all 29 cases
+and six survivor snapshots, original review materials, Phase 0–3 behavior and
+reports, API/contracts/migrations/locks/workflow, and the optional code-only
+Phase 3 context hook boundary remain as reviewed. The exact synthetic file gate,
+transient browser-local processing, deterministic versioned sensitivity rules,
+evidence provenance, explicit Unknown semantics, fixed explanations and privacy
+boundaries are preserved. Corpus status remains **product-owner-approved,
+AI-assisted baseline**.
+
+Existing executed evidence remains 143 backend tests, 230 frontend tests, seven
+Playwright scenarios, all 29 scenarios and six survivor comparisons, plus
+lint/format/types/contracts/build/audits and clean-checkout Docker validation.
+Finalization rechecked successful final-head CI jobs/steps and preservation; it
+introduced no new product behavior or oracle/test expectation changes. Agreement
+remains development-set only, with all limitations above unchanged.
+
+The existing Vite greater-than-500-kB main-chunk advisory is tracked as a
+**nonblocking performance concern** for later performance review. Builds and both
+final-head CI runs succeeded with the advisory. No scope-expanding refactoring,
+warning-threshold adjustment, dependency change or runtime change was performed.
+
+Only this report's status/completion record changes after the merge. Local main
+is synchronized with origin/main, including the documentation-only completion
+commit, and the final working tree is clean. That completion commit does not
+change the authoritative PR merge SHA. No Phase 5, deployment, persistence,
+real-user imports or processing of real personal data was implemented or enabled.
+Work stops after completion recording and local-main synchronization.
