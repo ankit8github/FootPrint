@@ -238,3 +238,34 @@ Read ADR-011 in [DECISIONS.md](docs/DECISIONS.md) and
 results, limitations and exit gates. No Phase 4 sensitivity, Phase 5 dashboard,
 actions/deletion engine, personal schema, persistence, auth, general imports,
 external AI or deployment is included. PR #3 is for review only; do not merge.
+
+## Phase 4 synthetic assessment inspector
+
+Open `http://127.0.0.1:5173/phase4` with the same loopback development commands.
+Select only unchanged approved corpus files. The same exact-byte SHA-256 gate,
+file/record limits and five-second worker deadline apply. The Phase 0–3 routes
+and outputs keep their existing behavior; all processing remains transient in
+the browser. No source or assessment is uploaded or saved.
+
+The read-only inspector explains `sensitivity_rules_v1` priorities separately
+from evidence state and claim confidence. It shows fixed rationale text, source/
+row support, limitations and unknown claims. Clinic appointment-portal context
+warrants review without a diagnosis or personal-attribute inference; an unpaid
+invoice remains Medium, and contradictory paid/cancelled claims remain Sensitive
+with Low evidence confidence. Sender authenticity, current account activity,
+payment completion, retained credentials, retention, sale and breach status stay
+unknown. Low is not a safety guarantee; ambiguous evidence stays Unknown.
+
+A single bounded `email_context_v1` code fills the clinic-context gap without
+retaining source prose. Explanations use fixed vocabulary and no source-derived
+text, personal identifiers or URLs. Clearing or closing discards results.
+There are no dashboard filters, action links, source-deletion engine, persistence,
+auth, general imports, external AI or deployment.
+
+Run `npm.cmd --prefix frontend run phase4:metrics` to reproduce
+[PHASE4-METRICS.json](docs/PHASE4-METRICS.json) against the unchanged 29-case,
+six-snapshot 1.1.0 baseline. Assessment agreement describes this known synthetic
+development set only; it is not real-world accuracy or independent blind review.
+Existing check commands include the new tests automatically. See ADR-012 in
+[DECISIONS.md](docs/DECISIONS.md) and [PHASE4-REPORT.md](docs/PHASE4-REPORT.md)
+for exact checks, limitations and exit gates. PR #4 is for review; do not merge.

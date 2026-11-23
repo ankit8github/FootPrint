@@ -1,6 +1,7 @@
 import {
   LIMITS, ParseIssue, browser_chrome_json_v1, checkFileBudgets, extractEmailFeatures,
   readApprovedSource, type Adapter, type EmailFeatureEvidence,
+  extractEmailContext, type ContextFeature,
 } from '../imports/parsers';
 import type { DiscoveryGraph, EvidenceObservation, EvidenceSource, ExcludedRecord, IssueCode, Relationship } from './types';
 
@@ -94,7 +95,8 @@ export function linkEvidence(sources: EvidenceSource[], observations: EvidenceOb
 }
 
 /** Only this hash-gated entry point is used by the browser worker. */
-export async function discoverSelectedFiles(files: readonly File[]): Promise<DiscoveryGraph> {
+export async function discoverSelectedFiles(files: readonly File[],
+  onContext?: (observation_id: string, features: ContextFeature[]) => void): Promise<DiscoveryGraph> {
   if (files.length === 0) return linkEvidence([], [], []); // Read-only empty survivor oracle.
   checkFileBudgets(files);
   const sources: EvidenceSource[] = [], observations: EvidenceObservation[] = [], excluded: ExcludedRecord[] = [];
@@ -124,6 +126,9 @@ export async function discoverSelectedFiles(files: readonly File[]): Promise<Dis
             domain: issue_code ? null : evidence.domain, occurred_at: evidence.occurred_at,
             time_status: evidence.time_status, evidence_state: 'observed', attribution: 'unverified_sender',
             features: evidence.features, order_keys: evidence.order_keys, duplicate_of, issue_code });
+          // Optional Phase 4 sink receives codes only, from these exact gated bytes.
+          // Default Phase 3 behavior/output is unchanged; no second source-file read.
+          if (onContext && !issue_code && evidence.features.includes('ACCOUNT_REQUEST')) onContext(id, extractEmailContext(text));
         }
       } else {
         const records = browser_chrome_json_v1(text);
