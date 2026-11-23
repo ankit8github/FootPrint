@@ -1,4 +1,4 @@
-﻿import { parse as parseDomain } from 'tldts';
+import { parse as parseDomain } from 'tldts';
 import type { components } from '../../phase2.generated';
 import approved from './approved-sources.json';
 
@@ -193,7 +193,8 @@ function mimeType(value: string): { type: string; params: Map<string, string> } 
   }
   return { type, params };
 }
-function inspectMIME(text: string, budget: { parts: number }, depth = 0): boolean {
+function inspectMIME(text: string, budget: { parts: number }, depth = 0,
+  visitPlain?: (plain: string) => void): boolean {
   if (++budget.parts > LIMITS.parts || depth > 4) fail('MALFORMED_MIME');
   const { headers, body } = headersAndBody(text);
   // Ignore attachment payloads before interpreting content-type/encoding/body.
@@ -206,7 +207,8 @@ function inspectMIME(text: string, budget: { parts: number }, depth = 0): boolea
     const decoded = decodeTransfer(body, (headers.get('content-transfer-encoding') ?? '8bit').toLowerCase(),
       (params.get('charset') ?? 'utf-8').toLowerCase());
     if (decoded.includes('\u0000')) fail('MALFORMED_MIME');
-    return true; // Discard decoded content; Phase 2 does not infer categories.
+    visitPlain?.(decoded); // Optional Phase 3 feature extraction; Phase 2 still discards text.
+    return true;
   }
   if (!['multipart/mixed', 'multipart/alternative'].includes(type)) fail('MALFORMED_MIME');
   const boundary = params.get('boundary');
@@ -225,7 +227,7 @@ function inspectMIME(text: string, budget: { parts: number }, depth = 0): boolea
   }
   if (!closed || chunks.length === 0) fail('MALFORMED_MIME');
   let plain = false;
-  for (const chunk of chunks) plain = inspectMIME(chunk, budget, depth + 1) || plain;
+  for (const chunk of chunks) plain = inspectMIME(chunk, budget, depth + 1, visitPlain) || plain;
   return plain;
 }
 function senderDomain(value: string): string | null {
@@ -288,13 +290,7 @@ export async function parseSelectedFiles(files: readonly File[]): Promise<Batch>
     const adapter: Adapter = file.name.toLowerCase().endsWith('.eml') ? 'email_eml_v1' : 'browser_chrome_json_v1';
     let records: RecordResult[];
     try {
-      const bytes = await file.arrayBuffer();
-      const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)),
-        x => x.toString(16).padStart(2, '0')).join('');
-      // Restrict the actual UI path to exact, approved fictional fixture bytes.
-      // A filename, checkbox, marker or claimed sender is never sufficient proof.
-      if (!approved.some(s => s.sha256 === hash && s.adapter === adapter)) fail('NOT_APPROVED_SYNTHETIC');
-      const text = decode(new Uint8Array(bytes));
+      const { text } = await readApprovedSource(file);
       records = adapter === 'email_eml_v1' ? email_eml_v1(text) : browser_chrome_json_v1(text);
     } catch (error) {
       records = [issue(0, error instanceof ParseIssue ? error.code : 'PARSER_FAILED')];
@@ -304,4 +300,71 @@ export async function parseSelectedFiles(files: readonly File[]): Promise<Batch>
     sources.push({ source_id, adapter, records });
   }
   return { schema_version: 'phase2-normalized-v1', synthetic_only: true, sources };
+}
+
+
+/** Shared worker-internal gate. Never post its raw text/digest to the UI or API. */
+export async function readApprovedSource(file: File): Promise<{ adapter: Adapter; digest: string; text: string }> {
+  checkFileBudgets([file]);
+  const adapter: Adapter = file.name.toLowerCase().endsWith('.eml') ? 'email_eml_v1' : 'browser_chrome_json_v1';
+  const bytes = await file.arrayBuffer();
+  const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)),
+    x => x.toString(16).padStart(2, '0')).join('');
+  // A filename, marker or claimed sender never substitutes for exact approved bytes.
+  if (!approved.some(s => s.sha256 === digest && s.adapter === adapter)) fail('NOT_APPROVED_SYNTHETIC');
+  return { adapter, digest, text: decode(new Uint8Array(bytes)) };
+}
+
+export type EmailFeature = 'ACCOUNT_REQUEST' | 'ACCOUNT_PREFERENCES_CHANGED' | 'PAID_RECEIPT_CLAIM'
+  | 'CANCELLED_BEFORE_PAYMENT_CLAIM' | 'UNPAID_INVOICE_CLAIM' | 'NEWSLETTER_CUE'
+  | 'QUOTED_CONTEXT' | 'UNTRUSTED_INSTRUCTIONS';
+export interface EmailFeatureEvidence {
+  record: RecordResult;
+  domain: string | null;
+  occurred_at: string | null;
+  time_status: 'valid' | 'invalid' | 'missing';
+  features: EmailFeature[];
+  order_keys: string[];
+}
+
+/** Safe feature codes only. The correlator assigns batch-local aliases, never plaintext IDs. */
+export function extractEmailFeatures(text: string, correlate: (domain: string, reference: string) => string): EmailFeatureEvidence {
+  const record = email_eml_v1(text)[0]; // Preserve Phase 2 format, origin and MIME safeguards.
+  const { headers } = headersAndBody(text);
+  const parsedTime = emailTime(headers.get('date'));
+  const empty: EmailFeatureEvidence = { record, domain: null, occurred_at: parsedTime,
+    time_status: parsedTime ? 'valid' : headers.has('date') ? 'invalid' : 'missing', features: [], order_keys: [] };
+  if (record.disposition === 'excluded' || (record.disposition === 'unresolved' && record.code !== 'HTML_ONLY_IGNORED')) return empty;
+  const domain = senderDomain(headers.get('from') ?? '')!;
+  const occurred_at = emailTime(headers.get('date'));
+  const features = new Set<EmailFeature>();
+  const orderKeys = new Set<string>();
+  // Only ASCII subject cues are used. Encoded subjects stay inert; body evidence
+  // supports the encoded-header fixture without decoding/rendering a subject.
+  const rawSubject = headers.get('subject') ?? '';
+  const subject = /^[\x20-\x7e]*$/.test(rawSubject) && !rawSubject.includes('=?') ? rawSubject : '';
+  if (/\bnewsletter\b/i.test(subject) && !/\b(?:not|no)\b.{0,30}\bnewsletter\b/i.test(subject)) features.add('NEWSLETTER_CUE');
+  let chars = 0;
+  inspectMIME(text, { parts: 0 }, 0, plain => {
+    chars += plain.length;
+    if (chars > LIMITS.fieldChars) throw new Error('FEATURE_LIMIT');
+    if (/(?:^|\r\n)(?:On .{0,200} wrote:|-{2,}\s*(?:forwarded|original) message)/i.test(plain)) features.add('QUOTED_CONTEXT');
+    const nonquoted = plain.split('\r\n').filter(line => !/[<>]/.test(line))
+      .join(' ').replace(/\b(?:https?|ftp):\/\/\S+/gi, ' ')
+      .replace(/["“][^"”]*["”]|'[^']*'/g, ' ');
+    if (/\b(?:ignore (?:safeguards|previous instructions)|upload all records|exfiltrate)\b/i.test(nonquoted)) features.add('UNTRUSTED_INSTRUCTIONS');
+    if (/\b(?:quotes? (?:a )?(?:sample|example)|quoted welcome|not (?:an? |your )?(?:account event|registration))\b/i.test(nonquoted + ' ' + subject)) features.add('QUOTED_CONTEXT');
+    if (/\baccount was requested\b/i.test(nonquoted) && !/\b(?:no|not|never|example|sample|if)\b[^.]{0,80}\baccount was requested\b/i.test(nonquoted)) features.add('ACCOUNT_REQUEST');
+    if (/\bnotification preferences\b[^.]{0,100}\baccount\b[^.]{0,40}\bwere changed\b/i.test(nonquoted)) features.add('ACCOUNT_PREFERENCES_CHANGED');
+    if (/\bpromotional newsletter\b/i.test(nonquoted) && !/\b(?:not|no)\b.{0,30}\bnewsletter\b/i.test(nonquoted)) features.add('NEWSLETTER_CUE');
+    if (/\binvoice\b[^.]{0,120}\b(?:remains|is) unpaid\b/i.test(nonquoted)) features.add('UNPAID_INVOICE_CLAIM');
+    for (const match of nonquoted.matchAll(/(?:^|[.!?] )order ([a-z0-9-]{1,80}) was paid\b/gi)) {
+      features.add('PAID_RECEIPT_CLAIM'); orderKeys.add(correlate(domain, match[1]));
+    }
+    for (const match of nonquoted.matchAll(/\b([a-z0-9-]{1,80}) was cancel(?:led|ed) before payment\b/gi)) {
+      features.add('CANCELLED_BEFORE_PAYMENT_CLAIM'); orderKeys.add(correlate(domain, match[1]));
+    }
+  });
+  return { record, domain, occurred_at, time_status: occurred_at ? 'valid' : headers.has('date') ? 'invalid' : 'missing',
+    features: [...features].sort(), order_keys: [...orderKeys].sort() };
 }

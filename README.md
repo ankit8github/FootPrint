@@ -207,3 +207,34 @@ subset, provenance and trust limits, and [PHASE2-REPORT.md](docs/PHASE2-REPORT.m
 for executed checks and review gates. Phase 2 does not authorize persistence,
 discovery/fusion, sensitivity rules, action links, OAuth, auth, deletion engines,
 deployment, real users or later phases. Review PR only; do not merge.
+
+## Phase 3 synthetic evidence inspector
+
+Open `http://127.0.0.1:5173/phase3` using the same loopback development commands.
+Select only unchanged approved corpus files after reading the notice. This
+read-only development inspector uses a separate, transient browser worker with
+the same SHA-256 gate and bounds. It extracts a narrow set of safe feature codes,
+then links explicit evidence to cautious domain/type relationships. The root demo
+and Phase 2 lab keep their existing behavior. No source or result is uploaded.
+
+Sender domains alone create no email relationships. Account/transaction claims
+remain inferred with unverified sender attribution; visits do not prove accounts.
+Transactions mean commercial interaction evidence: an unpaid invoice is included,
+contradictory receipt/cancellation claims stay visible, and payment completion or
+retained credentials remain unknown. Exact copies retain duplicate provenance
+without increasing confidence. Ambiguous, spoofed, quoted or injected evidence
+has explicit unknown outcomes. No HTML, attachment or body is rendered; the
+inspector displays only the minimized graph and source/row support as inert text.
+Clear results or close the page to discard transient state.
+
+`npm.cmd --prefix frontend run phase3:metrics` reproduces
+[PHASE3-METRICS.json](docs/PHASE3-METRICS.json) against the unchanged 29-case,
+six-snapshot 1.1.0 oracle. These are known synthetic development measurements,
+not independent review or real-user accuracy. Sensitivity/review priority remain
+unassessed. Existing test/check commands include Phase 3 automatically.
+
+Read ADR-011 in [DECISIONS.md](docs/DECISIONS.md) and
+[PHASE3-REPORT.md](docs/PHASE3-REPORT.md) for architecture, precise executed
+results, limitations and exit gates. No Phase 4 sensitivity, Phase 5 dashboard,
+actions/deletion engine, personal schema, persistence, auth, general imports,
+external AI or deployment is included. PR #3 is for review only; do not merge.
