@@ -377,3 +377,102 @@ Deferred: Phase 4 sensitivity; Phase 5 dashboard/actions/deletion; real-user inp
 auth, persistence, external AI, live services and deployment. The draft personal
 schema in document 06 remains a proposal and is not installed. See
 [PHASE3-REPORT.md](PHASE3-REPORT.md) for exact checks, limits and review gates.
+
+## ADR-012 — Phase 4 local contextual assessment and constrained explanation
+
+Date: 2026-11-23. Status: accepted for the explicitly authorized synthetic Phase 4
+implementation; PR review pending. This does not authorize Phase 5 or real users.
+
+### Evidence gap and minimal context
+
+The Phase 3 graph retains account, paid/cancelled order, unpaid invoice, newsletter
+and valid visit features. It intentionally lacks c18's appointment-portal context.
+A clinic-looking sender domain, display name or generic account claim cannot
+justify health-context review. Keep all Phase 2/3 outputs/versions unchanged.
+Add exactly one separate `email_context_v1` feature:
+`CLINIC_APPOINTMENT_PORTAL_CONTEXT`, linked to its observation ID.
+
+Require both a plain ASCII subject containing the narrow clinic-portal-account
+cue and an unquoted plain-text appointment-portal account-request statement.
+Subject is at most 256 characters; aggregate decoded plain text remains at most
+16,384 characters. The existing bounded MIME/header/file/record/worker limits
+apply. Encoded subjects, HTML, attachments, quoted/forwarded/negated/injected
+context and origin contradictions cannot supply this feature. No domain/name
+lookup or fixture/case ID is used to infer context. No diagnosis, treatment,
+health condition or other sensitive personal-attribute value is extracted.
+
+`assessSelectedFiles` obtains the unchanged Phase 3 graph through an optional
+context sink on discovery. Only eligible account emails supply this single code,
+derived from the exact same SHA-256/adapter-gated bytes used for discovery. The
+sink receives observation IDs and enumerated codes, never raw MIME callbacks or
+text. Source files are read once, avoiding a second-read source-integrity gap.
+The ordinary Phase 3 call omits the sink and its output remains identical. All
+work stays within the same five-second worker lifetime; no main-thread/server fallback.
+Raw text and temporary buffers/maps die with the worker. No body/subject,
+address, identifier, raw digest, URL or free metadata is emitted by this layer.
+This is transient lifetime control, not a secure-memory-erasure guarantee.
+
+### Assessment rules and separate dimensions
+
+`phase4-assessment-v1` envelopes the unchanged graph, separately versioned context
+and `sensitivity_rules_v1` assessments. Every relationship and explicit unresolved
+item receives its own assessment; excluded rows and empty survivor sets receive
+none. Review priority is independent of the original evidence state and ordinal
+claim confidence. No domain-wide strongest-priority aggregation or risk score.
+
+| Supported evidence | Priority | Rationale | Guardrail |
+| --- | --- | --- | --- |
+| Explicit likely-account feature | Medium | ACCOUNT_RELATIONSHIP | No current account activity claim |
+| Account plus linked clinic appointment-portal context | Sensitive | ACCOUNT_RELATIONSHIP, HEALTH_CONTEXT | Contextual setting only; no diagnosis/person attribute |
+| Same-domain/order paid and cancelled-before-payment claims | Sensitive | TRANSACTION_INDICATION | Preserve conflict; original Low confidence remains Low |
+| Paid-order claim | Sensitive | TRANSACTION_INDICATION | Message claim, not established payment completion |
+| Explicit unpaid-invoice-only evidence | Medium | TRANSACTION_INDICATION | Commercial interaction, not completed purchase/payment |
+| Valid visit-only relationship | Low | VISIT_ONLY | Never becomes an account or payment claim |
+| Explicit newsletter relationship | Low | MARKETING_ONLY | Never establishes retention/sharing/sale |
+| Unresolved, invalid support or unsupported category context | Unknown | AMBIGUOUS_EVIDENCE | Never default missing evidence to Low |
+
+Approved c07 and c21 taxonomy governs these rules. Other combinations outside the
+corpus remain conservatively narrow: cancellation-only category priority is
+Unknown even if the Phase 3 commercial relationship remains inferred/Medium.
+Priority is not derived from confidence. Missing clinic context leaves a supported
+ordinary account Medium rather than guessing health context from its domain.
+
+Every rationale links only its supporting canonical observations; HEALTH_CONTEXT
+links only observations carrying that context code. Primary source/domain/type
+links are checked; missing/mismatched/stale/duplicate-primary support yields an
+Unknown assessment without fabricated provenance. Duplicate copies retain the
+Phase 3 alternate links and never raise priority/confidence. Removing contextual
+or commercial evidence in a fresh subset cannot leave its rationale behind.
+Deterministic source IDs still depend on input order: semantic labels/explanations
+and source membership, rather than literal batch IDs, are compared across order
+changes. No deletion/recomputation engine or stable personal identity is added.
+
+Unknown claims explicitly cover sender authenticity, current account activity,
+payment completion, retained payment credentials, company retention, data sale
+and breach status, each unknown/insufficient. These never become verified or
+confirmed. Context remains unverified sender content, not authenticated fact.
+
+### Explainability, privacy and evaluation
+
+Explanations and contextual limitations come only from finite reviewed text maps.
+No raw excerpt, URL, personal identifier or source-derived interpolation is used.
+The separate `/phase4` development inspector displays priority, state, confidence,
+rationale support and limitations. It independently maps codes to fixed text,
+ignores supplied prose, rejects unsafe display domains/IDs and renders escaped
+React text. No filters, action links, source manager or Phase 5 dashboard workflow.
+
+No API/model/schema/migration expansion: existing strict FastAPI/Pydantic boundary
+rejects assessment/context/prose fields and multipart uploads, without echo/logs.
+The browser sends neither raw nor minimized findings to it. No storage, telemetry,
+auth, external model or network fetching is added. New tests cover context abuse,
+prose/HTML injection, prototype keys, source support, Unknown, conflicts, duplicates,
+semantic order/subset stability, worker lifecycle, egress, logs and browser storage.
+
+Corpus 1.1.0 remains **product-owner-approved, AI-assisted baseline**; no independent
+blind review is claimed. All 29 cases and six deletion survivor snapshots are
+immutable test oracles, not runtime lookup tables. Original Phase 1–3 metrics and
+reports remain historical and unchanged. New assessment agreement uses keyed
+items, counts missing/unexpected outcomes as disagreements, reports Unknown and
+excluded/empty snapshots separately, and is development-set only. Overlapping
+authored examples do not establish real-world accuracy or beta readiness.
+See [PHASE4-REPORT.md](PHASE4-REPORT.md) for exact results, limits and exit gates.

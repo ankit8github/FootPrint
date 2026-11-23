@@ -368,3 +368,26 @@ export function extractEmailFeatures(text: string, correlate: (domain: string, r
   return { record, domain, occurred_at, time_status: occurred_at ? 'valid' : headers.has('date') ? 'invalid' : 'missing',
     features: [...features].sort(), order_keys: [...orderKeys].sort() };
 }
+
+export type ContextFeature = 'CLINIC_APPOINTMENT_PORTAL_CONTEXT';
+
+/** Phase 4 only: contextual setting, never a personal health attribute or sender verification. */
+export function extractEmailContext(text: string): ContextFeature[] {
+  const evidence = extractEmailFeatures(text, () => 'unused');
+  if (!evidence.features.includes('ACCOUNT_REQUEST') || evidence.record.disposition !== 'normalized' ||
+    evidence.features.some(f => f === 'QUOTED_CONTEXT' || f === 'UNTRUSTED_INSTRUCTIONS')) return [];
+  const { headers } = headersAndBody(text);
+  const subject = headers.get('subject') ?? '';
+  if (subject.length > 256 || !/^[\x20-\x7e]*$/.test(subject) || subject.includes('=?') ||
+    !/\bclinic portal account\b/i.test(subject) || /\b(?:not|no|example|sample|quoted)\b/i.test(subject)) return [];
+  let chars = 0, appointment = false;
+  inspectMIME(text, { parts: 0 }, 0, plain => {
+    chars += plain.length;
+    if (chars > LIMITS.fieldChars) throw new Error('FEATURE_LIMIT');
+    const unquoted = plain.split('\r\n').filter(line => !/[<>]/.test(line)).join(' ')
+      .replace(/\b(?:https?|ftp):\/\/\S+/gi, ' ').replace(/["“][^"”]*["”]|'[^']*'/g, ' ');
+    if (/\bappointment-portal account was requested\b/i.test(unquoted) &&
+      !/\b(?:no|not|never|example|sample|if)\b[^.]{0,80}\bappointment-portal account was requested\b/i.test(unquoted)) appointment = true;
+  });
+  return appointment ? ['CLINIC_APPOINTMENT_PORTAL_CONTEXT'] : [];
+}

@@ -15,6 +15,7 @@
     "test": "vitest run",
     "test:smoke": "playwright test",
     "phase3:metrics": "node scripts/evaluate-discovery.mjs",
+    "phase4:metrics": "node scripts/evaluate-assessments.mjs",
     "contracts:generate": "openapi-typescript openapi.json -o src/api.generated.ts && openapi-typescript phase2-openapi.json -o src/phase2.generated.ts",
     "contracts:check": "node scripts/check-contracts.mjs"
   },
