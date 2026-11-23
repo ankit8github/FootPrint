@@ -43,7 +43,9 @@ def test_corpus_inventory_coverage_and_committed_metrics(corpus: Manifest) -> No
     assert summary == json.loads((DEFAULT_ROOT / "metrics.json").read_text())
     assert summary["discovery_precision"] is summary["discovery_recall"] is None
     assert summary["sensitivity_agreement"] is None
-    assert corpus.review_status == "awaiting_independent_review"
+    assert corpus.review_status == "product-owner-approved, AI-assisted baseline"
+    assert corpus.approval.independent_blind_human_review is False
+    assert summary["independent_review"] == "not_performed"
     assert corpus.independent_reviewer is None
 
 
@@ -53,19 +55,47 @@ def test_corpus_inventory_coverage_and_committed_metrics(corpus: Manifest) -> No
         ("c01", [("visited", "low", "high"), ("visited", "low", "high")]),
         ("c02", [("likely_account", "medium", "medium")]),
         ("c03", [("transaction", "sensitive", "medium")]),
+        (
+            "c04",
+            [
+                ("likely_account", "medium", "medium"),
+                ("transaction", "sensitive", "medium"),
+                ("visited", "low", "high"),
+                ("visited", "low", "high"),
+            ],
+        ),
+        ("c05", [("likely_account", "medium", "medium")]),
+        ("c06", [("visited", "low", "high")]),
         ("c07", [("transaction", "sensitive", "low")]),
         ("c08", []),
         ("c09", []),
         ("c10", []),
-        ("c12", [("visited", "low", "low")]),
+        ("c11", [("likely_account", "medium", "medium")]),
+        ("c12", []),
         ("c13", []),
+        ("c14", [("visited", "low", "high")]),
         ("c15", [("marketing", "low", "low"), ("marketing", "low", "low")]),
+        ("c16", []),
+        ("c17", [("likely_account", "medium", "medium")]),
         ("c18", [("likely_account", "sensitive", "medium")]),
         ("c19", []),
         ("c20", [("likely_account", "medium", "medium"), ("likely_account", "medium", "medium")]),
-        ("c21", [("transaction", "sensitive", "medium")]),
+        ("c21", [("transaction", "medium", "medium")]),
         ("c22", []),
+        ("c23", [("likely_account", "medium", "medium")]),
+        (
+            "c24",
+            [
+                ("likely_account", "medium", "medium"),
+                ("transaction", "sensitive", "medium"),
+                ("visited", "low", "high"),
+                ("visited", "low", "high"),
+            ],
+        ),
+        ("c25", [("likely_account", "medium", "medium")]),
         ("c26", []),
+        ("c27", [("likely_account", "medium", "medium")]),
+        ("c28", [("likely_account", "medium", "medium")]),
         ("c29", []),
     ],
 )
@@ -218,3 +248,116 @@ def test_unlisted_raw_file_is_rejected(copy_corpus: Path) -> None:
     (copy_corpus / "emails/unlisted.eml").write_text("SYNTHETIC_ONLY", encoding="utf-8")
     with pytest.raises(ValueError, match="unlisted/missing raw fixture"):
         validate(copy_corpus)
+
+
+@pytest.mark.parametrize(
+    ("case_id", "index", "expected"),
+    [
+        ("c23", 0, []),
+        (
+            "c24",
+            0,
+            [("visited", "low", "high", ["h-shop"]), ("visited", "low", "high", ["h-news"])],
+        ),
+        (
+            "c24",
+            1,
+            [
+                ("likely_account", "medium", "medium", ["e01"]),
+                ("transaction", "sensitive", "medium", ["e02"]),
+            ],
+        ),
+        ("c24", 2, []),
+        ("c25", 0, [("likely_account", "medium", "medium", ["e04"])]),
+        ("c25", 1, [("likely_account", "medium", "medium", ["e01"])]),
+    ],
+)
+def test_all_six_deletion_snapshot_dimensions_and_support(
+    corpus: Manifest,
+    case_id: str,
+    index: int,
+    expected: list[tuple[str, str, str, list[str]]],
+) -> None:
+    case = next(x for x in corpus.cases if x.id == case_id)
+    snapshot = case.after_delete[index].expected
+    assert [
+        (x.relationship_type, x.review_priority, x.confidence, x.support)
+        for x in snapshot.relationships
+    ] == expected
+    assert not snapshot.unresolved
+    assert not snapshot.excluded
+    assert not snapshot.duplicate_groups
+    for label in snapshot.relationships:
+        assert label.retention_status == label.data_sale_status == "unknown"
+
+
+def test_c12_excludes_every_invalid_or_missing_history_timestamp(corpus: Manifest) -> None:
+    source = next(x for x in corpus.sources if x.id == "h06")
+    case = next(x for x in corpus.cases if x.id == "c12")
+    assert len(source.events) == 6
+    assert case.expected.excluded == [x.id for x in source.events]
+    assert not case.expected.relationships
+    assert not case.expected.unresolved
+    for event in source.events:
+        assert event.disposition == "exclude"
+        assert event.expected_utc is event.observation_kind is event.domain_label is None
+
+
+@pytest.mark.parametrize("row", range(6))
+def test_invalid_history_time_cannot_be_promoted_to_eligible(copy_corpus: Path, row: int) -> None:
+    data = read_manifest(copy_corpus)
+    event = next(x for x in data["sources"] if x["id"] == "h06")["events"][row]
+    event.update(
+        disposition="eligible",
+        observation_kind="site_visit_observed",
+        domain_label="fictional-clock.test",
+    )
+    save_manifest(copy_corpus, data)
+    with pytest.raises(ValueError, match="strict P0 history timestamp exclusion"):
+        validate(copy_corpus)
+
+
+@pytest.mark.parametrize("mutation", ["status", "reviewer", "blind_review"])
+def test_baseline_cannot_claim_independent_human_review(copy_corpus: Path, mutation: str) -> None:
+    data = read_manifest(copy_corpus)
+    if mutation == "status":
+        data["review_status"] = "independently_reviewed"
+    elif mutation == "reviewer":
+        data["independent_reviewer"] = "fabricated-reviewer"
+    else:
+        data["approval"]["independent_blind_human_review"] = True
+    save_manifest(copy_corpus, data)
+    with pytest.raises(ValueError):
+        validate(copy_corpus)
+
+
+def test_payment_claim_boundaries_are_explicit(corpus: Manifest) -> None:
+    cases = {x.id: x for x in corpus.cases}
+    conflict = cases["c07"].expected.relationships[0]
+    assert conflict.support == ["e02", "e05"]
+    assert "Contradictory payment claims" in conflict.limitations[0]
+    invoice = cases["c21"].expected.relationships[0]
+    assert invoice.support == ["e19"]
+    assert "unpaid" in invoice.limitations[0]
+    assert "No retained payment credentials are asserted" in invoice.limitations[1]
+
+
+def test_original_evidence_and_deletion_history_are_preserved(corpus: Manifest) -> None:
+    original = read_manifest(DEFAULT_ROOT / "archive/1.0.0")
+    assert original["corpus_version"] == "1.0.0"
+    assert original["review_status"] == "awaiting_independent_review"
+    assert original["independent_reviewer"] is None
+    previous_sources = {x["id"]: x for x in original["sources"]}
+    for source in corpus.sources:
+        previous = previous_sources[source.id]
+        assert source.sha256 == previous["sha256"]
+        assert [(x.id, x.locator, x.anchors) for x in source.events] == [
+            (x["id"], x["locator"], x["anchors"]) for x in previous["events"]
+        ]
+    previous_cases = {x["id"]: x for x in original["cases"]}
+    for case in corpus.cases:
+        assert [x.model_dump() for x in case.after_delete] == previous_cases[case.id][
+            "after_delete"
+        ]
+        if case.id not in {"c07", "c12", "c21"}:
+            assert case.model_dump() == previous_cases[case.id]

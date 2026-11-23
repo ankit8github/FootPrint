@@ -145,14 +145,23 @@ class Case(Record):
     after_delete: list[Deletion]
 
 
+class Approval(Record):
+    authority: Literal["product_owner"]
+    basis: Literal["explicit_user_instruction_in_PR_1_finalization_request"]
+    date: Literal["2026-11-23"]
+    decision_record: Literal["docs/PHASE1-TAXONOMY-DECISION.md"]
+    independent_blind_human_review: Literal[False]
+
+
 class Manifest(Record):
     schema_version: Literal["phase1-ground-truth-v1"]
-    corpus_version: Literal["1.0.0"]
+    corpus_version: Literal["1.1.0"]
     synthetic_only: Literal[True]
     provenance: Literal["authored_from_scratch_no_user_exports"]
     reference_time: UTC
     history_epoch: Literal["unix_microseconds_utc"]
-    review_status: Literal["awaiting_independent_review"]
+    review_status: Literal["product-owner-approved, AI-assisted baseline"]
+    approval: Approval
     independent_reviewer: None
     limitations: Annotated[list[str], Field(min_length=1)]
     sources: Annotated[list[Source], Field(min_length=1)]
@@ -310,6 +319,13 @@ def validate(root: Path = DEFAULT_ROOT) -> Manifest:
                         ("time_usec" not in row) == (event.time_status == "missing"),
                         f"missing timestamp annotation mismatch: {event.id}",
                     )
+                    if event.time_status in {"invalid", "missing"}:
+                        require(
+                            event.disposition == "exclude"
+                            and event.observation_kind is None
+                            and event.domain_label is None,
+                            f"strict P0 history timestamp exclusion required: {event.id}",
+                        )
                 else:
                     require(
                         row == "Your data is encrypted and cannot be exported"
@@ -408,7 +424,12 @@ def metrics(manifest: Manifest) -> dict[str, Any]:
             "confidence": {"insufficient": sum(len(x.expected.unresolved) for x in manifest.cases)},
         },
         "coverage_categories": len(REQUIRED_COVERAGE),
-        "independent_review": manifest.review_status,
+        "baseline_status": manifest.review_status,
+        "independent_review": "not_performed",
+        "independent_reviewer": manifest.independent_reviewer,
+        "event_dispositions": dict(
+            sorted(Counter(e.disposition for s in manifest.sources for e in s.events).items())
+        ),
         "discovery_precision": None,
         "discovery_recall": None,
         "sensitivity_agreement": None,

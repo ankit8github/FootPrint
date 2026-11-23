@@ -1,5 +1,6 @@
 {
-  "corpus_version": "1.0.0",
+  "baseline_status": "product-owner-approved, AI-assisted baseline",
+  "corpus_version": "1.1.0",
   "coverage": {
     "account_notification": [
       "c28"
@@ -126,29 +127,35 @@
   "deletion_snapshots": 6,
   "discovery_precision": null,
   "discovery_recall": null,
+  "event_dispositions": {
+    "eligible": 24,
+    "exclude": 18,
+    "unresolved": 6
+  },
   "files_by_adapter": {
     "browser_chrome_json_v1": 7,
     "email_eml_v1": 20
   },
-  "independent_review": "awaiting_independent_review",
+  "independent_review": "not_performed",
+  "independent_reviewer": null,
   "measurement": "authored_corpus_structure_only",
   "runtime_parser_or_classifier_present": false,
   "scenario_label_counts": {
     "confidence": {
       "high": 8,
-      "low": 4,
+      "low": 3,
       "medium": 17
     },
     "relationship_type": {
       "likely_account": 13,
       "marketing": 2,
       "transaction": 5,
-      "visited": 9
+      "visited": 8
     },
     "review_priority": {
-      "low": 11,
-      "medium": 12,
-      "sensitive": 6
+      "low": 10,
+      "medium": 13,
+      "sensitive": 5
     }
   },
   "scenarios": 29,

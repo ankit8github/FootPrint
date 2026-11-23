@@ -144,7 +144,7 @@ provisional read-only output types, not an approved future ingestion schema.
 | `backend/app/` | FastAPI routes and Pydantic v1 output contracts |
 | `backend/migrations/` | Reviewed Alembic scaffold migration; no candidate personal tables |
 | `backend/tests/`, `backend/scripts/` | Contract/unit tests, schema export, DB verification |
-| `tests/fixtures/` | One empty synthetic response; no Phase 1 corpus |
+| `tests/fixtures/` | Empty demo response and versioned fictional Phase 1 corpus |
 | `docker-compose.yml` | Loopback-only disposable PostgreSQL developer service |
 | `.github/workflows/phase0.yml` | Checks only; no deployment or CI credentials |
 | `docs/` | Original baselines, decisions, and observed Phase 0 results |
@@ -153,7 +153,7 @@ Not implemented: parsing, normalization, discovery, classification, findings,
 privacy actions, deletion/recomputation, auth/tenancy, retention, cloud hosting,
 or third-party integrations. Those need later phase instructions and security
 gates. Email/history evidence does not prove current company retention or sale.
-Do not start Phase 1 based on this scaffold. See the report for remaining gates.
+Phase 1 artifacts were separately authorized; see the Phase 1 report. Phase 2 requires a separate instruction.
 
 ## Phase 1 test-data corpus (separate from the running shell)
 
@@ -165,6 +165,12 @@ exactly as the Phase 0 shell; no raw fixture is uploaded or processed by it.
 From `backend/`, run `uv run --frozen python -m scripts.validate_corpus` for
 integrity, coverage and proposed-label checks, or `uv run --frozen pytest -q`
 for the existing suite plus corpus regression/mutation tests. The original CI
-workflow discovers these tests without modification. Proposed truth labels
-await independent human review. No parser/classifier accuracy is measured.
-See [PHASE1-REPORT.md](docs/PHASE1-REPORT.md) for executed results and exit gates.
+workflow discovers these tests without modification. Corpus 1.1.0 has status
+**product-owner-approved, AI-assisted baseline**. No independent blind human
+review was performed and no reviewer is recorded. The approved transaction
+meaning covers financial/commercial interaction evidence; c07 keeps Sensitive/Low
+with contradictory payment claims, c12 excludes all six invalid/missing history
+timestamps, and c21 is an unpaid invoice with Medium/Medium. No parser/classifier
+accuracy is measured. Original review materials and 1.0.0 are preserved.
+See the [taxonomy decision](docs/PHASE1-TAXONOMY-DECISION.md) and
+[PHASE1-REPORT.md](docs/PHASE1-REPORT.md) for results, history and boundaries.

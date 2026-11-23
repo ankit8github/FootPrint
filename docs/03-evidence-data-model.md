@@ -85,6 +85,10 @@ Represent each safely parsed event as:
 **Privacy rule:** Do not retain email bodies, attachments, full URLs with queries/fragments, passwords, card numbers, tokens, message identifiers in plaintext, or arbitrary excerpts. Prefer bounded enumerated `safe_metadata` fields and hashed dedupe identifiers. Hashes must be keyed when correlation values could otherwise be guessed; do not store email addresses in unsalted hashes as a substitute for anonymization.
 
 **Date precision:** Preserve `occurred_at` in UTC when reliable. If timestamps are invalid, retain `null` and a parse flag; do not fabricate dates.
+For browser history, the product-owner-approved Phase 1 strict MVP P0 baseline
+excludes every row with an invalid or missing timestamp, so null annotations do
+not support a visit claim. The malformed email Date case remains separate.
+See [the approved taxonomy decision](PHASE1-TAXONOMY-DECISION.md).
 
 ## 5. Entity resolution and relationship fusion
 
@@ -98,6 +102,13 @@ Represent each safely parsed event as:
 **Shared services warning:** `gmail.com`, messaging providers, email marketing delivery domains, redirects, CDNs and payment processors are not automatically the organization with which the user has an account.
 
 **Relationship types (P0):** `visited`, `likely_account`, `transaction`, `marketing`. One user/organization may have **multiple types**; store independently, not in one mutually exclusive field. A combined dashboard may show the strongest supported relationship and all supporting kinds.
+
+**Approved transaction boundary (Phase 1, 2026-11-23):** `transaction` means
+evidence of a financial/commercial interaction, not proof of completed payment.
+An unpaid invoice (c21) is Medium review / Medium confidence, with no payment or
+retained-credential assertion. Contradictory payment claims (c07) retain Sensitive
+review / Low confidence. Priority is justified separately from the relationship
+name; the general Sensitive guidance below does not override the c21 decision.
 
 **Deduplication:** Compute keyed fingerprints for source-event identifiers where safe and available; otherwise derive a deterministic fingerprint from adapter, normalized domain, event category and normalized timestamp plus other safe stable metadata. Deduplicate within user/source, not across unrelated users. Preserve distinct evidence sources so fusion remains explainable.
 

@@ -1,14 +1,14 @@
 {
   "schema_version": "phase1-ground-truth-v1",
-  "corpus_version": "1.0.0",
+  "corpus_version": "1.1.0",
   "synthetic_only": true,
   "provenance": "authored_from_scratch_no_user_exports",
   "reference_time": "2026-10-20T00:00:00Z",
   "history_epoch": "unix_microseconds_utc",
-  "review_status": "awaiting_independent_review",
+  "review_status": "product-owner-approved, AI-assisted baseline",
   "independent_reviewer": null,
   "limitations": [
-    "All labels are authored proposals; no independent human reviewer has signed off.",
+    "Product-owner-approved, AI-assisted baseline; no independent blind human review was performed or reviewer recorded.",
     "Synthetic message headers are not cryptographic sender verification.",
     "This is a small development corpus, not a representative sample of actual people.",
     "No parser/classifier accuracy, completeness, retention or data sale is measured."
@@ -499,7 +499,7 @@
           "domain_label": "fictional-studio.test",
           "time_status": "valid",
           "expected_utc": "2026-10-17T12:00:00Z",
-          "reason": "The literal message describes a fictional first-party interaction; sender authenticity is not verified."
+          "reason": "The message explicitly describes an unpaid invoice: commercial interaction evidence only, not completed payment or retained credentials."
         }
       ]
     },
@@ -878,12 +878,12 @@
           "anchors": [
             "https://fictional-clock.test/page"
           ],
-          "disposition": "eligible",
-          "observation_kind": "site_visit_observed",
-          "domain_label": "fictional-clock.test",
+          "disposition": "exclude",
+          "observation_kind": null,
+          "domain_label": null,
           "time_status": "invalid",
           "expected_utc": null,
-          "reason": "The timestamp is intentionally invalid; preserve unknown event time, never fabricate recency."
+          "reason": "Strict MVP P0 validation excludes browser history entries with invalid or missing time_usec; no visit or recency claim is supported."
         },
         {
           "id": "h-time-null",
@@ -891,12 +891,12 @@
           "anchors": [
             "https://fictional-clock.test/page"
           ],
-          "disposition": "eligible",
-          "observation_kind": "site_visit_observed",
-          "domain_label": "fictional-clock.test",
+          "disposition": "exclude",
+          "observation_kind": null,
+          "domain_label": null,
           "time_status": "invalid",
           "expected_utc": null,
-          "reason": "The timestamp is intentionally invalid; preserve unknown event time, never fabricate recency."
+          "reason": "Strict MVP P0 validation excludes browser history entries with invalid or missing time_usec; no visit or recency claim is supported."
         },
         {
           "id": "h-time-negative",
@@ -904,12 +904,12 @@
           "anchors": [
             "https://fictional-clock.test/page"
           ],
-          "disposition": "eligible",
-          "observation_kind": "site_visit_observed",
-          "domain_label": "fictional-clock.test",
+          "disposition": "exclude",
+          "observation_kind": null,
+          "domain_label": null,
           "time_status": "invalid",
           "expected_utc": null,
-          "reason": "The timestamp is intentionally invalid; preserve unknown event time, never fabricate recency."
+          "reason": "Strict MVP P0 validation excludes browser history entries with invalid or missing time_usec; no visit or recency claim is supported."
         },
         {
           "id": "h-time-overflow",
@@ -917,12 +917,12 @@
           "anchors": [
             "https://fictional-clock.test/page"
           ],
-          "disposition": "eligible",
-          "observation_kind": "site_visit_observed",
-          "domain_label": "fictional-clock.test",
+          "disposition": "exclude",
+          "observation_kind": null,
+          "domain_label": null,
           "time_status": "invalid",
           "expected_utc": null,
-          "reason": "The timestamp is intentionally invalid; preserve unknown event time, never fabricate recency."
+          "reason": "Strict MVP P0 validation excludes browser history entries with invalid or missing time_usec; no visit or recency claim is supported."
         },
         {
           "id": "h-time-fraction",
@@ -930,12 +930,12 @@
           "anchors": [
             "https://fictional-clock.test/page"
           ],
-          "disposition": "eligible",
-          "observation_kind": "site_visit_observed",
-          "domain_label": "fictional-clock.test",
+          "disposition": "exclude",
+          "observation_kind": null,
+          "domain_label": null,
           "time_status": "invalid",
           "expected_utc": null,
-          "reason": "The timestamp is intentionally invalid; preserve unknown event time, never fabricate recency."
+          "reason": "Strict MVP P0 validation excludes browser history entries with invalid or missing time_usec; no visit or recency claim is supported."
         },
         {
           "id": "h-time-missing",
@@ -948,7 +948,7 @@
           "domain_label": null,
           "time_status": "missing",
           "expected_utc": null,
-          "reason": "Required time_usec field is missing; this authored invalid-record case is excluded rather than dated."
+          "reason": "Strict MVP P0 validation excludes browser history entries with invalid or missing time_usec; no visit or recency claim is supported."
         }
       ]
     },
@@ -1313,7 +1313,7 @@
         "conflicting_evidence",
         "receipt"
       ],
-      "rationale": "Both messages refer to the same fictional order and contradict payment status. A transaction indication remains, with low confidence; a completed payment cannot be asserted.",
+      "rationale": "The receipt claims payment and the correction claims cancellation before payment for the same order. Contradictory payment claims remain explicit: financial/commercial interaction evidence only, Sensitive review and Low confidence; no completed payment can be asserted.",
       "expected": {
         "relationships": [
           {
@@ -1330,7 +1330,7 @@
               "e05"
             ],
             "limitations": [
-              "Receipt and correction disagree about whether payment occurred.",
+              "Contradictory payment claims: receipt says paid; correction says cancelled before payment. Neither resolves the payment outcome.",
               "No completed payment, retained credentials, current retention or sale can be confirmed."
             ],
             "retention_status": "unknown",
@@ -1486,35 +1486,16 @@
         "missing_history_timestamp",
         "visits_only"
       ],
-      "rationale": "String/null/negative/overflow/fractional times are deliberately invalid. Their valid fictional domain supports only a cautious visit; timestamps stay null. Missing required field is excluded.",
+      "rationale": "Strict MVP P0 validation excludes all six browser history rows: string, null, negative, overflow and fractional timestamps, plus a missing timestamp. No relationship or reliable event time is asserted.",
       "expected": {
-        "relationships": [
-          {
-            "domain": "fictional-clock.test",
-            "relationship_type": "visited",
-            "evidence_state": "observed",
-            "confidence": "low",
-            "review_priority": "low",
-            "rationale_codes": [
-              "VISIT_ONLY"
-            ],
-            "support": [
-              "h-time-text",
-              "h-time-null",
-              "h-time-negative",
-              "h-time-overflow",
-              "h-time-fraction"
-            ],
-            "limitations": [
-              "No reliable event time or recency can be inferred.",
-              "A visit never establishes registration, payment, retention or sale."
-            ],
-            "retention_status": "unknown",
-            "data_sale_status": "unknown"
-          }
-        ],
+        "relationships": [],
         "unresolved": [],
         "excluded": [
+          "h-time-text",
+          "h-time-null",
+          "h-time-negative",
+          "h-time-overflow",
+          "h-time-fraction",
           "h-time-missing"
         ],
         "duplicate_groups": []
@@ -1853,7 +1834,7 @@
     },
     {
       "id": "c21",
-      "title": "Invoice does not prove a completed payment",
+      "title": "Unpaid invoice: commercial interaction only",
       "sources": [
         "e19"
       ],
@@ -1861,7 +1842,7 @@
         "unpaid_invoice",
         "receipt"
       ],
-      "rationale": "The invoice is a financial interaction indication, but the text explicitly says unpaid. Sensitive review does not assert successful purchase or stored card details.",
+      "rationale": "The unpaid invoice is evidence of a financial/commercial interaction, with Medium review priority and Medium confidence. It does not assert completed payment, purchase or retained credentials.",
       "expected": {
         "relationships": [
           {
@@ -1869,7 +1850,7 @@
             "relationship_type": "transaction",
             "evidence_state": "inferred",
             "confidence": "medium",
-            "review_priority": "sensitive",
+            "review_priority": "medium",
             "rationale_codes": [
               "TRANSACTION_INDICATION"
             ],
@@ -1877,9 +1858,9 @@
               "e19"
             ],
             "limitations": [
-              "Invoice explicitly remains unpaid; a completed payment cannot be claimed.",
-              "Fictional evidence does not prove the account is currently active.",
-              "Current company retention, card storage and data sale are unknown."
+              "Invoice explicitly remains unpaid; a completed payment or successful purchase cannot be claimed.",
+              "No retained payment credentials are asserted; current company retention and data sale remain unknown.",
+              "Fictional evidence does not prove a currently active account."
             ],
             "retention_status": "unknown",
             "data_sale_status": "unknown"
@@ -2419,5 +2400,12 @@
       },
       "after_delete": []
     }
-  ]
+  ],
+  "approval": {
+    "authority": "product_owner",
+    "basis": "explicit_user_instruction_in_PR_1_finalization_request",
+    "date": "2026-11-23",
+    "decision_record": "docs/PHASE1-TAXONOMY-DECISION.md",
+    "independent_blind_human_review": false
+  }
 }

@@ -143,3 +143,25 @@ Reviewers save blind judgments before comparing the proposed manifest or this
 note. Existing source bytes, manifest labels, metrics, tests, contracts and CI
 remain unchanged. No independent approval, corpus-version change, merge or
 Phase 2 authorization is recorded by preparing these review materials.
+
+
+## ADR-009 - Product-owner-approved Phase 1 baseline (ACCEPTED)
+
+Date: 2026-11-23. Status: **product-owner-approved, AI-assisted baseline**.
+The explicit product-owner finalization instruction supersedes ADR-007/ADR-008's
+pending decisions and the historical proposal's common timestamp/sensitivity
+choices. See [the accepted taxonomy record](PHASE1-TAXONOMY-DECISION.md).
+
+Transaction means financial/commercial interaction evidence, not completed
+payment. c07 retains Sensitive/Low with contradictory payment claims. Strict MVP
+P0 excludes all six invalid/missing browser-history timestamps in c12. c21 is an
+unpaid invoice with Medium/Medium, asserting neither payment nor retained credentials.
+Corpus 1.1.0 records this approval basis; independent_reviewer remains null and
+independent blind human review was not performed. No human reviewer is fabricated.
+
+All 29 cases and six deletion snapshots are validated as authored artifacts;
+no parser/classifier/deletion engine accuracy is measured. Original 1.0.0 materials
+are archived, original blind worksheet/checklist/proposal remain unchanged, and
+Git history is retained. The v1 schema-major directory now holds baseline 1.1.0.
+The owner authorized merging existing PR #1 into main only after checks pass,
+then stopping. No Phase 2, deployment or real-user processing is authorized.
