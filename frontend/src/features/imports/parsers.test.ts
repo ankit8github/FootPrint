@@ -190,5 +190,5 @@ describe('cross-language normalized contract', () => {
       expect(result.status).toBe(0);
       expect(result.stdout.trim()).toBe('accepted');
     }
-  });
+  }, 65_000); // Two bounded 30s Python subprocesses plus runner overhead; not a parser deadline.
 });

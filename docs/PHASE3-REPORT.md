@@ -152,7 +152,7 @@ Interim failures and resolutions are disclosed below.
 | `frontend/` | `npm.cmd run test:smoke` | PASS, 5 Chromium scenarios |
 | `frontend/` | `npm.cmd run phase3:metrics` | PASS, 36 oracle/measurement tests; artifact reproduced |
 | repository | `.local/phase0-validation/tools/actionlint.exe -shellcheck= -pyflakes= .github/workflows/phase0.yml` | PASS; ShellCheck/Pyflakes integrations disabled |
-| repository | `git diff --exit-code d151fe290787079d6cedea1f3c30b30dd7512809 --` followed by corpus, API/migration, generated contracts and original regression paths | PASS, no changes |
+| repository | `git diff --exit-code d151fe290787079d6cedea1f3c30b30dd7512809 --` followed by corpus, API/migration, generated contracts and original regression paths | PASS before the documented single test-timeout adjustment below |
 
 New coverage includes bounded feature text, malformed/encoded MIME, adversarial
 HTML/attachments, claimed-pass/spoofed/conflicting origins, quoted/forwarded and
@@ -200,8 +200,8 @@ scope. No failed check is represented as passing before its successful rerun.
 ## Clean checkout and GitHub CI/Docker evidence
 
 Validated implementation commit: `a9051d535264094308d42cac0094db3698452a41`.
-The follow-up strengthens oracle assertions and records results without changing
-executable browser/API code. The PR checks tab records checks for the current
+Follow-ups strengthen oracle assertions, align an existing test harness timeout
+and record results without changing executable browser/API code. The PR checks tab records checks for the current
 review head; this report names the executed implementation runs explicitly.
 
 - [Push run 45123183705](https://github.com/ankit8github/FootPrint/actions/runs/45123183705):
@@ -233,11 +233,18 @@ From that clone's `backend/`: ruff check/format check, mypy, pytest (136 PASS),
 both API export checks and corpus validation passed with the exact commands in
 the local table. From its `frontend/`: contracts, lint, typing, all 158 tests,
 build and all five Playwright scenarios passed with the commands in the table.
-The first cold-start unit run had one failure: the existing Phase 2 subprocess
-contract test took 5.162 seconds against Vitest's 5-second test timeout. The
-unchanged complete frontend rerun passed (158/158; 6.89 seconds total); no test
-timeout, fixture, expectation or production worker deadline was relaxed. Both
-Linux CI runs passed this test on their first attempt. A Windows console encoding
+The first unit run had one failure: the existing Phase 2 subprocess contract
+test took 5.162 seconds against Vitest's 5-second default. An unchanged complete
+rerun passed (158/158; 6.89 seconds total), but a subsequent final-head repeat
+took 5.841 seconds and timed out again. This is an intermittent Windows process
+startup issue, not solely cold start. The test already permits two Python
+subprocesses 30 seconds each; its outer timeout now allows 65 seconds for those
+existing bounds plus runner overhead. Only that test's harness timeout changed;
+every assertion and fixture is preserved, and the browser worker still terminates
+at five seconds. Both implementation Linux CI runs passed on their first attempt.
+After alignment, the complete local frontend rerun passed contracts, lint, typing,
+158 unit tests, build, zero-vulnerability audit and all five Playwright scenarios.
+Final remote harness validation is recorded in PR checks. A Windows console encoding
 error initially masked the printed failure; its saved UTF-8 log identified the
 timeout and the validation helper now prints UTF-8. Original failure logs are
 retained locally, not overwritten by the rerun.
@@ -250,7 +257,8 @@ passed for raw synthetic sender/recipient, order/invoice and secret sentinels.
 Mobile Chromium layout passed without horizontal overflow and its viewport
 preview was visually inspected. No UI polish or unrelated refactoring followed.
 
-Preservation check executed from repository root (exit 0):
+Preservation check executed from repository root before the test-timeout-only
+adjustment (exit 0); all listed paths except that test file remain unchanged:
 
 ```powershell
 git -c safe.directory=I:/FootPrint diff --exit-code d151fe290787079d6cedea1f3c30b30dd7512809 -- tests/fixtures backend/app backend/migrations backend/tests/test_phase0.py backend/tests/test_phase1_corpus.py backend/tests/test_phase2.py frontend/src/features/imports/parsers.test.ts frontend/src/features/imports/ImportLab.test.tsx frontend/e2e/imports.spec.ts frontend/e2e/smoke.spec.ts frontend/openapi.json frontend/phase2-openapi.json frontend/src/api.generated.ts frontend/src/phase2.generated.ts
