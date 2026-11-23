@@ -2,8 +2,9 @@
 
 Date: 2026-11-23 (Asia/Calcutta). Branch: `phase4/local-synthetic-assessments`.
 Base current main: `018a85b08c7a26828a8c5fcfe8535c35610cfdd3`, after Phase 3 merge
-`3e4843e1aef7a739a44892209ca7c8c12c5837b4`. Status: implementation/validation in
-progress; review PR only, no merge or deployment.
+`3e4843e1aef7a739a44892209ca7c8c12c5837b4`. Status: implemented and validated for
+review. [PR #4](https://github.com/ankit8github/FootPrint/pull/4) is open and
+unmerged; no deployment or real-user processing.
 
 ## Implementation plan and evidence gap
 
@@ -231,5 +232,65 @@ security assessment, performance guarantee or real-user readiness is claimed.
 - Exit requires successful local and clean-checkout/CI/Docker checks, unchanged
   oracles, defined agreement/Unknown measurements, explained limitations and an
   open review PR. Human review and merge are separate gates. PR #4 must remain
-  open/unmerged; main stays at the pre-Phase-4 base. Remote evidence follows after
-  execution; a workflow file alone is not a CI/Docker pass.
+  open/unmerged; main stays at the pre-Phase-4 base. Implementation/validation
+  gates are met by the evidence below; human review/merge remain pending.
+
+## Fresh-checkout and GitHub CI/Docker evidence
+
+Validated executable commit: `e9e9d0e4397f6e7f2cd2b717f8f01a5587a97285`.
+This report-only follow-up changes no executable input. The PR checks tab records
+checks on the current review head; explicit executed implementation runs are:
+
+- [Push CI 45129420629](https://github.com/ankit8github/FootPrint/actions/runs/45129420629):
+  **SUCCESS**, every job and step.
+- [PR CI 45129643671](https://github.com/ankit8github/FootPrint/actions/runs/45129643671):
+  **SUCCESS**, every job and step.
+
+Decoded job logs independently confirm 143 backend tests, 230 frontend tests,
+seven Chromium scenarios, zero-known-vulnerability npm/pip audits, and
+`PASS: PostgreSQL upgrade, constraint enforcement, downgrade, re-upgrade; no
+personal tables.` Both clean Ubuntu 22.04 runners use Python 3.11.9, Node 22.15.0
+and uv 0.9.29 with locked installs. Contract/lint/format/types/corpus/build checks
+and disposable DB cleanup passed. No workflow modification or skipped check used.
+Vite's disclosed chunk-size advisory is also present in CI; the build passes.
+
+Docker is unavailable on the Windows host. Actual CI execution, rather than
+inference from configuration, verifies these existing commands:
+
+```text
+docker compose config --quiet
+docker compose up -d --wait db
+uv run --frozen python -m scripts.check_database  # backend/
+docker compose down --volumes
+```
+
+Only the disposable scaffold migration is exercised; no personal schema or
+assessment/observation persistence is installed. No local Docker pass is claimed.
+
+Fresh Windows remote-clone commands (from repository root, then clone root):
+
+```powershell
+git -c safe.directory=I:/FootPrint clone --no-hardlinks --branch phase4/local-synthetic-assessments https://github.com/ankit8github/FootPrint.git I:/FootPrint/.local/phase4-clean-checkout-e9e9d0e
+uv sync --project backend --frozen
+npm.cmd ci --prefix frontend --cache I:/FootPrint/.cache/npm
+```
+
+No untracked environment, .env, virtualenv, node_modules or source file was copied
+from the working tree. All fresh locked installs passed. From the clone's
+`backend/`, the local table's ruff check/format, mypy, pytest, both API export
+checks and corpus validation passed (143 tests). From its `frontend/`, contracts,
+lint, typing, unit tests (230), build and all seven Playwright scenarios passed.
+Every clean-checkout command exited zero on its first execution. The full command
+arrays, outputs and exit codes are retained in
+`.local/phase4-validation/clean-checkout.json`. Original Phase 3's subprocess-test
+timeout remains 65 seconds; the five-second production deadline is unchanged.
+
+The GitHub connector's creation attempt returned a permission-denied integration
+error. PR #4 was opened through the repository's existing Git credential helper;
+credentials stayed in memory and were never logged or saved. This changes no
+application permission or authentication behavior.
+
+Final review remains a human gate. Main remains
+`018a85b08c7a26828a8c5fcfe8535c35610cfdd3`; no PR merge is authorized here.
+No Phase 5 dashboard/actions/deletion, deployment, real personal data, persistence
+or external AI was implemented or enabled. Work ends with the open review PR.
