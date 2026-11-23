@@ -3,6 +3,7 @@ from starlette.middleware.base import RequestResponseEndpoint
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from app.contracts import DemoSnapshot, Health
+from app.phase2 import boundary
 
 app = FastAPI(
     title="PV1 synthetic Phase 0 API",
@@ -31,3 +32,7 @@ def health() -> Health:
 @app.get("/api/v1/demo")
 def demo() -> DemoSnapshot:
     return DemoSnapshot()
+
+
+# Keep the Phase 0 contract intact; Phase 2 has its own generated schema.
+app.mount("/api/v1/phase2", boundary)

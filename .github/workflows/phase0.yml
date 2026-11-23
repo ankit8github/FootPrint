@@ -1,4 +1,4 @@
-name: Phase 0 checks
+name: PV1 synthetic checks
 on: [push, pull_request]
 permissions:
   contents: read
@@ -32,6 +32,8 @@ jobs:
           uv run --frozen mypy
           uv run --frozen pytest -q
           uv run --frozen python -m scripts.export_openapi --check
+          uv run --frozen python -m scripts.export_phase2 --check
+          uv run --frozen python -m scripts.validate_corpus
           uv run --frozen pip-audit
       - name: Client checks
         working-directory: frontend

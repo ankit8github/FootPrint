@@ -7,3 +7,8 @@ const committed = readFileSync(new URL('../src/api.generated.ts', import.meta.ur
 if (!committed.endsWith(generated)) {
   throw new Error('Generated TypeScript is stale; run npm run contracts:generate.');
 }
+
+const phase2 = astToString(await openapiTS(new URL('../phase2-openapi.json', import.meta.url)));
+if (!readFileSync(new URL('../src/phase2.generated.ts', import.meta.url), 'utf8').endsWith(phase2)) {
+  throw new Error('Phase 2 generated TypeScript is stale.');
+}

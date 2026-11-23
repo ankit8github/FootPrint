@@ -165,3 +165,112 @@ are archived, original blind worksheet/checklist/proposal remain unchanged, and
 Git history is retained. The v1 schema-major directory now holds baseline 1.1.0.
 The owner authorized merging existing PR #1 into main only after checks pass,
 then stopping. No Phase 2, deployment or real-user processing is authorized.
+
+
+## ADR-010 - Phase 2 browser-local synthetic import boundary (ACCEPTED)
+
+Date: 2026-11-23. Authority: the user's explicit Phase 2-only implementation and
+limit-reconciliation instruction. This supersedes the historical Phase 0/1-only
+working scope for these changes, not their recorded results or approved taxonomy.
+Base is main at `f0d7974e620e5d11b5fa923669a47a6afa97e5e3`; work is on
+`phase2/local-synthetic-import`, with a review PR and no merge/deployment authority.
+
+Browser `/phase2` is a separate transient import lab. `/` remains the Phase 0 empty
+shell, `/api/v1/demo` stays empty, and all Phase 1 artifacts remain unchanged.
+Only exact SHA-256 bytes from the approved corpus 1.1.0 may reach the UI adapters.
+A checkbox, filename or synthetic header alone is insufficient: the browser worker
+checks the bundled source-hash registry before decoding/parsing. Hash comparison
+necessarily reads a selected file locally; rejected bytes never reach an adapter.
+This bounded allowlist intentionally prevents importing newly authored or real
+exports through this demo. Pure adapter functions are exercised with generated
+fictional stress inputs in tests, without weakening the UI gate. Registry hashes
+are public synthetic integrity values, never personal identifiers or anonymization.
+
+### Reconcile documents 02 and 04 (supersedes ADR-005's deferred limits)
+
+| Control | Document 02 proposal | Document 04 proposal | Phase 2 enforced choice |
+| --- | --- | --- | --- |
+| Email size | 1 MB | 5 MiB | 1 MiB = 1,048,576 bytes per email |
+| History / combined size | 10 MB per batch | 20 MiB history | 10 MiB = 10,485,760 bytes total across all files, also maximum history file size |
+| Files | 100 | 20 | 20 per batch |
+| Records | 50,000 | 10,000 | 10,000 across all selected sources, including duplicate/excluded/unresolved rows |
+
+Use the smaller proposed capacities and explicitly resolve MB's ambiguous units
+as binary MiB. Reject before file reads when metadata exceeds a budget; never
+truncate or silently fall back to raw server processing. Whole-file reads are
+bounded; parsing runs in a module worker terminated after five seconds or on
+cancel/consent withdrawal/unmount. No silent continuation in the main thread.
+Synthetic tests cover 10,000 vs 10,001 rows, 1 MiB vs +1 byte, 20 vs 21 files,
+10 MiB vs +1 byte metadata/huge JSON, MIME floods, nesting and malformed inputs.
+These are development bounds, not a supported real-user performance guarantee.
+
+Additional independent structural bounds: JSON nesting eight, strings 16,384
+characters, lexical scan budget two million non-skipped characters, URL 4096
+characters; MIME headers 16,384 characters (UTF-8 messages still bounded by bytes),
+physical header lines 998 characters, 16 total MIME entities, four nested multipart
+levels below root. Hitting any bound fails with a fixed code. A file under its byte
+budget may still fail a structural budget. API: 8 MiB actual streamed request body,
+20 sources and 10,000 aggregate normalized/issue records; duplicate source IDs,
+record indices and invalid duplicate references are rejected.
+
+### Safe extraction and deliberate limits
+
+`tldts` 7.5.5 supplies bundled public-suffix ICANN and PRIVATE normalization; see
+[its primary documentation](https://github.com/remusao/tldts/tree/master/packages/tldts).
+No runtime suffix download or DNS lookup. Normalization tests separate
+`example.co.uk` and private-suffix tenants; adapters emit only reserved `.test`
+domains. Malformed/local/private/IP/non-web URLs fail closed. All URL paths,
+queries, fragments, userinfo and ports are discarded from output.
+Chrome requires a safe integer UNIX-microsecond timestamp in 1970-2100 inclusive;
+submillisecond precision is retained in UTC. All six c12 invalid/missing times
+are excluded, never replaced by import time. Email's strict RFC2822 numeric-offset
+Date subset may yield explicit invalid/missing null time, consistent with c11.
+
+MIME is a deliberately narrow, bounded subset, not a general mail client. It
+supports CRLF headers/folding, plain UTF-8/ASCII text, multipart mixed/alternative,
+and validated base64/quoted-printable text (including encoded ISO-8859-1). Raw
+message bytes must be UTF-8. Duplicate/malformed headers, unsupported encodings,
+message/rfc822 and malformed multipart fail closed. Subjects/display names,
+Message-ID, body text and decoded text are never output. HTML is ignored entirely;
+HTML-only evidence is unresolved, rather than rendered or converted into a claim.
+Attachment headers identify ignored parts before payload decoding; no attachment
+payload processing occurs. No embedded URL, image, script or instruction is used
+for a network call, UI link or tool action.
+
+All email observations are `unclassified_observation` / `EMAIL_RECEIVED_UNVERIFIED`.
+They report claimed sender domain only, with unverified origin. Contradictory
+transport/authentication headers become unresolved; a claimed authentication pass
+never establishes trust. This is syntax/minimization, not discovery, account
+inference, merchant attribution or sensitivity classification. Accordingly Phase 1
+relationship labels are preserved, not used as parser-prediction targets.
+
+Deduplication is limited to exact raw history rows within one selected source.
+Distinct paths/times stay separate after minimization. Identical selected emails
+and separate copies retain different random source IDs. No cross-source fusion,
+confidence increase or stable raw-content fingerprint is emitted. Duplicate rows
+cite an earlier normalized row index in the same source. Such transient references
+are not a source-deletion/recomputation engine.
+
+### Strict boundary without a data pipeline
+
+`POST /api/v1/phase2/validate` is an independently mounted validation-only FastAPI
+app. It rejects multipart/non-JSON before body parsing, bounds actual body bytes,
+rejects duplicate/prototype JSON keys and non-JSON constants, and applies frozen,
+strict Pydantic models forbidding extras at every level. No raw bodies, addresses,
+subjects, URLs, arbitrary metadata, filenames or excerpts are allowed. Only
+canonical `.test` domains, versioned codes, UTC dates and safe provenance survive.
+Validation failures return static codes without Pydantic input/error details or
+logs; successful replies contain a count only. It has its own generated OpenAPI
+and TypeScript contract; the original Phase 0 contract stays unchanged.
+
+The UI never calls this boundary: no raw or minimized import record is uploaded.
+The endpoint is a future-boundary validation exercise, not persistence or an
+analysis service. It cannot prove that an arbitrary API caller's claimed
+synthetic-only data really originated in the corpus; it strictly restricts shape
+and `.test` vocabulary. It remains loopback-only, unauthenticated synthetic demo
+infrastructure, not safe multi-user hosting. No PostgreSQL connection, schema
+change, auth, OAuth, external model, discovery/fusion, rules, action directory,
+live link or deletion engine is introduced. Results and selected bytes exist only
+transiently; workers terminate on completion, results clear on explicit clear or
+page lifecycle, and no browser/server storage, telemetry or raw-content logs are
+used. Production guarantees and independent security review remain future gates.
