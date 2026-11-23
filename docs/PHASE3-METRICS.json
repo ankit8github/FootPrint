@@ -1,0 +1,397 @@
+{
+  "schema_version": "phase3-development-evaluation-v1",
+  "corpus_version": "1.1.0",
+  "oracle_sha256": "53b4ff49c5b31e4fa5b2670c757c02058d0ffab3f6b0472fe8d198a86bdd36b1",
+  "baseline_status": "product-owner-approved, AI-assisted baseline",
+  "independent_blind_review": false,
+  "measurement": "known_synthetic_development_corpus_not_holdout_or_product_accuracy",
+  "relationship_key": "(snapshot_id, canonical_domain, relationship_type)",
+  "precision_definition": "TP/(TP+FP), null for zero predictions",
+  "recall_definition": "TP/(TP+FN), null for zero ground truth",
+  "compared_fields": [
+    "domain",
+    "relationship_type",
+    "evidence_state",
+    "confidence",
+    "canonical_support",
+    "unresolved_support",
+    "excluded_events",
+    "duplicate_groups"
+  ],
+  "unassessed_fields": [
+    "review_priority",
+    "sensitivity",
+    "sensitivity_agreement"
+  ],
+  "initial_cases": {
+    "snapshots": 29,
+    "true_positive": 28,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1,
+    "recall": 1,
+    "exact_in_scope_matches": 29
+  },
+  "survivor_oracles": {
+    "snapshots": 6,
+    "true_positive": 6,
+    "false_positive": 0,
+    "false_negative": 0,
+    "precision": 1,
+    "recall": 1,
+    "exact_in_scope_matches": 6
+  },
+  "sensitivity_agreement": null,
+  "results": [
+    {
+      "id": "c01",
+      "survivor": false,
+      "expected": 2,
+      "predicted": 2,
+      "true_positive": 2,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c02",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c03",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c04",
+      "survivor": false,
+      "expected": 4,
+      "predicted": 4,
+      "true_positive": 4,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c05",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c06",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c07",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c08",
+      "survivor": false,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c09",
+      "survivor": false,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c10",
+      "survivor": false,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c11",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c12",
+      "survivor": false,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c13",
+      "survivor": false,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c14",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c15",
+      "survivor": false,
+      "expected": 2,
+      "predicted": 2,
+      "true_positive": 2,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c16",
+      "survivor": false,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c17",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c18",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c19",
+      "survivor": false,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c20",
+      "survivor": false,
+      "expected": 2,
+      "predicted": 2,
+      "true_positive": 2,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c21",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c22",
+      "survivor": false,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c23",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c23-d1",
+      "survivor": true,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c24",
+      "survivor": false,
+      "expected": 4,
+      "predicted": 4,
+      "true_positive": 4,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c24-d1",
+      "survivor": true,
+      "expected": 2,
+      "predicted": 2,
+      "true_positive": 2,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c24-d2",
+      "survivor": true,
+      "expected": 2,
+      "predicted": 2,
+      "true_positive": 2,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c24-d3",
+      "survivor": true,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c25",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c25-d1",
+      "survivor": true,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c25-d2",
+      "survivor": true,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c26",
+      "survivor": false,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c27",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c28",
+      "survivor": false,
+      "expected": 1,
+      "predicted": 1,
+      "true_positive": 1,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    },
+    {
+      "id": "c29",
+      "survivor": false,
+      "expected": 0,
+      "predicted": 0,
+      "true_positive": 0,
+      "false_positive": 0,
+      "false_negative": 0,
+      "exact_in_scope_match": true
+    }
+  ]
+}

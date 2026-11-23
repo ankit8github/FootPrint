@@ -274,3 +274,106 @@ live link or deletion engine is introduced. Results and selected bytes exist onl
 transiently; workers terminate on completion, results clear on explicit clear or
 page lifecycle, and no browser/server storage, telemetry or raw-content logs are
 used. Production guarantees and independent security review remain future gates.
+
+## ADR-011 — Phase 3 transient synthetic evidence features and linking
+
+Date: 2026-11-23. Status: accepted for the explicitly authorized Phase 3 scope;
+implementation submitted for PR review. Builds on ADR-009/010 and corpus 1.1.0,
+whose status remains **product-owner-approved, AI-assisted baseline**. No
+independent blind review or reviewer is claimed.
+
+### Evidence gap and smallest extraction layer
+
+Phase 2 emails deliberately carry unclassified, unverified sender observations.
+A sender domain cannot establish an account, transaction or marketing relationship.
+Keep `/phase2` output unchanged. Add an optional safe-plain-text visitor to the
+bounded MIME reader and a separate `email_features_v1` extractor, used only by
+Phase 3. The shared exact-byte SHA-256/adapter allowlist runs before decoding.
+It still rejects arbitrary fictional examples as well as personal exports.
+Pure functions accept generated synthetic adversarial inputs only in tests.
+
+Recognize a narrow explicit vocabulary: account requested, account notification
+preferences changed, paid-order claim, cancelled-before-payment claim, unpaid
+invoice claim, and newsletter cue. No fixture IDs, case labels or manifest
+expectations are imported by runtime code. An unencoded ASCII subject newsletter
+cue can support Low-confidence marketing (c15); this uses no HTML evidence.
+HTML/attachments remain ignored, encoded subjects remain inert. Only decoded
+plain MIME parts enter feature matching, bounded to 16,384 aggregate characters
+in addition to ADR-010 bounds. Quoted/markup lines and inline quotes are removed;
+explicit example/forwarded context and instruction-injection markers suppress
+relationship inference. These conservative patterns support the approved corpus,
+not general language understanding or comprehensive spoofing detection.
+
+Transport-header contradictions retain `ORIGIN_CONFLICT`; claimed authentication
+passes never upgrade trust. Missing/unsafe sender domains remain excluded or
+unknown. Embedded URLs supply no attribution or claims, and are never fetched.
+PSL normalization, reserved `.test` domains and strict URL/time controls are
+inherited. All six invalid/missing c12 Chrome times remain excluded. Invalid
+email time stays explicitly null/invalid, without replacing it with import time.
+
+### Deterministic linking and provenance
+
+`phase3-discovery-v1` / `relationship_fusion_v1` runs wholly in a separate worker.
+Source IDs follow selected-file order (`s0001`); event IDs contain source and
+zero-based adapter row. Given the same ordered bytes, graph IDs/order/output are
+reproducible. Reordering or removing sources renumbers batch-local IDs; no stable
+personal identifier, raw-content fingerprint, filename or Message-ID is emitted.
+The inspector shows the minimized typed graph as inert React text only.
+
+Email deduplication requires exact approved byte copies, not same Message-ID,
+sender/domain, time or extracted features. History deduplication requires exact
+raw rows within a source, or the same row of an exact selected file copy. Distinct
+paths/times or separate nonidentical files are not collapsed after minimization.
+Copies retain separate source/event identities and duplicate-role support links;
+primary support references one canonical copy. Deduplication never raises confidence.
+Unresolved copies remain independently visible instead of being silently dropped.
+
+Group eligible evidence by exact canonical domain and claim type, with no fuzzy
+brand matching, delivery-provider ownership assertion or email/browser account
+corroboration. Visits describe observed source records at High confidence, not
+ownership or current accounts. Accounts are inferred/Medium, transactions
+inferred/Medium and marketing inferred/Low. These are claim-specific rule tiers,
+not calibrated probabilities. Additional copies/visits never promote them.
+Every email relationship explicitly retains unverified sender attribution.
+
+Transaction means evidence of financial/commercial interaction, not proof of
+completed payment. Exact same-domain, case-sensitive order references are mapped
+to opaque sequential aliases in a transient worker-local map. Plaintext references
+and raw digests never leave the worker. No durable hash is substituted for a
+potentially identifying commercial reference. Aliases are reproducible only for
+the same ordered batch. Different references/domains cannot create a conflict;
+multiple references in one message are unresolved. Both same-order paid and
+cancelled-before-payment claims are preserved; c07 stays inferred/Low with an
+explicit conflict, never last-message-wins. c21 stays an inferred/Medium unpaid
+invoice interaction. Payment completion and retained credentials remain unknown.
+
+Each relationship separates its own state/confidence from relevant unknown claims
+(sender authenticity, current account, payment completion, retained credentials,
+company retention, sale), whose state is unknown/confidence insufficient. No
+sensitivity/review-priority classification runs; c07 Sensitive and c21 Medium
+priority remain solely in the unchanged Phase 1 oracle for future Phase 4 work.
+Unsupported, ambiguous, quoted and injected inputs produce explicit unknowns
+with static codes and source-row support, not optimistic default relationships.
+
+### Local boundary, evaluation and deferred work
+
+No new API, database schema, personal-data migration or persistence is necessary.
+The existing strict API deliberately rejects Phase 3 graph/features and arbitrary
+metadata, raw fields, addresses, URLs and multipart uploads. Neither browser lab
+calls it. No source content or graph is saved; termination discards worker-local
+bytes/maps, and clear/unmount/consent withdrawal drops results. These are transient
+lifetime controls, not secure memory erasure or a source-deletion engine.
+
+All 29 cases and six deletion snapshots are read-only oracles. Survivor tests
+independently analyze remaining input files; they implement no deletion API/UI or
+mutable recomputation engine. Compare domain/type/state/confidence, canonical
+support, unresolved support, exclusions and duplicate groups. Sensitivity and
+review priority are explicitly unassessed. `PHASE3-METRICS.json` defines per-snapshot
+domain/type TP/FP/FN and separately reports initial/survivor denominators. This
+known, reused, overlapping synthetic development corpus is not a holdout set or
+evidence of product accuracy. Original Phase 1 metrics/history stay unchanged.
+
+Deferred: Phase 4 sensitivity; Phase 5 dashboard/actions/deletion; real-user input,
+auth, persistence, external AI, live services and deployment. The draft personal
+schema in document 06 remains a proposal and is not installed. See
+[PHASE3-REPORT.md](PHASE3-REPORT.md) for exact checks, limits and review gates.

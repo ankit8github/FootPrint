@@ -33,3 +33,4 @@ button:disabled { opacity: .6; cursor: default; }
 table { border-collapse: collapse; width: 100%; font-size: .9rem; }
 th, td { text-align: left; padding: .7rem; border-bottom: 1px solid #c4d3ce; }
 caption { text-align: left; margin-bottom: .75rem; }
+.evidence-json { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; }
