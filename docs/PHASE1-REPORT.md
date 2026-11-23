@@ -99,25 +99,40 @@ unknown retention/sale claims and loopback-only browser traffic.
 
 ## GitHub CI and completion record
 
-Local validation is complete. GitHub push/PR CI for the finalization changes must
-pass before merging. CI includes locked dependency installation, the backend and
-frontend checks, package audits, disposable Docker database startup/migration
-roundtrip and Playwright smoke, followed by cleanup. Local Docker execution is not
-claimed. Observed run IDs, tested source SHA and final merge evidence will be
-recorded here/with PR #1 before the final completion report is delivered.
+Both GitHub CI runs completed successfully for tested source commit
+`c493d1773038cb1d240f8340cc04699680a0197c`:
+
+- [Push CI 45112506429](https://github.com/ankit8github/FootPrint/actions/runs/45112506429): SUCCESS.
+- [PR CI 45112512337](https://github.com/ankit8github/FootPrint/actions/runs/45112512337): SUCCESS.
+
+Observed successful steps include locked dependency installation, Python and
+client checks (including audits), disposable Docker database startup and migration
+roundtrip, Playwright browser smoke, database cleanup and post-job cleanup. Local
+Docker execution is not claimed. This report-only follow-up changes no executable
+artifact and deliberately allows CI to run again; the final head's successful
+checks are verified before merge.
+
+The final completion record is [PR #1](https://github.com/ankit8github/FootPrint/pull/1):
+its merged metadata provides the authoritative merge SHA. The SHA and final-head
+CI run links are recorded in the PR description and delivered final report after
+GitHub confirms the merge. A merge commit retains all prior commits; no squash,
+rebase or branch deletion is used. No merge is inferred from a pre-merge test SHA.
 
 ## Boundaries and exit status
 
 Phase 1 artifact gates pass locally: fictional inventory, approved authored
 baseline, explicit uncertainty, coverage, duplicate/conflict/deletion oracles,
 version preservation, deterministic metrics and unchanged Phase 0 behavior.
-Remote CI and merge remain conditional in this pre-merge report revision.
-Independent blind human review was not performed; approval is explicitly the
-product owner's decision with AI assistance.
+Remote clean-checkout validation also passed, including Docker and browser checks.
+Phase 1 baseline work is complete under the product owner's explicit approval
+basis. Publication follows the authorized merge procedure above. Independent blind
+human review was not performed; no reviewer identity or independent attestation
+is claimed.
 
 No Phase 2 parser, classifier, normalizer, source importer, deletion engine,
 OAuth, external integration, model service, schema expansion, deployment or
 real-user data processing was implemented. The app/API remain the Phase 0 empty
 synthetic shell. Small fictional corpus checks do not establish production safety,
 algorithm accuracy, real-world retention/sale or external deletion correctness.
-After successful CI and the authorized merge, record the merge SHA and stop.
+The final action is the authorized merge after successful final-head CI, followed
+by recording its SHA and delivering this report. Work stops at Phase 1.
