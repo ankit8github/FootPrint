@@ -1,0 +1,11 @@
+From: Fictional Shop <orders@fictional-shop.test>
+To: synthetic-person-01@person.test
+Subject: SYNTHETIC: Order SYNTHETIC-ORDER-001 receipt
+Date: Sat, 17 Oct 2026 12:00:00 +0000
+Message-ID: <e02@fixture.test>
+X-PV1-Fixture: synthetic-only; corpus=1.0.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+
+SYNTHETIC ONLY. Order SYNTHETIC-ORDER-001 was paid for one fictional paper lantern.
+Total: 12.00 fictional units. Payment credentials are deliberately absent.

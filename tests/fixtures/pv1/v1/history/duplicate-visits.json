@@ -1,0 +1,19 @@
+{
+  "Browser History": [
+    {
+      "url": "https://fictional-duplicate.test/page",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "https://fictional-duplicate.test/page",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "https://fictional-duplicate.test/page",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792324800000000
+    }
+  ]
+}

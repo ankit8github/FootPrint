@@ -99,3 +99,69 @@ Reference checks: [Vite prerequisites](https://vite.dev/guide/),
 [FastAPI output contracts](https://fastapi.tiangolo.com/tutorial/response-model/),
 [PostgreSQL 17.12 release](https://www.postgresql.org/docs/release/17.12/).
 These inform tooling choices; they do not replace local validation.
+
+## ADR-007 — Explicitly authorized Phase 1 artifacts only
+
+The user's subsequent Phase 1 request supersedes the historical Phase 0-only
+working scope for this corpus work. Runtime behavior and Phase 0 contracts,
+tests, lockfiles, migrations, and CI remain unchanged. The new corpus is under
+`tests/fixtures/pv1/v1/`; the only executable addition is offline artifact
+validation and its tests, discovered through existing pytest configuration.
+The scripts package marker gives mypy a single stable module name for the new
+test-helper import. There is no import adapter, parser, normalizer, classifier,
+deletion engine, external model call or new API endpoint.
+
+Ground-truth labels are hand-authored proposals with source-byte hashes, literal
+evidence anchors, reasons and explicit before/after-deletion snapshots. The
+validator checks integrity and references, not the semantic truth of a label.
+Independent human adjudication remains pending in the review PR; no fictional
+reviewer approval or accuracy metric is invented. Timestamp/sensitivity/source
+handling expectations are corpus proposals, not implementation of Phase 2+
+policy. Invalid times are annotated null; missing required history time is an
+explicit excluded-record case. Existing unresolved parser limits stay open.
+
+The Chrome wrapper and UNIX-microsecond timestamp meaning were checked against
+the official source linked in the corpus README. The fixed reference clock
+and reserved fictional domains make review reproducible. General `.eml`
+ignoring stays in force, with one narrow corpus-directory exception. Scoped
+Git attributes preserve fixture hashes across Windows/Linux. Corpus inventory
+metrics do not measure product precision/recall or deletion correctness.
+
+## ADR-008 - Relationship taxonomy clarification (PROPOSED, NOT APPROVED)
+
+The [Phase 1 taxonomy proposal](PHASE1-TAXONOMY-PROPOSAL.md) makes the four
+existing, coexisting relationship types and their independent evidence/priority
+dimensions explicit for review. It calls out the ambiguous meaning of
+`transaction` for contradictory payment evidence (c07) and an unpaid invoice
+(c21), plus the separate record-validity/time questions in c12. The broad
+transaction-indication interpretation and a narrower alternative require human
+adjudication; neither is silently adopted as a new settled definition here.
+
+The [blank human worksheet](../tests/fixtures/pv1/v1/HUMAN-REVIEW-WORKSHEET.md)
+provides raw references for all 29 cases and six independent deletion setups.
+Reviewers save blind judgments before comparing the proposed manifest or this
+note. Existing source bytes, manifest labels, metrics, tests, contracts and CI
+remain unchanged. No independent approval, corpus-version change, merge or
+Phase 2 authorization is recorded by preparing these review materials.
+
+
+## ADR-009 - Product-owner-approved Phase 1 baseline (ACCEPTED)
+
+Date: 2026-11-23. Status: **product-owner-approved, AI-assisted baseline**.
+The explicit product-owner finalization instruction supersedes ADR-007/ADR-008's
+pending decisions and the historical proposal's common timestamp/sensitivity
+choices. See [the accepted taxonomy record](PHASE1-TAXONOMY-DECISION.md).
+
+Transaction means financial/commercial interaction evidence, not completed
+payment. c07 retains Sensitive/Low with contradictory payment claims. Strict MVP
+P0 excludes all six invalid/missing browser-history timestamps in c12. c21 is an
+unpaid invoice with Medium/Medium, asserting neither payment nor retained credentials.
+Corpus 1.1.0 records this approval basis; independent_reviewer remains null and
+independent blind human review was not performed. No human reviewer is fabricated.
+
+All 29 cases and six deletion snapshots are validated as authored artifacts;
+no parser/classifier/deletion engine accuracy is measured. Original 1.0.0 materials
+are archived, original blind worksheet/checklist/proposal remain unchanged, and
+Git history is retained. The v1 schema-major directory now holds baseline 1.1.0.
+The owner authorized merging existing PR #1 into main only after checks pass,
+then stopping. No Phase 2, deployment or real-user processing is authorized.

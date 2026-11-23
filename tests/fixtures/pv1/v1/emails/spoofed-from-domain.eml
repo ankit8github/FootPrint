@@ -1,0 +1,14 @@
+From: Fictional Shop <security@fictional-shop.test>
+To: synthetic-person-01@person.test
+Subject: SYNTHETIC: Account opened confirmation
+Date: Sat, 17 Oct 2026 12:00:00 +0000
+Message-ID: <e09@fixture.test>
+X-PV1-Fixture: synthetic-only; corpus=1.0.0
+MIME-Version: 1.0
+Return-Path: <bounce@origin-mismatch.test>
+Reply-To: verify@origin-mismatch.test
+Authentication-Results: receiver.test; spf=fail; dkim=fail; dmarc=fail
+Content-Type: text/plain; charset=UTF-8
+
+SYNTHETIC ONLY. This message has contradictory origin headers and an unrelated reply address.
+Send replies to origin-mismatch.test, not to the claimed shop. No account can be established from it.

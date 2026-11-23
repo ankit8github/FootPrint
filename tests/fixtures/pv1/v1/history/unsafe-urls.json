@@ -1,0 +1,54 @@
+{
+  "Browser History": [
+    {
+      "url": "file:///SYNTHETIC-NOT-A-REAL-FILE",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "javascript:void(0)",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "data:text/plain,SYNTHETIC-NO-OP",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "ftp://fictional-transfer.test/file",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "chrome://settings",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "/SYNTHETIC-RELATIVE",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "http://127.0.0.1/SYNTHETIC-NO-OP",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "http://10.0.0.7/SYNTHETIC-NO-OP",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "http://localhost/SYNTHETIC-NO-OP",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    },
+    {
+      "url": "https://[SYNTHETIC-INVALID",
+      "title": "SYNTHETIC history entry",
+      "time_usec": 1792238400000000
+    }
+  ]
+}

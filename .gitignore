@@ -17,6 +17,8 @@ test-results/
 .DS_Store
 .idea/
 *.eml
+# Only the reviewed fictional Phase 1 corpus may contain tracked email files.
+!/tests/fixtures/pv1/v1/emails/*.eml
 *.mbox
 *.pst
 *.csv

@@ -1,0 +1,167 @@
+{
+  "corpus_version": "1.0.0",
+  "coverage": {
+    "account_notification": [
+      "c28"
+    ],
+    "ambiguous_origin": [
+      "c10",
+      "c16",
+      "c19",
+      "c29"
+    ],
+    "attachment": [
+      "c17"
+    ],
+    "conflicting_evidence": [
+      "c07"
+    ],
+    "deletion_duplicate": [
+      "c25"
+    ],
+    "deletion_overlap": [
+      "c24"
+    ],
+    "deletion_sole_source": [
+      "c23"
+    ],
+    "email_duplicate": [
+      "c05",
+      "c25"
+    ],
+    "encoded_header": [
+      "c27"
+    ],
+    "encrypted_history": [
+      "c22"
+    ],
+    "health_context": [
+      "c18"
+    ],
+    "history_duplicate": [
+      "c06"
+    ],
+    "html_content": [
+      "c15"
+    ],
+    "malformed_email_timestamp": [
+      "c11"
+    ],
+    "malformed_header": [
+      "c26"
+    ],
+    "malformed_history_timestamp": [
+      "c12"
+    ],
+    "marketing": [
+      "c15"
+    ],
+    "missing_history_timestamp": [
+      "c12"
+    ],
+    "old_visit": [
+      "c01"
+    ],
+    "phishing_origin": [
+      "c08"
+    ],
+    "prompt_injection": [
+      "c16"
+    ],
+    "query_fragment": [
+      "c14"
+    ],
+    "quoted_registration": [
+      "c19"
+    ],
+    "receipt": [
+      "c03",
+      "c04",
+      "c07",
+      "c21",
+      "c24"
+    ],
+    "registration": [
+      "c02",
+      "c04",
+      "c05",
+      "c11",
+      "c17",
+      "c18",
+      "c20",
+      "c23",
+      "c24",
+      "c25",
+      "c27"
+    ],
+    "shared_delivery": [
+      "c10"
+    ],
+    "similar_domains": [
+      "c20"
+    ],
+    "spoofed_origin": [
+      "c08",
+      "c09"
+    ],
+    "unpaid_invoice": [
+      "c21"
+    ],
+    "unsafe_url": [
+      "c13"
+    ],
+    "url_credentials": [
+      "c14"
+    ],
+    "visits_only": [
+      "c01",
+      "c04",
+      "c06",
+      "c12",
+      "c14",
+      "c24"
+    ]
+  },
+  "coverage_categories": 32,
+  "deletion_snapshots": 6,
+  "discovery_precision": null,
+  "discovery_recall": null,
+  "files_by_adapter": {
+    "browser_chrome_json_v1": 7,
+    "email_eml_v1": 20
+  },
+  "independent_review": "awaiting_independent_review",
+  "measurement": "authored_corpus_structure_only",
+  "runtime_parser_or_classifier_present": false,
+  "scenario_label_counts": {
+    "confidence": {
+      "high": 8,
+      "low": 4,
+      "medium": 17
+    },
+    "relationship_type": {
+      "likely_account": 13,
+      "marketing": 2,
+      "transaction": 5,
+      "visited": 9
+    },
+    "review_priority": {
+      "low": 11,
+      "medium": 12,
+      "sensitive": 6
+    }
+  },
+  "scenarios": 29,
+  "sensitivity_agreement": null,
+  "source_events": 48,
+  "source_files": 27,
+  "unresolved_label_counts": {
+    "confidence": {
+      "insufficient": 6
+    },
+    "review_priority": {
+      "unknown": 6
+    }
+  },
+  "unresolved_scenarios": 6
+}
