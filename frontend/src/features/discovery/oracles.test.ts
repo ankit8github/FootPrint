@@ -12,7 +12,8 @@ interface Snapshot {
   relationships: OracleRelationship[]; unresolved: { support: string[] }[];
   excluded: string[]; duplicate_groups: string[][];
 }
-interface Source { id: string; path: string; events: { id: string; locator: string; expected_utc: string | null }[] }
+interface Source { id: string; path: string; events: { id: string; locator: string; expected_utc: string | null;
+  disposition: string; observation_kind: string | null; domain_label: string | null; time_status: string }[] }
 interface Case { id: string; sources: string[]; expected: Snapshot; after_delete: { delete_sources: string[]; expected: Snapshot }[] }
 const manifest = JSON.parse(manifestBytes.toString('utf8')) as { cases: Case[]; sources: Source[] };
 const sourceById = new Map(manifest.sources.map(s => [s.id, s]));
@@ -73,7 +74,11 @@ describe('unchanged corpus 1.1.0 discovery projections', () => {
     for (const [index, id] of row.sources.entries()) {
       const source = sourceById.get(id)!;
       for (const observation of graph.observations.filter(o => o.source_id === `s${String(index + 1).padStart(4, '0')}`)) {
-        const timestamp = source.events[observation.record_index].expected_utc;
+        const event = source.events[observation.record_index];
+        const timestamp = event.expected_utc;
+        expect(observation.kind).toBe(event.observation_kind);
+        expect(observation.time_status).toBe(event.time_status);
+        if (event.disposition === 'eligible') expect(observation.domain).toBe(event.domain_label);
         expect(observation.occurred_at === null ? null : new Date(observation.occurred_at).toISOString())
           .toBe(timestamp === null ? null : new Date(timestamp).toISOString());
       }

@@ -4,8 +4,9 @@ Date: 2026-11-23 (Asia/Calcutta). Scope: browser-local synthetic discovery and
 evidence linking only. Branch: `phase3/synthetic-evidence-linking`, based on current
 main `d151fe290787079d6cedea1f3c30b30dd7512809`, after Phase 2 merge
 `04fcc45baa8278231948d05577b469fa8fd9cc46`.
-Status: implemented; local validation completed below, clean-checkout/remote CI
-record pending. Review PR only; no merge or deployment.
+Status: implemented and validated for review. [PR #3](https://github.com/ankit8github/FootPrint/pull/3)
+is open and unmerged. Local, fresh-checkout and GitHub CI/Docker evidence is
+recorded below. No merge or deployment.
 
 ## Evidence gap and implementation plan (before implementation)
 
@@ -116,7 +117,8 @@ holdout set, independent blind review, calibrated probability or product accurac
 
 Exact comparison covers domain, relationship type, observed/inferred state,
 claim confidence, canonical support, unresolved support, excluded event IDs and
-duplicate groups. Tests additionally verify event UTC times, determinism, support
+duplicate groups. Tests additionally verify event kinds, eligible source domains,
+time status and UTC times, determinism, support
 referential integrity, alternate duplicate provenance and absence of raw fields.
 Sensitivity/review priority and sensitivity agreement are **unassessed** (null),
 not zero or inferred from Phase 1 labels. The original Phase 1 structural metrics
@@ -190,6 +192,75 @@ scope. No failed check is represented as passing before its successful rerun.
   No auth/OAuth, draft personal schema, persistence, external AI/service, real
   personal data or production deployment. Later work requires separate authority.
 - Phase 3 exit requires all local and clean-checkout/CI checks, unchanged oracles,
-  exact in-scope comparisons, documented limits and an open review PR. Human review
+  exact in-scope comparisons, documented limits and an open review PR. These
+  implementation/validation gates are met by the evidence below. Human review
   and any later merge remain separate gates. PR #3 must remain unmerged; main
-  stays at the pre-Phase-3 base. Remote run evidence will be appended below.
+  stays at the pre-Phase-3 base.
+
+## Clean checkout and GitHub CI/Docker evidence
+
+Validated implementation commit: `a9051d535264094308d42cac0094db3698452a41`.
+The follow-up strengthens oracle assertions and records results without changing
+executable browser/API code. The PR checks tab records checks for the current
+review head; this report names the executed implementation runs explicitly.
+
+- [Push run 45123183705](https://github.com/ankit8github/FootPrint/actions/runs/45123183705):
+  **SUCCESS**, every job and step.
+- [PR run 45123313262](https://github.com/ankit8github/FootPrint/actions/runs/45123313262):
+  **SUCCESS**, every job and step.
+- Both clean Ubuntu 22.04 runs used Python 3.11.9, Node 22.15.0 and uv 0.9.29,
+  locked installs, 136 backend tests, 158 frontend tests, five Chromium scenarios,
+  all lint/type/format/contract/corpus/build checks and zero-known-vulnerability
+  audits. Decoded job logs confirm counts as well as successful step status.
+  No workflow changes, bypasses or skipped check commits were used.
+- Docker is unavailable on this Windows host. Actual CI commands passed:
+  `docker compose config --quiet`, `docker compose up -d --wait db`,
+  `uv run --frozen python -m scripts.check_database` (in `backend/`), and
+  `docker compose down --volumes`. The existing check verifies scaffold-only
+  upgrade, CHECK constraint enforcement, downgrade and re-upgrade; no personal
+  tables or imported observations are installed. Disposable credentials and DB
+  exist only for that existing infrastructure test; cleanup passed.
+
+Fresh Windows remote clone (not a copy of the working tree):
+
+```powershell
+git -c safe.directory=I:/FootPrint clone --no-hardlinks --branch phase3/synthetic-evidence-linking https://github.com/ankit8github/FootPrint.git I:/FootPrint/.local/phase3-clean-checkout-a9051d5
+uv sync --project backend --frozen
+npm.cmd ci --prefix frontend --cache I:/FootPrint/.cache/npm
+```
+
+From that clone's `backend/`: ruff check/format check, mypy, pytest (136 PASS),
+both API export checks and corpus validation passed with the exact commands in
+the local table. From its `frontend/`: contracts, lint, typing, all 158 tests,
+build and all five Playwright scenarios passed with the commands in the table.
+The first cold-start unit run had one failure: the existing Phase 2 subprocess
+contract test took 5.162 seconds against Vitest's 5-second test timeout. The
+unchanged complete frontend rerun passed (158/158; 6.89 seconds total); no test
+timeout, fixture, expectation or production worker deadline was relaxed. Both
+Linux CI runs passed this test on their first attempt. A Windows console encoding
+error initially masked the printed failure; its saved UTF-8 log identified the
+timeout and the validation helper now prints UTF-8. Original failure logs are
+retained locally, not overwritten by the rerun.
+
+Local tool versions: Python 3.11.9, uv 0.9.29, Node v22.15.0, npm 10.9.2,
+Git 2.46.0.windows.1. Ignored execution logs are retained in
+`.local/phase3-validation/{backend,frontend,clean-checkout}.json`; public durable
+evidence is the linked CI runs and this report. Bundle scanning additionally
+passed for raw synthetic sender/recipient, order/invoice and secret sentinels.
+Mobile Chromium layout passed without horizontal overflow and its viewport
+preview was visually inspected. No UI polish or unrelated refactoring followed.
+
+Preservation check executed from repository root (exit 0):
+
+```powershell
+git -c safe.directory=I:/FootPrint diff --exit-code d151fe290787079d6cedea1f3c30b30dd7512809 -- tests/fixtures backend/app backend/migrations backend/tests/test_phase0.py backend/tests/test_phase1_corpus.py backend/tests/test_phase2.py frontend/src/features/imports/parsers.test.ts frontend/src/features/imports/ImportLab.test.tsx frontend/e2e/imports.spec.ts frontend/e2e/smoke.spec.ts frontend/openapi.json frontend/phase2-openapi.json frontend/src/api.generated.ts frontend/src/phase2.generated.ts
+```
+
+The report follow-up also ran
+`node node_modules/vitest/vitest.mjs run src/features/discovery/oracles.test.ts`
+from `frontend/`: 36/36 PASS, including added event-kind/domain/time-status
+assertions. CI repeats the full suite for the review head. Corpus 1.1.0 remains
+**product-owner-approved, AI-assisted baseline**; independent blind review was not
+performed and no reviewer was invented. PR #3 remains open for review; main is
+unchanged at `d151fe290787079d6cedea1f3c30b30dd7512809`. No merge SHA exists for
+Phase 3, and no deployment, real personal data or later phase work followed.
