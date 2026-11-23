@@ -149,11 +149,11 @@ provisional read-only output types, not an approved future ingestion schema.
 | `.github/workflows/phase0.yml` | Checks only; no deployment or CI credentials |
 | `docs/` | Original baselines, decisions, and observed Phase 0 results |
 
-Not implemented: parsing, normalization, discovery, classification, findings,
+The Phase 0 view does not implement discovery, classification, findings,
 privacy actions, deletion/recomputation, auth/tenancy, retention, cloud hosting,
 or third-party integrations. Those need later phase instructions and security
 gates. Email/history evidence does not prove current company retention or sale.
-Phase 1 artifacts were separately authorized; see the Phase 1 report. Phase 2 requires a separate instruction.
+Phase 1 artifacts were separately authorized; see the Phase 1 report. The separately authorized Phase 2 lab is documented below.
 
 ## Phase 1 test-data corpus (separate from the running shell)
 
@@ -174,3 +174,36 @@ timestamps, and c21 is an unpaid invoice with Medium/Medium. No parser/classifie
 accuracy is measured. Original review materials and 1.0.0 are preserved.
 See the [taxonomy decision](docs/PHASE1-TAXONOMY-DECISION.md) and
 [PHASE1-REPORT.md](docs/PHASE1-REPORT.md) for results, history and boundaries.
+
+
+## Phase 2 synthetic local import lab
+
+On branch `phase2/local-synthetic-import`, start the same loopback API and Vite
+commands above, then open `http://127.0.0.1:5173/phase2`. The root empty demo and
+Phase 0 health/demo contracts remain unchanged. Read the synthetic-only notice,
+check the consent box, and select unchanged `.eml` or Chrome JSON files from
+`tests/fixtures/pv1/v1/`. Exact approved byte hashes are required; other files are
+rejected. Do not select actual personal records. The raw fixture content is not copied
+into the browser bundle or fetched from the server; you select local files.
+
+Limits: 20 files, 1 MiB per email, 10 MiB total, 10,000 records, five-second worker
+deadline. Source files, bodies, addresses, full URLs and filenames never appear in
+results or requests. The lab shows domain/time/code/provenance records, explicit
+unresolved/excluded records, and within-source exact-history duplicate markers.
+No email relationship or sensitivity rule runs. HTML-only evidence stays
+unresolved; attachments are ignored. Clear results or close the page to discard
+transient state; nothing is saved. There is no API upload button or analysis call.
+
+`POST /api/v1/phase2/validate` tests a strict minimized JSON contract only and
+returns a count. The UI never calls it. It does not persist or process a file.
+Raw/multipart payloads and unknown fields are rejected without echo or logging.
+The separate contract is exported with `uv run --frozen python -m scripts.export_phase2`
+in `backend/`, then `npm.cmd run contracts:generate` in `frontend/`. Checks add
+`uv run --frozen python -m scripts.export_phase2 --check`; existing commands still
+run all Phase 0/1 tests plus Phase 2 tests and Playwright import/egress scenarios.
+
+See ADR-010 in [DECISIONS.md](docs/DECISIONS.md) for reconciled size limits, parser
+subset, provenance and trust limits, and [PHASE2-REPORT.md](docs/PHASE2-REPORT.md)
+for executed checks and review gates. Phase 2 does not authorize persistence,
+discovery/fusion, sensitivity rules, action links, OAuth, auth, deletion engines,
+deployment, real users or later phases. Review PR only; do not merge.

@@ -42,7 +42,7 @@ export function App() {
         <p className="intro">A foundation for reviewing your privacy, with evidence and uncertainty in view.</p>
         <section className="notice" aria-labelledby="demo-heading">
           <h2 id="demo-heading">Synthetic demo only</h2>
-          <p>This shell contains no personal records. Imports, analysis, findings, and privacy actions are not implemented.</p>
+          <p>This shell contains no personal records. This Phase 0 view stays empty; analysis, findings and privacy actions are not implemented.</p>
           <p role="status">{status}</p>
         </section>
         <section aria-labelledby="pillars-heading">
@@ -59,6 +59,7 @@ export function App() {
           <p>Email and browsing evidence cannot establish what a company currently retains or sells.</p>
         </section>
       </main>
+      <p><a href="/phase2">Open the synthetic import lab</a></p>
       <footer>Local development scaffold · No uploads or account connections</footer>
     </>
   );

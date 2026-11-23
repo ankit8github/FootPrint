@@ -1,0 +1,137 @@
+[
+  {
+    "id": "e01",
+    "adapter": "email_eml_v1",
+    "sha256": "2c27112efb0917a785c8c10c80801a57eec6fd6c58b46e1205d9e8ac51a18f36"
+  },
+  {
+    "id": "e02",
+    "adapter": "email_eml_v1",
+    "sha256": "e26ac112deef8464d1261b47f605879065a8d816294c12a2a264394a2c28b10b"
+  },
+  {
+    "id": "e03",
+    "adapter": "email_eml_v1",
+    "sha256": "fd3ecb8220949c49af00fe82e40de12e6d74ea0a82bf6ac212d5409317cd039c"
+  },
+  {
+    "id": "e04",
+    "adapter": "email_eml_v1",
+    "sha256": "2c27112efb0917a785c8c10c80801a57eec6fd6c58b46e1205d9e8ac51a18f36"
+  },
+  {
+    "id": "e05",
+    "adapter": "email_eml_v1",
+    "sha256": "c3e43d79504a0bd8abb62069be59b0e16cb9a6c5c0fcb96ef7235b6049a79680"
+  },
+  {
+    "id": "e06",
+    "adapter": "email_eml_v1",
+    "sha256": "b0e7b770a70d17cc87320705881a8dfd118ec41de4067e7b0e7b532f540cac45"
+  },
+  {
+    "id": "e07",
+    "adapter": "email_eml_v1",
+    "sha256": "f5a692d00e988bea444de3b63d315baf9d5497eaec512eaf73a399ef508d7428"
+  },
+  {
+    "id": "e08",
+    "adapter": "email_eml_v1",
+    "sha256": "158f741bb741da8c1c0ba81fed7be018cbe1ecb4f27853550dce7a9cc12c2c5a"
+  },
+  {
+    "id": "e09",
+    "adapter": "email_eml_v1",
+    "sha256": "d8b3ced9831398e7448178e2eb8e0d17a3b3a31da6e0175c55b877897eb32d88"
+  },
+  {
+    "id": "e10",
+    "adapter": "email_eml_v1",
+    "sha256": "fe39c6ce9d7ddd3f0a37619a1897f0d8f5d0634381827c7318a428d5916867f2"
+  },
+  {
+    "id": "e11",
+    "adapter": "email_eml_v1",
+    "sha256": "7138ceb773f9cd52758ab14b218d5b78c060ce39d3e6472786677928218be439"
+  },
+  {
+    "id": "e12",
+    "adapter": "email_eml_v1",
+    "sha256": "be2ac46e6146a783349155be4c7aea14bf9dd90da0577568cf8b0be8deb3f7c5"
+  },
+  {
+    "id": "e13",
+    "adapter": "email_eml_v1",
+    "sha256": "62809f0fd06d56ab89e0ca6c7dfd1e08764717f587f14106df715afba4b2f5a6"
+  },
+  {
+    "id": "e14",
+    "adapter": "email_eml_v1",
+    "sha256": "82e9d5c9bc8f43b23a5e6996e72259b52ab8ed91824fdb6e2bc62795e9776d24"
+  },
+  {
+    "id": "e15",
+    "adapter": "email_eml_v1",
+    "sha256": "10de768273f7b71f4352feea8438068e47b56e42a2ae4aadc2543cac67bdd8f7"
+  },
+  {
+    "id": "e16",
+    "adapter": "email_eml_v1",
+    "sha256": "7d13b82a69f78f77252366f1e5dc1e99bdeaea6c935e50cc4f3ea2614ab17ebe"
+  },
+  {
+    "id": "e17",
+    "adapter": "email_eml_v1",
+    "sha256": "3e5ad9e0db57221a0f3203c00ec19e3dec681668ce468c65fcd39189835ba4f9"
+  },
+  {
+    "id": "e18",
+    "adapter": "email_eml_v1",
+    "sha256": "026661435f33463887abec9306e12708b2cb42db0aa0499d1c80b95acbe3a115"
+  },
+  {
+    "id": "e19",
+    "adapter": "email_eml_v1",
+    "sha256": "96e309bf32145e8b93e01dd5d46a8e58c84b79b1f4115f8e5531a62948e5dbb1"
+  },
+  {
+    "id": "e20",
+    "adapter": "email_eml_v1",
+    "sha256": "56a9e81c7b04bd00b238abe7ea54713a7c88fefcbb92fd9dce358d73dbd5a4de"
+  },
+  {
+    "id": "h01",
+    "adapter": "browser_chrome_json_v1",
+    "sha256": "2ce27bfe77684d57138debfb80e189027accb65a9aa87b2706c8e3bf30cd3ebe"
+  },
+  {
+    "id": "h02",
+    "adapter": "browser_chrome_json_v1",
+    "sha256": "007a201c3cd3e7f58bc8c9ae6a77fb4f13a60a190e923a91bad1d389511be772"
+  },
+  {
+    "id": "h03",
+    "adapter": "browser_chrome_json_v1",
+    "sha256": "8c06cf1aea2c0aab4d57716642ee94dddf3aad72cdf7d531ee039195523989d4"
+  },
+  {
+    "id": "h04",
+    "adapter": "browser_chrome_json_v1",
+    "sha256": "4cee12c6a719ab7b08eb4d20e02fef113da369f2b1e01c04592ed8cbc706be5d"
+  },
+  {
+    "id": "h05",
+    "adapter": "browser_chrome_json_v1",
+    "sha256": "0fd7ed4a8373017db81d57bae10a767fac1282a0edc34d55fd421bcbece8b33d"
+  },
+  {
+    "id": "h06",
+    "adapter": "browser_chrome_json_v1",
+    "sha256": "a3ae590c4f78fcc7e3573423e522fe17ee7de46c8c121064c694a4c3274e5e35"
+  },
+  {
+    "id": "h07",
+    "adapter": "browser_chrome_json_v1",
+    "sha256": "16ec9792443aef24e452c3862703c66cef2d8b47334df519d86307b5693e8446"
+  }
+]

@@ -23,3 +23,13 @@ footer { border-top: 1px solid #c4d3ce; padding: 24px 0; color: #46625d; font-si
 .skip:focus { top: 10px; }
 :focus-visible { outline: 3px solid #12634c; outline-offset: 3px; }
 @media (max-width: 480px) { header { flex-wrap: wrap; } main { padding-top: 28px; } }
+
+.consent, .file-label { display: block; margin: 1rem 0; }
+.file-label input { display: block; margin: .5rem 0; max-width: 100%; }
+input, button { font: inherit; }
+button { background: #174634; color: white; border: 0; border-radius: 6px; padding: .65rem 1rem; cursor: pointer; }
+button:disabled { opacity: .6; cursor: default; }
+.table-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: left; padding: .7rem; border-bottom: 1px solid #c4d3ce; }
+caption { text-align: left; margin-bottom: .75rem; }

@@ -1,0 +1,349 @@
+{
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "ImportRecord": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "enum": [
+              "OK",
+              "EMAIL_UNCLASSIFIED",
+              "DUPLICATE_RECORD",
+              "INVALID_TIMESTAMP",
+              "INVALID_URL",
+              "INVALID_RECORD",
+              "INVALID_JSON",
+              "JSON_LIMIT",
+              "MALFORMED_MIME",
+              "UNSUPPORTED_ENCODING",
+              "MISSING_SENDER",
+              "ORIGIN_CONFLICT",
+              "HTML_ONLY_IGNORED",
+              "UNAVAILABLE_HISTORY",
+              "NOT_APPROVED_SYNTHETIC",
+              "FILE_LIMIT",
+              "BATCH_LIMIT",
+              "RECORD_LIMIT",
+              "UNSUPPORTED_FILE",
+              "PARSER_TIMEOUT",
+              "PARSER_FAILED"
+            ],
+            "title": "Code",
+            "type": "string"
+          },
+          "disposition": {
+            "enum": [
+              "normalized",
+              "unresolved",
+              "excluded",
+              "duplicate"
+            ],
+            "title": "Disposition",
+            "type": "string"
+          },
+          "duplicate_of_index": {
+            "anyOf": [
+              {
+                "exclusiveMaximum": 10000.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duplicate Of Index"
+          },
+          "observation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NormalizedObservation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "record_index": {
+            "exclusiveMaximum": 10000.0,
+            "minimum": 0.0,
+            "title": "Record Index",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "record_index",
+          "disposition",
+          "code",
+          "observation",
+          "duplicate_of_index"
+        ],
+        "title": "ImportRecord",
+        "type": "object"
+      },
+      "NormalizedBatch": {
+        "additionalProperties": false,
+        "properties": {
+          "schema_version": {
+            "const": "phase2-normalized-v1",
+            "title": "Schema Version",
+            "type": "string"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/SourceResult"
+            },
+            "maxItems": 20,
+            "title": "Sources",
+            "type": "array"
+          },
+          "synthetic_only": {
+            "const": true,
+            "title": "Synthetic Only",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "schema_version",
+          "synthetic_only",
+          "sources"
+        ],
+        "title": "NormalizedBatch",
+        "type": "object"
+      },
+      "NormalizedObservation": {
+        "additionalProperties": false,
+        "properties": {
+          "adapter": {
+            "enum": [
+              "email_eml_v1",
+              "browser_chrome_json_v1"
+            ],
+            "title": "Adapter",
+            "type": "string"
+          },
+          "domain": {
+            "maxLength": 68,
+            "pattern": "^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.test$",
+            "title": "Domain",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "site_visit_observed",
+              "unclassified_observation"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "occurred_at": {
+            "anyOf": [
+              {
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{3}(?:\\d{3})?)?Z$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Occurred At"
+          },
+          "origin": {
+            "enum": [
+              "browser_record",
+              "unverified_sender"
+            ],
+            "title": "Origin",
+            "type": "string"
+          },
+          "summary_code": {
+            "enum": [
+              "VISIT_RECORDED",
+              "EMAIL_RECEIVED_UNVERIFIED"
+            ],
+            "title": "Summary Code",
+            "type": "string"
+          },
+          "time_status": {
+            "enum": [
+              "valid",
+              "invalid",
+              "missing"
+            ],
+            "title": "Time Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "adapter",
+          "kind",
+          "domain",
+          "occurred_at",
+          "summary_code",
+          "origin",
+          "time_status"
+        ],
+        "title": "NormalizedObservation",
+        "type": "object"
+      },
+      "SourceResult": {
+        "additionalProperties": false,
+        "properties": {
+          "adapter": {
+            "enum": [
+              "email_eml_v1",
+              "browser_chrome_json_v1"
+            ],
+            "title": "Adapter",
+            "type": "string"
+          },
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/ImportRecord"
+            },
+            "maxItems": 10000,
+            "title": "Records",
+            "type": "array"
+          },
+          "source_id": {
+            "pattern": "^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$",
+            "title": "Source Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_id",
+          "adapter",
+          "records"
+        ],
+        "title": "SourceResult",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "ValidationReceipt": {
+        "additionalProperties": false,
+        "properties": {
+          "records": {
+            "title": "Records",
+            "type": "integer"
+          },
+          "schema_version": {
+            "const": "phase2-normalized-v1",
+            "default": "phase2-normalized-v1",
+            "title": "Schema Version",
+            "type": "string"
+          },
+          "synthetic_only": {
+            "const": true,
+            "default": true,
+            "title": "Synthetic Only",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "records"
+        ],
+        "title": "ValidationReceipt",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "PV1 Phase 2 synthetic validation",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/validate": {
+      "post": {
+        "description": "Validation only: no echo, logging, persistence or downstream processing.",
+        "operationId": "validate_normalized_validate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NormalizedBatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationReceipt"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Validate Normalized"
+      }
+    }
+  }
+}
