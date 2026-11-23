@@ -3,7 +3,7 @@
 Date: 2026-11-23 (Asia/Calcutta). Scope: safe synthetic-only import pipeline.
 Branch: `phase2/local-synthetic-import`, based on updated main at Phase 1 merge
 `f0d7974e620e5d11b5fa923669a47a6afa97e5e3`.
-Status: implementation complete; final validation and review PR publication underway.
+Status: **implemented and validated; PR #2 open for review, not merged**.
 No merge, deployment, real-user data or later phase is authorized.
 
 ## Implemented behavior and data flow
@@ -146,8 +146,76 @@ fixed before the final full checks. No ground-truth expectation was changed to f
 parser results, and no product accuracy or independent security review is claimed.
 A local Docker executable/engine is unavailable (`Get-Command docker` found none).
 Docker startup/migration/cleanup is verified in clean-checkout GitHub CI instead;
-no local Docker pass is invented. Clean-checkout and remote results follow in the
-completion evidence added after those runs finish.
+no local Docker pass is invented.
+
+## Clean-checkout and GitHub evidence
+
+A fresh clone of the published branch was created at
+`.local/phase2-clean-checkout-remote-edf1622` using:
+
+```text
+git -c safe.directory=I:/FootPrint clone --no-hardlinks --branch phase2/local-synthetic-import https://github.com/ankit8github/FootPrint.git I:\FootPrint\.local\phase2-clean-checkout-remote-edf1622
+uv sync --project backend --frozen
+npm.cmd ci --prefix frontend --cache I:\FootPrint\.cache\npm
+```
+
+All installs passed. In that checkout, backend ruff lint/format, mypy, pytest,
+original/Phase 2 OpenAPI checks and corpus validation passed. The original-source
+backend run reported 128 passed in 12.68 seconds. Client contract/lint/type/unit/
+build/browser checks passed after fast-forwarding the contract portability fix;
+91 frontend tests passed in 7.55 seconds, and three Playwright tests passed in
+11.9 seconds. Exact commands match the local table above; install/check outputs
+are retained in `.local/phase2-validation/clean-checkout.json`. No root `.env`,
+virtual environment, node_modules or untracked fixture was copied into that clone.
+
+The initial local-path clone failed on Git's separate repository ownership check;
+the remote clone succeeded without changing global Git safety settings. The fresh
+Windows checkout then exposed CRLF line endings in generated TypeScript, causing
+the original contract comparator to report stale content. Commit
+`8435f8f2fd17cb0d48fcadf70c3792be2c55f124` normalizes CRLF only when comparing
+both generated clients. Neither declaration content nor the Phase 0 contract was
+changed. The isolated checkout fetched/fast-forwarded that fix, then its complete
+client/contract/browser suite passed. Earlier failed commands remain in the log;
+the report does not present them as successful first attempts.
+
+GitHub clean-checkout runs for source
+`8435f8f2fd17cb0d48fcadf70c3792be2c55f124` both completed successfully:
+
+- [Push CI 45116399114](https://github.com/ankit8github/FootPrint/actions/runs/45116399114): SUCCESS.
+- [PR CI 45116405981](https://github.com/ankit8github/FootPrint/actions/runs/45116405981): SUCCESS.
+
+The earlier implementation-source push run
+[45116033390](https://github.com/ankit8github/FootPrint/actions/runs/45116033390)
+also passed; its logs explicitly record 128 backend, 91 frontend and three browser
+tests, zero known package vulnerabilities, and PostgreSQL upgrade, constraint
+validation, downgrade and re-upgrade with no personal tables. The final-source
+workflow repeats those locked-install, Python/client/audit, Docker migration,
+browser and cleanup checks. Docker execution is real GitHub-runner evidence,
+not an inference from a workflow file. The report-only completion follow-up
+changes no executable input and allows CI to run again; final-head check links
+are recorded on PR #2 after verification.
+
+[PR #2](https://github.com/ankit8github/FootPrint/pull/2) targets main from
+`phase2/local-synthetic-import`. It remains open and unmerged. The GitHub connector
+could read but lacked write permission; the PR was created through the existing
+Git credential helper, with credentials kept only in memory and never logged.
+No new integration credentials, deployment or merge action was introduced.
+
+## Phase 2 exit gates
+
+| Gate | Result / evidence |
+| --- | --- |
+| New branch from approved Phase 1 merge | PASS; base f0d7974, review PR #2 |
+| Local synthetic-only versioned adapters and transient lifecycle | PASS; exact fixture gate, real workers, timeout/cancel/unmount tests, clear/reload with no browser persistence |
+| Bounded MIME/JSON and resource rejection | PASS; malformed/encoding/injection/HTML/attachment cases, byte/count/depth/part limits and generated synthetic stress cases |
+| Safe domain/time/minimization and c12 | PASS; ICANN/private suffix tests, unsafe host rejection, all six timestamp rows excluded, microseconds retained, no raw fields emitted |
+| Strict API boundary and static errors | PASS; extra/raw fields, multipart, malformed/oversized JSON, invalid types/dates/provenance rejected; count-only response |
+| Secret/log/browser-egress checks | PASS for tested synthetic vectors; zero uploads, sentinel request/log leakage or external browser requests observed |
+| Phase 0/1 preservation | PASS; existing 76 backend tests and original three UI/one smoke checks preserved; original contracts and full corpus untouched |
+| Lint/types/contracts/build/audits | PASS locally and in clean-checkout CI; no known vulnerabilities reported |
+| Clean checkout and Docker migration regression | PASS; fresh Windows clone plus successful Ubuntu GitHub Docker/migration/browser/cleanup runs |
+| Review handoff | READY FOR REVIEW; PR #2 open; no merge or deployment |
+| Real-user/private-beta readiness | OUT OF SCOPE; not claimed or authorized |
 
 ## Limitations and exit gates
 
