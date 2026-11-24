@@ -3,8 +3,9 @@
 Date: 2026-11-24 (Asia/Calcutta). Branch: `phase6b/oidc-protocol-spike`.
 Base main: `167da1d9da59acbb5cfb67cb67a5a2ea78cfefbb`, synchronized and clean at
 pre-flight; contains Phase 6A merge `756989a1ddc1e6fa108b320bddd16361e3c4a6d9`.
-Status: local implementation/checks complete; PR/CI delivery evidence is recorded
-below after execution. **Phase 6B-01 only; do not merge or start 6B-02/6C.**
+Status: implementation, local checks and fresh GitHub CI complete; delivered in
+[PR #7](https://github.com/ankit8github/FootPrint/pull/7), open and unmerged.
+**Phase 6B-01 only; do not merge or start 6B-02/6C.**
 
 ## Scope and file inventory
 
@@ -146,8 +147,8 @@ and `frontend`, each command independently captured and required to exit zero:
 
 `PLAYWRIGHT_BROWSERS_PATH=I:/FootPrint/.cache/ms-playwright` for browser checks.
 Docker is not installed on this Windows host (`Get-Command docker` found no
-executable); no local Docker pass is claimed. Fresh GitHub CI will run the
-unchanged disposable scaffold migration roundtrip and record its actual result.
+executable); no local Docker pass is claimed. Fresh GitHub CI ran the unchanged
+disposable scaffold migration roundtrip successfully, as recorded below.
 P5-F01 (bundle size) and P5-F02 (real action verification) stay open.
 
 ## Documentation and preservation validation
@@ -163,11 +164,50 @@ All Phase 6A diagrams are unchanged; no new UI or diagram was introduced.
 
 ## Delivery and stop
 
-PR #7, exact head, final file inventory and GitHub CI/security links will be recorded
-after push and observed completion. Local documentation/baseline validation passed:
+Implementation commit: `f14e347e8454b327578955475e057328bdbd4307`.
+PR [#7](https://github.com/ankit8github/FootPrint/pull/7) targets main and remains
+open/unmerged. Its ten-file inventory is above. Local documentation/baseline validation passed:
 25 local links/fragments, 144 original files unchanged, prior ADR history preserved,
 existing dependency records unchanged, and all ten acceptance rows present. No
 original oracle or runtime gate changes are authorized.
+
+| Fresh GitHub check for implementation commit | Observed result |
+| --- | --- |
+| [Push CI 45346765419](https://github.com/ankit8github/FootPrint/actions/runs/45346765419) | SUCCESS; every job and step succeeded |
+| [PR CI 45346783636](https://github.com/ankit8github/FootPrint/actions/runs/45346783636) | SUCCESS; every job and step succeeded |
+| [GitGuardian 138283253692](https://github.com/ankit8github/FootPrint/runs/138283253692) | SUCCESS; not independent security review |
+
+Both workflows used fresh Ubuntu 22.04 checkouts and pinned Python/Node/uv with
+locked dependency installation. The push job log was inspected and explicitly
+reports 234 backend tests, 284 frontend tests, nine browser tests, clean audits
+and `PASS: PostgreSQL upgrade, constraint enforcement, downgrade, re-upgrade; no personal tables.`
+Docker evidence is the preserved scaffold only, not an auth or tenant migration.
+No future session/recovery/tenant/deletion test is counted as passed here.
+
+Delivery commands actually executed from repository root:
+
+```powershell
+git -c safe.directory=I:/FootPrint commit -m "feat: add isolated fictional OIDC protocol spike and feasibility review"
+git -c safe.directory=I:/FootPrint push -u origin phase6b/oidc-protocol-spike
+python .local/phase6b01-validation/github_delivery.py create-pr
+python .local/phase6b01-validation/github_delivery.py ci
+python .local/phase6b01-validation/github_delivery.py review-state
+python .local/phase6b01-validation/validate_delivery.py
+```
+
+The existing authorized Git credential helper is used in memory for GitHub REST
+delivery; no credential is printed or saved in validation output. Safe CI/job/step
+metadata is stored under ignored validation tooling. Public documentation,
+dependency/audit tooling and GitHub CI use external services; the mock protocol
+runtime itself has no external network route. No live identity provider API call
+or account provisioning was performed. At verification there were no submitted
+reviews or inline review comments; CI does not imply review approval.
+
+This report-only follow-up records implementation evidence without changing code.
+Its exact final head and final fresh push/PR CI links are recorded in the PR
+description after verification rather than embedding a self-referential hash here.
+The feature branch is synchronized and checked clean after delivery; main remains
+at the pre-flight SHA. No merge is performed.
 
 Auth0 remains conditional; current plan/region/cost, recovery and MFA-reset event
 coverage are unverified for FootPrint. There is no live provider account, signup,
