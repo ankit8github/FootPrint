@@ -1,7 +1,8 @@
 # Phase 6B-02 report: opaque sessions, CSRF and revocation
 
 Date: 2026-11-24. Status: implemented experimental fixture; **not production auth**.
-Branch: `phase6b/opaque-session-csrf`. Review against main, **do not merge**.
+Implementation branch: `phase6b/opaque-session-csrf`. Initial delivery was held
+for review; subsequent explicitly authorized merge finalization is recorded below.
 Base: `fb0db1300a117e07a7992a7b2675bd8a8ebe5faa`, containing Phase 6B-01 merge
 `bfaa9585167771f6e49b849ec9ecb88fa0501579`. Preflight verified clean synchronized
 main and ancestry before branching; origin/main was re-fetched and confirmed
@@ -118,8 +119,8 @@ No scenario labels, survivor oracles or synthetic gate bytes were edited.
 
 ## GitHub delivery evidence
 
-[PR #8](https://github.com/ankit8github/FootPrint/pull/8) is open against main,
-unmerged, with the ten-file inventory above. Implementation head:
+At initial delivery, [PR #8](https://github.com/ankit8github/FootPrint/pull/8) was
+open and unmerged against main, with the ten-file inventory above. Implementation head:
 `f9ca10faa7a9425b23222e5c5fbebfc2ad70d66f`.
 
 | Observed check on implementation head | Result |
@@ -159,8 +160,9 @@ python .local/phase6b02-validation/github_delivery.py review-state
 This follow-up changes only the report. Baseline/document checks are repeated
 before its commit. The exact final head and newest push/PR/GitGuardian results
 are recorded in the PR body and delivery response after observation, avoiding a
-self-referential report commit hash. PR must remain open and unmerged for
-product-owner/security review.
+self-referential report commit hash. The PR was left open and unmerged for
+product-owner/security review at that delivery; later merge authorization and
+verification are recorded in the finalization section below.
 
 ## Limitations and stop gate
 
@@ -186,7 +188,105 @@ ADR-022 is also PROPOSED. P5-F01 Vite chunk remediation and P5-F02 independently
 verified real-world action links remain tracked future work. Fictional reviewed
 `.test` actions and browser-local transient raw parsing remain unchanged.
 
-Stop after this PR: no merge, live provider/account, durable auth/personal-data
+Initial delivery stopped for review. Subsequent authorization permits Phase 6B-02
+merge finalization only. No live provider/account, durable auth/personal-data
 storage, saved-footprint APIs, tenant tables/RLS, Phase 6B-03/6C, real-data import,
-public deployment or beta invitations. Further implementation requires separate
-authorization and review; no production readiness or compliance claim is made.
+public deployment or beta invitations are authorized. Further implementation
+requires separate authorization and review; no production readiness or compliance
+claim is made.
+
+## Merge finalization — 2026-11-24
+
+The product owner's subsequent instruction explicitly authorized finalization of
+PR #8. Immediately before merging, the guarded verification reconfirmed exact head
+`14bda0d64445a10c356330cd16544806d2995345`, main base
+`fb0db1300a117e07a7992a7b2675bd8a8ebe5faa`, synchronized clean feature branch,
+the exact ten files above, open/non-draft state and clean mergeability. GitHub
+review APIs and the connector showed zero submitted reviews, zero inline review
+threads/comments and zero discussion comments; there were no blocking comments.
+The merge helper repeated the checks immediately before the expected-head merge.
+
+**Authoritative merge commit:**
+[`394130d0776eca2f27d52f806d172ba5ca626117`](https://github.com/ankit8github/FootPrint/commit/394130d0776eca2f27d52f806d172ba5ca626117).
+GitHub confirmed PR #8 merged at `2026-11-24T10:26:33Z`, closed, using method
+`merge`. Its ordered parents are the verified main base and exact PR head above;
+this was neither squash nor rebase. The merge tree is identical to the reviewed
+PR tree. Local main was fast-forwarded to origin/main at this merge.
+
+### Reverified final PR checks
+
+| Check on exact expected PR head | Observed result |
+| --- | --- |
+| [Final push CI 45363750003](https://github.com/ankit8github/FootPrint/actions/runs/45363750003) | SUCCESS, every job/step |
+| [Final PR CI 45363758563](https://github.com/ankit8github/FootPrint/actions/runs/45363758563) | SUCCESS, every job/step |
+| [Final GitGuardian 138340114510](https://github.com/ankit8github/FootPrint/runs/138340114510) | SUCCESS, secret scanning only |
+| Other check runs / legacy statuses | All check runs successful; no pending/failing legacy contexts |
+| Local boundary regression | `uv run --frozen pytest -q tests/test_session_security.py::test_default_fixture_normal_app_and_method_boundaries`: **1 passed in 3.33s** |
+| Local baseline/docs | PASS: 153 original files unchanged from pre-6B-02 base, ten-file scope, preserved prior ADR text, 29 local links/fragments and unchanged corpus manifest |
+
+These CI runs cover all **351 backend tests**, including all **117 session cases**
+and **84 prior OIDC cases**, 284 frontend tests, nine browser scenarios,
+lint/format/types/contracts/corpus/audits and the preserved Docker scaffold
+migration roundtrip. Earlier full local execution remains recorded above; the
+complete suites were not rerun locally just to change this report.
+
+[Post-merge main CI 45374839500](https://github.com/ankit8github/FootPrint/actions/runs/45374839500)
+completed **SUCCESS** on authoritative merge
+`394130d0776eca2f27d52f806d172ba5ca626117`, with every job/step and its check
+run successful. Decoded logs reconfirmed 351 backend tests, 284 frontend tests,
+nine browser scenarios, clean audits and the PostgreSQL scaffold roundtrip with
+no personal tables. This is not production authentication or tenant-isolation
+verification.
+
+### Preservation and completion scope
+
+Only this report changes after the verified merge. All **162 other tracked files**
+from the PR head are unchanged, including all six new Python files, the original
+OIDC implementation/tests, application/frontend, dependencies/locks, contracts,
+migrations and CI workflow. The exact approved corpus hash, 29 initial scenarios,
+six survivor oracles, SHA-256 import gate and historical Phase 0–6B-01 behavior
+remain intact. ADR-015 through ADR-022 are byte-for-byte unchanged from the
+reviewed head and explicitly **PROPOSED**.
+
+The fixture remains default-disabled, explicitly activated for fictional ASGI
+tests only, absent from normal FastAPI routing/OpenAPI, with no serving CLI or
+public activation flag. The boundary regression was rerun before merge. Existing
+transient processing and reviewed fictional actions are preserved. This edit does
+not implement any new session functionality or change the security assumptions.
+
+Unresolved limitations remain: one-process ephemeral revocation/fences, no real
+browser TLS/proxy assurance, shared-host loopback cookie limitations, no durable
+session/tenant storage, no actual MFA/step-up freshness, no verified upstream logout
+or real recovery event integration, no production credential/key custody, and no
+independent security assessment. Auth0/vendor, named ownership, legal/retention and
+independent review decisions remain conditional. P5-F01 bundle remediation and
+P5-F02 genuine action verification remain future work.
+
+Commands executed from root during finalization, in addition to the boundary
+pytest command above executed from `backend` with the repository UV cache:
+
+```powershell
+git -c safe.directory=I:/FootPrint fetch origin
+python .local/phase6b02-validation/validate_delivery.py
+python .local/phase6b02-validation/finalize.py verify
+python .local/phase6b02-validation/finalize.py merge
+git -c safe.directory=I:/FootPrint switch main
+git -c safe.directory=I:/FootPrint merge --ff-only origin/main
+git -c safe.directory=I:/FootPrint show -s --format='%H%n%P%n%s' HEAD
+git -c safe.directory=I:/FootPrint diff --exit-code 14bda0d64445a10c356330cd16544806d2995345 HEAD
+python .local/phase6b02-validation/finalize.py ci-current
+python .local/phase6b02-validation/validate_finalization.py
+```
+
+The ignored helper uses existing Git credentials in memory without printing or
+saving secrets. Report-only completion verification passed: the merge has the
+correct two parents and exact reviewed tree; all other 162 files and ADR statuses
+are preserved, corpus hash unchanged, document/baseline checks and whitespace
+checks pass. Local main was synchronized before this report edit and is checked
+again after its commit/push for a clean working tree and equality with origin/main.
+Final completion HEAD and its newest main CI are reported in the finalization
+response to avoid a self-referential commit hash.
+
+**Stop after Phase 6B-02 finalization.** No Phase 6B-03/6C, persistent sessions,
+tenant databases, real provider connection, login UI, real-user processing,
+deployment or beta users; the default-disabled experimental boundary is unchanged.
