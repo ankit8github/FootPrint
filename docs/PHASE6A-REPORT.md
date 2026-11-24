@@ -3,8 +3,9 @@
 Date: 2026-11-24 (Asia/Calcutta). Branch: `phase6a/security-architecture`.
 Base: synchronized clean main `3029b0d60213be4d6f9f1951c9e9728d5324461d`, containing
 authoritative Phase 5 merge `d0b7e50e7d459ef23e545982104205453fdbe916`.
-Status: architecture and local validation complete; GitHub review delivery is
-being recorded. **Proposed for review; do not merge or begin 6B.**
+Status: architecture, local validation and fresh GitHub CI complete; delivered in
+[PR #6](https://github.com/ankit8github/FootPrint/pull/6), open and unmerged.
+**Proposed for review; do not merge or begin 6B.**
 
 ## Deliverables and decisions
 
@@ -151,10 +152,56 @@ Cold-network/CPU lab budgets in the design are proposed future measurements, not
 an experiment executed in 6A. Docker is unavailable on this Windows host; any
 current Docker result is reported only after actual GitHub CI execution below.
 
+## Fresh GitHub CI and review delivery
+
+Design commit: `4adee877240b4891c07e3cda18dbf9bc74178dc0` on
+`phase6a/security-architecture`, based on the unchanged main SHA above.
+
+| Run/check | Actual result |
+| --- | --- |
+| [Push CI 45333899161](https://github.com/ankit8github/FootPrint/actions/runs/45333899161) | SUCCESS, every job step completed successfully |
+| [PR CI 45334038151](https://github.com/ankit8github/FootPrint/actions/runs/45334038151) | SUCCESS, every job step completed successfully |
+| [GitGuardian 138241783758](https://github.com/ankit8github/FootPrint/runs/138241783758) | SUCCESS; not an independent security assessment |
+
+The unchanged workflow ran fresh Ubuntu 22.04 checkouts with pinned Python/Node/uv,
+locked installation, Python lint/format/types/150 tests/contracts/corpus/audit,
+client contracts/lint/types/284 tests/build/audit, disposable Docker PostgreSQL,
+and nine Chromium browser scenarios. The push job log explicitly reports:
+`PASS: PostgreSQL upgrade, constraint enforcement, downgrade, re-upgrade; no personal tables.`
+This is only the existing scaffold check, not the proposed tenant schema, RLS or
+production migration/deletion proof. The >500-kB Vite warning remains unchanged.
+
+Delivery commands actually executed from the repository root include:
+
+```powershell
+git -c safe.directory=I:/FootPrint commit -m "docs: propose Phase 6A security architecture and review gates"
+git -c safe.directory=I:/FootPrint push -u origin phase6a/security-architecture
+python .local/phase6a-validation/delivery.py create-pr
+python .local/phase6a-validation/delivery.py ci
+python .local/phase6a-validation/delivery.py review-state
+```
+
+The GitHub connector returned HTTP 403 for PR creation; the repository's existing
+Git credential helper and GitHub REST API created the explicitly requested PR.
+Credentials stay in process memory, with no credential output or saved token.
+The ignored delivery helper records safe PR/run/job/step metadata. CI status was
+verified through GitHub's API, and the push job log was inspected for test counts,
+audits and the migration roundtrip. No review approvals are inferred from CI;
+at this check there were no submitted reviews or inline review comments.
+
+This report-only follow-up records the successful design-commit evidence above.
+Its exact final head and fresh final push/PR check links are recorded in the PR
+description after verification, avoiding a self-referential commit hash in this
+file. Local documentation/baseline checks are rerun after this report edit.
+
 ## Exit and delivery
 
-Local documentation, diagram and baseline checks passed. GitHub CI/review PR
-details are recorded after delivery. No merge,
-production auth/persistence/schema, real inputs, live integrations, deployment or
-private-beta invitations authorized. Stop at product-owner/architecture review;
-Phase 6B requires a new explicit implementation instruction.
+All four documents, six proposed ADRs, gate matrix and unchanged synthetic baseline
+are delivered for product-owner/architecture review in open **PR #6**. Main is
+unchanged; the feature branch is retained for review. The working tree is checked
+clean after delivery. P5-F01 and P5-F02 remain open future issues.
+
+No merge, production auth/persistence/schema, real inputs, live integrations,
+deployment or private-beta invitations authorized. Stop here; Phase 6B requires
+a new explicit implementation instruction. Architecture acceptance, named owners,
+legal/retention decisions and independent security review remain unresolved.
