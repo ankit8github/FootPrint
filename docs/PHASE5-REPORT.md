@@ -4,9 +4,10 @@ Date: 2026-11-24 (Asia/Calcutta). Scope: first integrated browser-local,
 synthetic-only MVP. Branch: `phase5/integrated-synthetic-mvp`.
 Base: clean synchronized main `20709ccc21fec9c49b0af7c316fdc9a0f1caee96`, whose
 parent is Phase 4 merge `f3dd579db4ef87d4adbbb2d771224deba6923133`.
-Status: implementation and validation complete; PR #5 open for product-owner /
-architecture review. This report follow-up changes documentation only.
-Review only: no merge or deployment authorized.
+Status: **Phase 5 complete; PR #5 merged into main** under the user's subsequent
+explicit finalization instruction after exact-head/CI/review-state verification.
+The original implementation handoff and evidence are preserved below; the final
+completion record provides the authoritative merge. No deployment authorized.
 
 ## Architecture and experience
 
@@ -231,15 +232,83 @@ audits and all nine browser scenarios. Full arrays, outputs and exit codes are i
 cross-language harness bound remains separate from the five-second production
 worker deadline. Fresh checkout and both CI runs passed on first execution.
 
-[PR #5](https://github.com/ankit8github/FootPrint/pull/5) targets main and is open,
-unmerged. The GitHub connector could read but returned integration permission
+At the implementation handoff, [PR #5](https://github.com/ankit8github/FootPrint/pull/5)
+targeted main and was open, unmerged. The final completion record below supersedes
+that status under the user's subsequent explicit finalization instruction.
+The GitHub connector could read but returned integration permission
 denied for PR creation; the authorized creation used the repository's existing
 Git credential helper. Credentials remained in memory, never logged or saved.
 No app permissions were changed. No review comments/threads were present at the
 implementation evidence check; no independent human review is claimed.
 
-This final documentation-only follow-up records completed evidence and the
-acceptance checklist. Final-head check links and exact review head are maintained
-in the PR description and delivery response, avoiding a self-referential commit
-hash inside its own report. Main remains unchanged at the base SHA above.
-No merge, deployment, real-user data or Phase 6 work performed. Stop for review.
+The implementation handoff's documentation-only follow-up recorded completed
+evidence and the acceptance checklist. Exact review head and final-head CI links
+were maintained in the PR description/delivery response. Main was unchanged at
+the base SHA, and no merge, deployment, real-user data or Phase 6 work had been
+performed. That handoff stopped for review; the later explicit finalization
+instruction authorized only the merge and completion recording below.
+
+
+## Final Phase 5 completion record
+
+Date: 2026-11-24 (Asia/Calcutta). Authority: the user's explicit PR #5 finalization
+instruction. **Phase 5 is complete.** This is a documentation-only completion
+record after the authorized merge; no new product behavior is introduced.
+
+- PR: [#5](https://github.com/ankit8github/FootPrint/pull/5), merged into `main`
+  using a merge commit only, with no squash, rebase or branch deletion.
+- Authoritative merge SHA: `d0b7e50e7d459ef23e545982104205453fdbe916`.
+- GitHub merge timestamp (UTC): `2026-11-24T04:50:11Z`.
+- Rechecked unchanged PR head: `59954281ee84a14486f2d649088971800c4b7645`.
+- Prior main: `20709ccc21fec9c49b0af7c316fdc9a0f1caee96`.
+- [Final push CI 45328068179](https://github.com/ankit8github/FootPrint/actions/runs/45328068179):
+  **SUCCESS**, every job and step at the exact final PR head.
+- [Final PR CI 45328076881](https://github.com/ankit8github/FootPrint/actions/runs/45328076881):
+  **SUCCESS**, every job and step at the exact final PR head.
+- [GitGuardian Security Checks](https://github.com/ankit8github/FootPrint/runs/138222370702):
+  **SUCCESS** at the exact final PR head; all three reported check runs succeeded.
+
+Immediately before merging, GitHub and local Git agreed on the expected head/base,
+two Phase 5 commits and exact 16-file diff. Both final CI runs were independently
+rechecked with all jobs/steps successful, including Docker migration roundtrip and
+cleanup. There were no review submissions, conversation comments, inline comments
+or review threads, hence no unresolved blocking review comments. No unexpected
+changes were found and no independent human review or reviewer is claimed.
+
+The GitHub integration could read but could not merge (permission-denied response).
+The already authorized merge used the repository's existing Git credential helper
+with an exact-head SHA guard and merge method `merge`. Credentials stayed in
+memory, never logged/saved; application permissions were unchanged. GitHub and
+local Git verified exactly two merge parents (prior main, then reviewed head)
+and a merge tree identical to the reviewed PR tree. The feature branch/history
+remain intact at the approved head.
+
+Preservation checks passed again: the exact approved SHA-256/adapter gate, reserved
+synthetic domains, file/count/MIME/JSON bounds and five-second worker deadline;
+browser-local transient processing without uploads/logs/storage; literal reviewed
+fictional action directory with opened-only state; and complete remaining-source
+recomputation with duplicate alternatives and stale evidence/action retirement.
+All 29 immutable Phase 1 scenarios, six survivor oracles, original source hashes,
+review materials and Phase 0-4 routes/tests/engines/contracts/API/migrations/locks
+remain as reviewed. Corpus status remains product-owner-approved, AI-assisted
+baseline. Existing validated results remain 150 backend tests, 284 frontend tests,
+nine Playwright scenarios and successful lint/types/contracts/corpus/build/audits,
+fresh checkout and Docker-enabled CI. Finalization rechecks this exact-head
+evidence and preservation; it does not rewrite labels or implement new features.
+
+### Tracked future issues
+
+- [ ] **P5-F01 — Vite bundle size:** existing >500-kB main-chunk advisory remains
+  a nonblocking performance concern (527.58 kB / gzip 192.99 kB). Future
+  performance review is deferred; no warning threshold or runtime refactor changed.
+- [ ] **P5-F02 — Real-world action verification:** live ownership/URL verification,
+  maintenance responsibility and freshness/redirect policy remain future review
+  items before any real-world directory is introduced. Current entries remain
+  reviewed fictional `.test` examples; no live control or completed deletion is
+  claimed. No network verification or new action capability was enabled.
+
+Only this report changes after the merge to record completion. Its documentation
+commit does not change the authoritative merge SHA or the validated product tree.
+Local main is synchronized with origin/main, including this record, and the final
+working tree is clean. No deployment, personal-data persistence, real-user import
+enablement or Phase 6 implementation occurred. Work stops after finalization.
