@@ -3,9 +3,11 @@
 Date: 2026-11-24 (Asia/Calcutta). Branch: `phase6a/security-architecture`.
 Base: synchronized clean main `3029b0d60213be4d6f9f1951c9e9728d5324461d`, containing
 authoritative Phase 5 merge `d0b7e50e7d459ef23e545982104205453fdbe916`.
-Status: architecture, local validation and fresh GitHub CI complete; delivered in
-[PR #6](https://github.com/ankit8github/FootPrint/pull/6), open and unmerged.
-**Proposed for review; do not merge or begin 6B.**
+Status: documentation-only finalization authorized and
+[PR #6](https://github.com/ankit8github/FootPrint/pull/6) merged using a merge
+commit. **All six new ADRs remain PROPOSED; do not begin Phase 6B.**
+The earlier review handoff below is historical; the finalization section records
+the later explicit merge authorization and authoritative merge evidence.
 
 ## Deliverables and decisions
 
@@ -197,11 +199,92 @@ file. Local documentation/baseline checks are rerun after this report edit.
 ## Exit and delivery
 
 All four documents, six proposed ADRs, gate matrix and unchanged synthetic baseline
-are delivered for product-owner/architecture review in open **PR #6**. Main is
-unchanged; the feature branch is retained for review. The working tree is checked
-clean after delivery. P5-F01 and P5-F02 remain open future issues.
+were delivered for product-owner/architecture review in **PR #6**. At the original
+handoff, main was unchanged and the feature branch was clean and synchronized.
+P5-F01 and P5-F02 remain open future issues.
 
-No merge, production auth/persistence/schema, real inputs, live integrations,
-deployment or private-beta invitations authorized. Stop here; Phase 6B requires
-a new explicit implementation instruction. Architecture acceptance, named owners,
-legal/retention decisions and independent security review remain unresolved.
+The original instruction prohibited merging; the later explicit finalization
+instruction authorized only verification, a merge commit and this completion
+record. It does not authorize production auth/persistence/schema, real inputs,
+live integrations, deployment, provisioning or private-beta invitations. Phase 6B
+requires a new explicit implementation instruction. Architecture acceptance,
+vendor suitability, named owners, legal/retention decisions and independent
+security review remain unresolved.
+
+## Authorized finalization — 2026-11-24
+
+The product owner's subsequent instruction explicitly authorized merging the
+verified head with existing Git credentials, while keeping all six ADRs PROPOSED
+and all unresolved decisions open. Merging the documentation is not implementation
+approval, vendor selection approval, legal sign-off or independent assessment.
+
+- Verified PR head: `53f3b27ec158717ec19b4489acce012cb90bf296` (unchanged).
+- Verified base main: `3029b0d60213be4d6f9f1951c9e9728d5324461d`.
+- Authoritative merge commit: [`756989a1ddc1e6fa108b320bddd16361e3c4a6d9`](https://github.com/ankit8github/FootPrint/commit/756989a1ddc1e6fa108b320bddd16361e3c4a6d9).
+- GitHub merge time: `2026-11-24T06:24:46Z`; PR state is closed/merged.
+- Merge parents, in order: the verified base and verified PR head above. The
+  GitHub API used `merge_method: merge` and the exact expected head SHA, and the
+  returned SHA was confirmed against PR metadata and both commit parents. No
+  squash or rebase was used.
+
+### Reverified final-head evidence before merge
+
+| Evidence | Reverified result |
+| --- | --- |
+| [Final push CI 45334424885](https://github.com/ankit8github/FootPrint/actions/runs/45334424885) | SUCCESS, exact expected head; every job and step succeeded |
+| [Final PR CI 45334433307](https://github.com/ankit8github/FootPrint/actions/runs/45334433307) | SUCCESS, exact expected head; every job and step succeeded |
+| [Final GitGuardian 138243033329](https://github.com/ankit8github/FootPrint/runs/138243033329) | SUCCESS, exact expected head; not independent security review |
+| Review/discussion state | Zero submitted reviews, zero inline review comments and zero discussion comments; no blocking review comments |
+| GitHub mergeability | `mergeable: true`, `mergeable_state: clean`; PR open, not draft, target main |
+| Diff and local checks | Only five expected Markdown paths; local links/fragments, requirements, seven gates, append-only ADR and unchanged baseline checks passed |
+
+Both final CI workflows include the unchanged lint/types/contracts/audits, backend
+150 tests, frontend 284 tests, nine browser scenarios and Docker migration checks.
+These remain evidence for the synthetic scaffold, not proposed tenant controls.
+All check-run conclusions were successful; any legacy commit-status contexts were
+also checked for failures. Verification was repeated immediately before merging.
+
+[Post-merge main CI 45340260553](https://github.com/ankit8github/FootPrint/actions/runs/45340260553)
+also completed successfully on authoritative merge
+`756989a1ddc1e6fa108b320bddd16361e3c4a6d9`, including the Docker migration and
+browser steps. Its check run succeeded; no new security controls are inferred.
+
+### Synchronization and preserved scope
+
+Local main was fast-forwarded from the original base to the authoritative merge.
+This completion edit changes only this report after the merge. ADR-015–020 are
+unchanged and **PROPOSED**. The other three Phase 6A design documents, original
+history, application, tests, dependencies, workflow, API contracts, migrations and
+immutable corpus remain unchanged. The manifest SHA-256 remains the value recorded
+above. The synthetic gate and local transient processing are preserved.
+
+Finalization commands executed from the repository root:
+
+```powershell
+git -c safe.directory=I:/FootPrint fetch origin
+python .local/phase6a-validation/finalize.py verify
+python .local/phase6a-validation/validate_docs.py
+python .local/phase6a-validation/finalize.py merge
+git -c safe.directory=I:/FootPrint switch main
+git -c safe.directory=I:/FootPrint merge --ff-only origin/main
+git -c safe.directory=I:/FootPrint show -s --format='%H%n%P%n%s' HEAD
+python .local/phase6a-validation/finalize.py ci-current
+python .local/phase6a-validation/validate_finalization.py
+```
+
+The finalization validator first rejected its own zero-padded ADR identifier
+comparison; the ignored checker was corrected without changing any ADR. Its
+successful rerun checks merge parents, report-only completion scope, all other
+PR files unchanged, all six PROPOSED statuses and the unchanged corpus hash.
+
+The ignored helper uses the existing credential helper in memory and records
+safe verification/merge metadata without tokens. No new provider or authentication
+configuration is introduced. Final report validation, report-only commit/push and
+clean synchronized main verification complete this task; their exact resulting
+head is reported in the finalization response rather than embedded in its own
+commit. Future performance remediation and real action verification remain open.
+
+Stop after finalization. No Phase 6B, auth implementation, personal-data persistence,
+draft personal-data schema installation, provider provisioning, deployment or
+real-user processing occurs. Unresolved vendor, ownership, legal, retention and
+independent-security-review decisions remain unresolved.
