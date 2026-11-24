@@ -476,3 +476,80 @@ items, counts missing/unexpected outcomes as disagreements, reports Unknown and
 excluded/empty snapshots separately, and is development-set only. Overlapping
 authored examples do not establish real-world accuracy or beta readiness.
 See [PHASE4-REPORT.md](PHASE4-REPORT.md) for exact results, limits and exit gates.
+
+## ADR-013 — Phase 5 transient integration and source recomputation
+
+Date: 2026-11-24 (Asia/Calcutta). Accepted for this explicitly authorized local
+synthetic MVP implementation; product-owner/architecture PR review pending.
+Earlier phase-only exclusions describe their historical handoffs. No real-user,
+persistence, deployment or Phase 6 authority is implied.
+
+`/phase5` composes the unchanged Phase 4 `assessSelectedFiles` entry point in a
+fresh module worker and reuses `AssessmentDetails` fixed vocabulary rendering.
+Phase 2–4 versions, exact approved SHA-256/adapter gate, reserved `.test` output,
+MIME/JSON/resource limits and five-second deadline remain unchanged. No new
+classification rule, API, contract, migration or personal schema is introduced.
+Root and `/phase2`–`/phase4` behavior and tests remain intact.
+
+A single `LocalSession` owns selected File references outside React state. It
+retains those references until removal/clear/withdrawal/navigation/unmount to
+support exact-byte recomputation; it does not read, concatenate or copy raw bytes
+on the main thread. React receives safe source ordinals, minimized assessments,
+static status text and opened action IDs only. File input is reset immediately.
+Workers receive bounded structured-cloned File handles, read via the existing
+gate, then terminate on completion. Temporary decoded text, buffers, feature and
+commercial-reference maps die with the worker. Browser backing-store copies,
+GC timing and OS memory/swap are not controlled; no secure-erasure claim exists.
+
+Every removal immediately retires the entire previous graph, assessments,
+priorities, rationales, provenance and opened state, then calls the same engine
+from only the remaining File references. No partial graph mutation or business
+rule duplication. Duplicate alternatives are rediscovered/promoted correctly;
+confidence never rises from copies. Source labels remain selection ordinals,
+while engine IDs renumber within the current ordered batch; provenance explicitly
+maps these two identities. Unsupported relationships/action associations disappear.
+Action state resets conservatively even for surviving relationships.
+
+A worker identity guard rejects obsolete replies. Completion, timeout, worker
+error/messageerror, constructor/post failure, supersession, clear, withdrawal,
+pagehide and unmount terminate work and clear timers. Failures drop all source
+references and require reselection; there is no main-thread or server fallback.
+`pagehide` also withdraws consent, including potential back/forward-cache restores.
+No persistent storage, logs, telemetry or raw/minimized upload occurs.
+
+Dashboard counts remain per claim rather than per company. Priority, type and
+confidence filter independently; unresolved evidence stays Unknown, excluded rows
+are counted without assessment. Native disclosure details show observed records,
+inferred claims, fixed reasons/limitations and primary/duplicate provenance.
+Results paginate at 50 with complete counts; provenance and excluded indices show
+up to 200 entries with explicit totals. The five-second budget governs worker
+processing, not browser rendering or hardware-specific latency.
+
+Source removal/clear concerns this local session, never external company records,
+original disk files, persistent backups or verified deletion. No persistence or
+backup system is implemented. Existing Vite chunk-size advisory remains a tracked
+nonblocking performance concern; no unrelated bundling refactor or threshold change.
+
+## ADR-014 — Literal reviewed synthetic actions; opened means opening requested
+
+Date: 2026-11-24. Accepted for synthetic demonstration only; review pending.
+Two literal HTTPS `.test` destinations have separate source-review records in
+[PHASE5-ACTION-REVIEWS.md](PHASE5-ACTION-REVIEWS.md). Verification basis is the
+reviewed synthetic design allowlist, not live endpoint validation, independent
+human review, real ownership or a working privacy/deletion control. Each entry
+is exact-domain plus explicitly supported relationship-type scoped. Neither a
+claimed sender nor an inferred organization supplies or generates an official URL.
+
+Links activate only on a user's explicit native link click, in a new tab with
+`noopener noreferrer`. No automatic unsubscribe, revoke, delete, network discovery,
+redirect following, embedded URL fetching or external-response interpretation.
+`opened` means the opening request was activated; popup delivery or external
+success cannot be verified. `.test` normally does not resolve. E2E locally
+intercepts the exact destination rather than contacting it. Other findings show
+**No verified direct link available** and cautious manual guidance.
+
+Only `not started` and `opened` are implemented, transiently. No user-reported
+completion or verified-external-response state is exposed. Every recomputation,
+clear/withdrawal/navigation/unmount retires opened associations. No URL/state
+endpoint or database row is added. Real-world directory operations, live URL
+verification and automated actions require separate future review.

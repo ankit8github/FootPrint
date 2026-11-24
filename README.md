@@ -269,3 +269,35 @@ development set only; it is not real-world accuracy or independent blind review.
 Existing check commands include the new tests automatically. See ADR-012 in
 [DECISIONS.md](docs/DECISIONS.md) and [PHASE4-REPORT.md](docs/PHASE4-REPORT.md)
 for exact checks, limitations and exit gates. PR #4 is for review; do not merge.
+
+## Phase 5 integrated synthetic MVP
+
+Open `http://127.0.0.1:5173/phase5` using the existing loopback start commands.
+Consent and select only unchanged approved corpus v1.1.0 `.eml` and Chrome JSON
+files. The integrated flow runs the unchanged Phase 2–4 gate, parsers, discovery
+and assessment engines in a bounded browser worker; nothing is uploaded or saved.
+
+Review claim counts and independent priority/type/confidence filters, expand a
+finding for fixed explanations, observed vs inferred evidence, confidence,
+unknown claims and safe source/row provenance. Source labels identify selection
+instances rather than filenames. Results paginate at 50; provenance/excluded
+indices display up to 200 with complete counts. Synthetic action links are
+literal reviewed `.test` examples, not real verified services; opening records
+only transient `opened`, never successful deletion. Other findings display
+“No verified direct link available”. See [action review records](docs/PHASE5-ACTION-REVIEWS.md).
+
+Remove any source to discard old findings/actions and fully recompute from the
+remaining selected files, including duplicate alternatives. Clear-all, consent
+withdrawal, navigation or closing discards the session and terminates work.
+Removal does not delete original files, external-company records or persistent
+backups. A single list of File references stays outside React state for
+recomputation; no raw-text copies or persistence are introduced. Browser memory
+reclamation is not secure erasure. All existing file/MIME/JSON/count limits and
+the five-second worker deadline apply. No general or real-person imports.
+
+Existing check commands discover all new session/oracle, boundary and Playwright
+checks. [PHASE5-PLAN.md](docs/PHASE5-PLAN.md), ADR-013/014 and
+[PHASE5-REPORT.md](docs/PHASE5-REPORT.md) document implementation and executed
+validation. Phase 0–4 routes, APIs, contracts, corpus, migrations and locks remain
+preserved. No auth, persistent personal data, external AI, public deployment or
+Phase 6. PR is for product-owner/architecture review; do not merge.
