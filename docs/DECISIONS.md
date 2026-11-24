@@ -674,3 +674,28 @@ hosting/transfer questions and proposed retention conflicts, including potential
 CERT-In log requirements. No compliance claim or appointed reviewer is fabricated.
 Review trigger: release scope, gate owner, legal applicability or new performance
 budget. This ADR and 6A artifacts are proposals pending product-owner review.
+
+## ADR-021 — Proposed reuse of the isolated OIDC spike boundary
+
+Date: 2026-11-24. Status: **PROPOSED for security review, not production approval**.
+The explicit Phase 6B-01 instruction authorizes a fictional local protocol
+experiment only. ADR-015–020 remain unchanged and PROPOSED; the Phase 6A merge
+does not decide vendor, ownership, legal, retention or independent-review issues.
+
+The implemented experiment uses development-only pinned Authlib 1.9.10 and
+joserfc 1.8.0, with explicit PKCE/one-use state/nonce, fixed loopback endpoints,
+strict RS256/JWK/claim checks and ephemeral transaction binding. Its factory is
+disabled by default and absent from normal app registration. Recommend preserving
+this separation when reviewing any future BFF adapter; no test fixture or
+transaction cookie may become a general-purpose authentication/session service.
+
+The two fictional equal-email identities map by exact issuer+subject only. Callback
+results are discarded; no account, durable session, footprint or token storage is
+created. Test-only ASGI URL scrubbing does not establish production ingress or
+browser-history guarantees. Live transport, key rotation, login CSRF, cookies,
+logout, recovery/MFA-reset event verification and local session invalidation need
+their own authorized review. Auth0 remains conditional; Enterprise logout pricing
+and missing established MFA-reset invalidation coverage are explicit blockers to
+assuming a provider/plan works. See [feasibility](PHASE6B01-IDENTITY-FEASIBILITY.md)
+and [report](PHASE6B01-REPORT.md). Review trigger: provider/client version, token
+profile, endpoint, discovery, event coverage, data/identity storage or serving change.
