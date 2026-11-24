@@ -699,3 +699,27 @@ and missing established MFA-reset invalidation coverage are explicit blockers to
 assuming a provider/plan works. See [feasibility](PHASE6B01-IDENTITY-FEASIBILITY.md)
 and [report](PHASE6B01-REPORT.md). Review trigger: provider/client version, token
 profile, endpoint, discovery, event coverage, data/identity storage or serving change.
+
+## ADR-022 — Proposed isolation of experimental opaque sessions and revocation
+
+Date: 2026-11-24. Status: **PROPOSED for security review, not production approval**.
+Phase 6B-02 authorizes only explicitly activated fictional ASGI session tests.
+Preserve ADR-015–021 and the conditional provider decision; merging architecture
+or protocol experiments does not resolve vendor, ownership, legal, retention or
+independent-security-review gates.
+
+The experiment reuses validated 6B-01 issuer+subject identities, digest-only opaque
+handles, secure host cookies, server deadlines, synchronizer CSRF and exact
+origin/Fetch Metadata checks. One-process owner fences serialize artificial marker
+commits against logout/all and authenticated fictional recovery events. Failed
+accepted invalidation quarantines access without claiming success. No durable
+revocation, real MFA, upstream logout or provider event coverage is established.
+
+Keep the fixture absent from normal routing/configuration and never serve it.
+Inherited issuer/BFF loopback ports are not cookie isolation: tests require separate
+provider cookie jars and reject issuer-bound cookies. Production transport, host
+separation, proxy/key custody, event delivery and durable state need independent
+design and authorization. No tenant repository or footprint write is introduced.
+See [session security](PHASE6B02-SESSION-SECURITY.md) and
+[report](PHASE6B02-REPORT.md). Review trigger: serving, storage, identity/event
+contract, cookie host boundary, lock/distribution model or session-policy change.
