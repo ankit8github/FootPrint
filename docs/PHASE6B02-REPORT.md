@@ -118,11 +118,49 @@ No scenario labels, survivor oracles or synthetic gate bytes were edited.
 
 ## GitHub delivery evidence
 
-Pending initial publication and fresh push/PR CI at the time of this implementation
-commit. This section will record observed run links and scaffold migration results
-after they complete. The exact final head and latest checks belong in the PR body
-and delivery response to avoid a self-referential report commit hash. PR must
-remain open and unmerged for product-owner/security review.
+[PR #8](https://github.com/ankit8github/FootPrint/pull/8) is open against main,
+unmerged, with the ten-file inventory above. Implementation head:
+`f9ca10faa7a9425b23222e5c5fbebfc2ad70d66f`.
+
+| Observed check on implementation head | Result |
+| --- | --- |
+| [Push CI 45354089221](https://github.com/ankit8github/FootPrint/actions/runs/45354089221) | SUCCESS, every job/step succeeded |
+| [PR CI 45354200780](https://github.com/ankit8github/FootPrint/actions/runs/45354200780) | SUCCESS, every job/step succeeded |
+| [GitGuardian 138307834795](https://github.com/ankit8github/FootPrint/runs/138307834795) | SUCCESS; secret scanning, not independent security assessment |
+
+Decoded job logs were inspected for both fresh-checkout workflows. Each records
+351 backend tests, 284 frontend tests, nine browser scenarios, successful
+lint/types/contracts/corpus/audits and `PASS: PostgreSQL upgrade, constraint
+enforcement, downgrade, re-upgrade; no personal tables.` The unchanged workflow
+executes `docker compose config --quiet`, `docker compose up -d --wait db`,
+`uv run --frozen python -m scripts.check_database` and disposable-volume cleanup.
+This verifies only the existing scaffold, **not tenant database isolation**.
+Push/PR backend timings were 23.41s/23.22s; browser timings 12.2s/11.5s.
+
+The GitHub connector independently confirmed the exact ten filenames. At this
+verification there were zero submitted reviews and zero inline review comments;
+absence of comments is not approval. Main remains at the baseline. Git writes
+used existing authorized Git credentials; an ignored delivery helper used the
+credential helper in memory without printing/saving credentials to create/update
+PR metadata and inspect check results.
+
+Root commands for delivery verification:
+
+```powershell
+git -c safe.directory=I:/FootPrint fetch origin
+git -c safe.directory=I:/FootPrint rev-parse main origin/main
+git -c safe.directory=I:/FootPrint merge-base --is-ancestor bfaa9585167771f6e49b849ec9ecb88fa0501579 main
+python .local/phase6b02-validation/validate_delivery.py
+git -c safe.directory=I:/FootPrint diff --check
+python .local/phase6b02-validation/github_delivery.py ci
+python .local/phase6b02-validation/github_delivery.py review-state
+```
+
+This follow-up changes only the report. Baseline/document checks are repeated
+before its commit. The exact final head and newest push/PR/GitGuardian results
+are recorded in the PR body and delivery response after observation, avoiding a
+self-referential report commit hash. PR must remain open and unmerged for
+product-owner/security review.
 
 ## Limitations and stop gate
 
