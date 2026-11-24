@@ -553,3 +553,124 @@ completion or verified-external-response state is exposed. Every recomputation,
 clear/withdrawal/navigation/unmount retires opened associations. No URL/state
 endpoint or database row is added. Real-world directory operations, live URL
 verification and automated actions require separate future review.
+
+## ADR-015 — Proposed Phase 6 minimized transmission boundary
+
+Date: 2026-11-24. Status: **PROPOSED for Phase 6A review, not implemented**.
+The user's architecture-only instruction authorizes these specifications, not
+auth, persistence, real inputs or deployment. Earlier ADRs and corpus labels are
+unchanged. Full requirements: S6A-01/04/12/14 in
+[PHASE6A-SECURITY-DESIGN.md](PHASE6A-SECURITY-DESIGN.md).
+
+Recommend preserving browser-only raw parsing and exact synthetic SHA-256/adapter
+gate, then a separate explicit opt-in to a strictly minimized new contract. Do
+not widen the Phase 2 validation endpoint or treat its `.test`/boolean shape as
+source attestation. Proposed later synthetic server admission checks independently
+reviewed exact minimized batch profiles; client hash claims never authorize writes.
+All intake remains disabled in 6A. Server recomputation needs typed feature/context,
+duplicate-equivalence and collection/domain-local commercial aliases; it must not
+retain raw hashes, references or assume minimized domain/time equality means copies.
+
+Reject raw-server upload and client-supplied authoritative classifications. Reuse
+the same pure TypeScript rules through a proposed bounded offline executor, with
+versioned ID/provenance adapter and all 29/six oracle comparisons. This package,
+executor and new transport do not exist yet. Review trigger: new fields/adapter,
+admission scope, rules version, performance failure or any real-input proposal.
+
+## ADR-016 — Proposed managed identity with opaque server sessions
+
+Date: 2026-11-24. Status: **PROPOSED, conditional on independent review**.
+Requirements S6A-02/03/08/11. Recommend Auth0 hosted OIDC and a same-origin FastAPI
+BFF, with reviewed stable protocol client, PKCE/state/nonce, HttpOnly/Secure/Lax
+host cookie containing only an opaque handle, digest-only server sessions,
+synchronizer CSRF/origin checks, rotation, timeout and per-user auth epochs.
+Provider plan/region/recovery-MFA invalidation support and costs remain unverified.
+No IdP is installed, provisioned or contacted by the app in 6A.
+
+Compared alternative: maintained Django authentication/server sessions as a
+first-party identity service; it has greater recovery/MFA/email/operations burden
+and stack complexity for this FastAPI repository. No custom password cryptosystem
+or signed-cookie-only substitute. No provider/refresh tokens in the browser;
+login-only design validates then discards ID token and requests minimal scopes.
+Local logout revokes access independently of upstream logout; all sessions expire
+or revoke server-side. Recovery/MFA reset must invalidate local epochs through
+verified events before live release. Reviewer must prove behavior, not accept SDK
+demo defaults. Review trigger: provider capability/residency mismatch, sharing,
+recovery bypass, token retention or changed session/CSRF policy.
+
+## ADR-017 — Proposed ownership, RLS and revised logical schema
+
+Date: 2026-11-24. Status: **PROPOSED, no DDL executed**. S6A-03/04/12.
+One user is one tenant. Session-derived internal UUID owns every personal query,
+join, count and mutation; composite owner/collection/generation FKs prevent
+cross-tenant evidence/action associations. Recommend explicit predicates plus
+forced RLS, transaction-local tenant context and nonowner/NOBYPASSRLS runtime
+roles. Auth session lookup is an isolated bootstrap role with no footprint access;
+it cannot be treated as an already-established tenant context.
+
+Candidate `03-pv1-schema.sql` remains unchanged and uninstalled. The proposed
+revision replaces unrestricted metadata/prose with exact typed codes, preserves
+duplicate/context members, models relationship and unresolved finding roots,
+pins rules/explanation versions and matches actions by directory/domain/type/realm.
+It permits no confirmed/verified retention/sale claims. RLS does not defeat a
+compromised app setting its own context or a privileged DBA; roles, parameterized
+SQL, safe errors and two-user negatives remain necessary. Test actual restricted
+roles and pool reuse, not superuser-only migrations. Review trigger: new personal
+table/metadata field, tenancy/sharing, privileged worker, schema or pool change.
+
+## ADR-018 — Proposed consent epochs, deletion fences and restore journal
+
+Date: 2026-11-24. Status: **PROPOSED; retention/legal decisions pending**.
+S6A-05/06/07. Separate local-processing consent from explicit save/renewal.
+Monotonic consent epoch/revision and owner locks reject stale writers/retries.
+Durable deletion intent fences reads/writes; a bounded transaction fully rebuilds
+survivor findings and removes selected data atomically. Failure leaves pending
+unavailability, never the old graph. Completion requires deletion-journal outbox
+acknowledgement; backups/processor completion are separately disclosed.
+
+Use an independently durable minimal journal to reconcile older backups offline;
+invalidate restored sessions and prove deletion/expiry/tenant isolation before
+serving. No stale snapshot rollback that resurrects records. The journal is
+pseudonymous personal control data with separately reviewed retention/key access.
+The old 30-day derived-data, 14-day log and 30-day backup periods remain proposals,
+not final schedules; passive activity must not silently renew persistence.
+Source removal, withdrawal and logout do not gain an extra MFA barrier. Review
+trigger: retention/expiry/hold change, concurrency design, journal coverage or
+restore/replication/provider change. No saving/deletion service is added in 6A.
+
+## ADR-019 — Proposed operations and genuine action verification
+
+Date: 2026-11-24. Status: **PROPOSED, no hosting/integration enabled**.
+S6A-08/09/13. Require separate runtime/auth/migration/restore identities, managed
+secret/KMS custody, private DB/backups, reviewed production TLS/CSP, safe event
+allowlists, MFA/JIT audited operator access and synthetic incident/restore drills.
+No source domains/IDs/tokens or request bodies in ordinary logs/telemetry.
+Current loopback headers and encrypted-backup intentions are not operational proof.
+
+Keep existing `.test` actions explicitly synthetic-reviewed. A genuine verified
+realm needs independent official ownership/URL evidence, two review roles,
+version/expiry/revocation and a named revalidation custodian; no source-derived
+URLs or automatic redirects/actions. Any future network checker is separately
+isolated, authorized and protected against SSRF/DNS rebinding. Reviewed destination
+drift remains a residual risk; `opened` is never successful deletion. P5-F02 stays
+open. Review trigger: vendor/region/key/log changes, privileged access, real links,
+network verification or new processor.
+
+## ADR-020 — Proposed phased implementation, performance and approval gates
+
+Date: 2026-11-24. Status: **PROPOSED; architecture review only**.
+S6A-10/11/14. Use the PR-sized 6B–6D tasks and exact gates in
+[PHASE6A-IMPLEMENTATION-PLAN.md](PHASE6A-IMPLEMENTATION-PLAN.md), the full
+[threat tests](PHASE6A-THREAT-MODEL.md) and G-S1–G-S7 matrix in the design.
+No passing paper specification or synthetic demo is a beta/security/compliance
+approval. Real data, live identity/mail/social/action integrations, hosting and
+invites each remain separately prohibited until explicit review and authority.
+
+P5-F01's Vite advisory remains open; propose a separate measured route/chunk
+remediation PR with initial/total/worker transfer and cold synthetic performance
+budgets, never threshold suppression or unrelated 6A refactoring. Independent
+legal assessment must resolve jurisdiction, staged legal commencement, processor/
+hosting/transfer questions and proposed retention conflicts, including potential
+CERT-In log requirements. No compliance claim or appointed reviewer is fabricated.
+Review trigger: release scope, gate owner, legal applicability or new performance
+budget. This ADR and 6A artifacts are proposals pending product-owner review.
