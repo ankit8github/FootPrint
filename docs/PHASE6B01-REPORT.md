@@ -3,9 +3,11 @@
 Date: 2026-11-24 (Asia/Calcutta). Branch: `phase6b/oidc-protocol-spike`.
 Base main: `167da1d9da59acbb5cfb67cb67a5a2ea78cfefbb`, synchronized and clean at
 pre-flight; contains Phase 6A merge `756989a1ddc1e6fa108b320bddd16361e3c4a6d9`.
-Status: implementation, local checks and fresh GitHub CI complete; delivered in
-[PR #7](https://github.com/ankit8github/FootPrint/pull/7), open and unmerged.
-**Phase 6B-01 only; do not merge or start 6B-02/6C.**
+Status: [PR #7](https://github.com/ankit8github/FootPrint/pull/7) finalized with an
+explicitly authorized merge commit. **Phase 6B-01 only; do not start 6B-02/6C.**
+The review handoff below is historical; the finalization section records later
+merge authorization and the authoritative merge SHA. All proposed decisions and
+production limitations remain unresolved.
 
 ## Scope and file inventory
 
@@ -165,8 +167,8 @@ All Phase 6A diagrams are unchanged; no new UI or diagram was introduced.
 ## Delivery and stop
 
 Implementation commit: `f14e347e8454b327578955475e057328bdbd4307`.
-PR [#7](https://github.com/ankit8github/FootPrint/pull/7) targets main and remains
-open/unmerged. Its ten-file inventory is above. Local documentation/baseline validation passed:
+PR [#7](https://github.com/ankit8github/FootPrint/pull/7) targeted main and was
+open/unmerged at the review handoff. Its ten-file inventory is above. Local documentation/baseline validation passed:
 25 local links/fragments, 144 original files unchanged, prior ADR history preserved,
 existing dependency records unchanged, and all ten acceptance rows present. No
 original oracle or runtime gate changes are authorized.
@@ -206,8 +208,8 @@ reviews or inline review comments; CI does not imply review approval.
 This report-only follow-up records implementation evidence without changing code.
 Its exact final head and final fresh push/PR CI links are recorded in the PR
 description after verification rather than embedding a self-referential hash here.
-The feature branch is synchronized and checked clean after delivery; main remains
-at the pre-flight SHA. No merge is performed.
+At that handoff the feature branch was synchronized and clean, main remained at
+the pre-flight SHA, and no merge had been performed.
 
 Auth0 remains conditional; current plan/region/cost, recovery and MFA-reset event
 coverage are unverified for FootPrint. There is no live provider account, signup,
@@ -216,7 +218,87 @@ target is unmeasured and unimplemented. Named owners, legal/retention decisions
 and independent review remain unresolved. This is not tenant isolation, production
 authentication or security certification.
 
-**Do not merge.** Stop for product-owner/security review after delivering PR #7.
+The original handoff said **do not merge** and stopped for product-owner/security
+review. The subsequent instruction authorized only Phase 6B-01 finalization below.
 No durable authentication sessions, personal-data persistence, tenant tables/RLS,
 real-user import/processing, provider provisioning, deployment, external integration,
 Phase 6B-02 or Phase 6C is introduced.
+
+## Authorized Phase 6B-01 finalization — 2026-11-24
+
+The subsequent explicit instruction authorized pre-merge verification, a merge
+commit and this report-only completion record. Merging this local experiment is
+not production authentication approval or authorization to start Phase 6B-02.
+
+- Verified unchanged PR head: `3897ca4d7fc70063a9f594fa6f79ab11a2215856`.
+- Verified base main: `167da1d9da59acbb5cfb67cb67a5a2ea78cfefbb`.
+- Authoritative merge: [`bfaa9585167771f6e49b849ec9ecb88fa0501579`](https://github.com/ankit8github/FootPrint/commit/bfaa9585167771f6e49b849ec9ecb88fa0501579).
+- GitHub merge time: `2026-11-24T07:29:35Z`; PR #7 is closed/merged.
+- The merge commit's ordered parents are the verified base and verified head
+  above. GitHub's merge API used `merge_method: merge` and the expected head SHA;
+  its returned SHA matched PR metadata and both parents. No squash or rebase.
+
+### Reverified final checks before merge
+
+| Check | Actual result |
+| --- | --- |
+| [Final push CI 45347283046](https://github.com/ankit8github/FootPrint/actions/runs/45347283046) | SUCCESS on exact verified head, every job/step succeeded |
+| [Final PR CI 45347290491](https://github.com/ankit8github/FootPrint/actions/runs/45347290491) | SUCCESS on exact verified head, every job/step succeeded |
+| [Final GitGuardian 138284822258](https://github.com/ankit8github/FootPrint/runs/138284822258) | SUCCESS on exact verified head; not independent assessment |
+| Review and discussion state | Zero submitted reviews, zero inline review comments, zero discussion comments; no blocking comments |
+| Mergeability and scope | Open/non-draft, main target, `mergeable: true`, `mergeable_state: clean`, exact ten expected files |
+| Local preservation checks | PASS: 144 original files unchanged, append-only proposed ADR, existing dependency records and corpus hash unchanged, 25 local links/fragments |
+
+All check runs were successful and legacy status contexts were checked for
+failures. Verification was repeated immediately before the guarded merge.
+The final CI workflows include all 234 backend tests (150 previous + all 84 mock
+OIDC cases), 284 frontend tests, nine browser regressions, contracts, corpus,
+lint/types/audits and the preserved Docker scaffold migration roundtrip.
+No original test, scenario or survivor oracle was modified for finalization.
+
+[Post-merge main CI 45348405286](https://github.com/ankit8github/FootPrint/actions/runs/45348405286)
+completed successfully on authoritative merge
+`bfaa9585167771f6e49b849ec9ecb88fa0501579`; every job/step and its check run
+succeeded, including Docker migrations and browser smoke. This remains scaffold
+and fictional protocol evidence, not production authentication assurance.
+
+### Preserved limitations and completion scope
+
+The mock remains disabled by default, ASGI-only and outside normal FastAPI routes.
+The completion edit changes only this report. All 153 other tracked files from the verified
+PR head, including the 84-case test module, is unchanged. The 29 immutable
+scenarios, six deletion survivor oracles, original corpus, exact synthetic SHA-256
+gate, Phase 0–6A behavior/contracts and existing migrations remain intact.
+
+ADR-015–020 remain unchanged and **PROPOSED**, as does ADR-021. Auth0 selection,
+plan/region/cost, production TLS and cookie/CSRF design, confidential-client
+credentials, MFA/recovery event coverage and local session invalidation are still
+conditional/unimplemented. ASGI tests are not live TLS/browser-history/proxy or
+production session evidence. Named ownership, legal/retention and independent
+security review remain open; P5-F01 and P5-F02 remain tracked future issues.
+
+Commands executed from repository root during finalization:
+
+```powershell
+git -c safe.directory=I:/FootPrint fetch origin
+python .local/phase6b01-validation/validate_delivery.py
+python .local/phase6b01-validation/finalize.py verify
+python .local/phase6b01-validation/finalize.py merge
+git -c safe.directory=I:/FootPrint switch main
+git -c safe.directory=I:/FootPrint merge --ff-only origin/main
+git -c safe.directory=I:/FootPrint show -s --format='%H%n%P%n%s' HEAD
+python .local/phase6b01-validation/finalize.py ci-current
+python .local/phase6b01-validation/validate_finalization.py
+```
+
+The ignored helper uses existing authorized Git credentials in memory without
+printing/saving tokens and records safe PR/check/merge metadata. Local main was
+fast-forwarded to the authoritative merge. Documentation/baseline checks and a
+report-only finalization check precede the completion commit; after push, local
+main and origin/main are verified synchronized with a clean working tree. The
+final completion SHA and observed main CI result are reported in the finalization
+response rather than embedded in their own commit.
+
+**Stop after Phase 6B-01 finalization.** No Phase 6B-02, durable sessions, real auth,
+Auth0 provisioning, personal-data persistence, tenant tables, deployment,
+external integration or real-person data processing is authorized or introduced.
