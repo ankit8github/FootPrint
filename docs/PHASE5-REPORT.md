@@ -4,7 +4,8 @@ Date: 2026-11-24 (Asia/Calcutta). Scope: first integrated browser-local,
 synthetic-only MVP. Branch: `phase5/integrated-synthetic-mvp`.
 Base: clean synchronized main `20709ccc21fec9c49b0af7c316fdc9a0f1caee96`, whose
 parent is Phase 4 merge `f3dd579db4ef87d4adbbb2d771224deba6923133`.
-Status: implementation complete; final validation/delivery evidence being recorded.
+Status: implementation and validation complete; PR #5 open for product-owner /
+architecture review. This report follow-up changes documentation only.
 Review only: no merge or deployment authorized.
 
 ## Architecture and experience
@@ -112,12 +113,44 @@ late callbacks and unmount without publishing into a disposed React view.
 
 ## Executed checks and UX inspection
 
-Final command totals and delivery evidence are recorded below after validation.
-The first complete local run passed 150 backend tests, 280 frontend tests and nine
-Chromium scenarios, lint/format/types/contracts/corpus/build and both audits.
-Subsequent defensive-rendering and duplicate-order additions are being rerun.
-Exact command arrays, exit codes and outputs are kept in ignored
-`.local/phase5-validation/`; no raw selected source content is logged there.
+Windows environment: Python 3.11.9, Node 22.15.0, npm 10.9.2, uv 0.9.29, pinned
+existing dependencies. The sandbox fails before process startup; commands use
+the working approved execution path and command-scoped Git ownership exception,
+without global Git changes. Caches are ignored `.cache/uv`, `.cache/npm`,
+`.cache/pip-audit` and `.cache/ms-playwright`. Exact command arrays, independent
+exit codes and outputs are kept in ignored `.local/phase5-validation/`.
+
+The initial full working-tree run passed 150 backend / 280 frontend tests and nine
+Chromium scenarios. Defensive summary/duplicate-order additions passed the full
+frontend rerun (283), then final provenance and post-message cleanup passed 54
+focused session/UI tests and both integrated browser scenarios. The fresh remote
+checkout at the exact executable commit passed the entire final suite:
+
+| Directory | Executed command | Result |
+| --- | --- | --- |
+| backend | `uv run --frozen ruff check .` | PASS |
+| backend | `uv run --frozen ruff format --check .` | PASS, 18 files |
+| backend | `uv run --frozen mypy` | PASS, 18 source files |
+| backend | `uv run --frozen pytest -q` | PASS, 150 tests |
+| backend | `uv run --frozen python -m scripts.export_openapi --check` | PASS |
+| backend | `uv run --frozen python -m scripts.export_phase2 --check` | PASS |
+| backend | `uv run --frozen python -m scripts.validate_corpus` | PASS, 29 cases / six snapshots / 27 files / 48 events |
+| backend | `uv run --frozen pip-audit --cache-dir I:/FootPrint/.cache/pip-audit --progress-spinner off` | PASS, no known vulnerabilities |
+| frontend | `npm.cmd run contracts:check` | PASS |
+| frontend | `npm.cmd run lint` | PASS |
+| frontend | `npm.cmd run typecheck` | PASS |
+| frontend | `npm.cmd test` | PASS, 284 tests / 11 files |
+| frontend | `npm.cmd run build` | PASS; main JS 527.58 kB / gzip 192.99 kB |
+| frontend | `npm.cmd audit --audit-level=low --cache I:/FootPrint/.cache/npm` | PASS, zero known vulnerabilities |
+| frontend | `npm.cmd run test:smoke` | PASS, nine Chromium scenarios |
+| root | `.local/phase0-validation/tools/actionlint.exe -shellcheck= -pyflakes= .github/workflows/phase0.yml` | PASS; optional integrations disabled |
+| root | `python .local/phase5-validation/preservation.py` | PASS, 127 original paths unchanged; only README, DECISIONS and route selector modified among existing files |
+| root | `git diff --check` / staged whitespace check | PASS |
+
+All previous oracle/metrics tests execute in the final frontend suite; no prior
+metrics file is rewritten. Production bundle scans find no raw synthetic body,
+recipient, order/invoice, attachment, password or URL-secret sentinels. Local
+documentation links resolve. No raw selected source content is logged by the app.
 
 Keyboard skip-link focus, named filters, consent gating, disclosure interaction,
 opening state, duplicate provenance, survivor labels, filtered-empty outcomes,
@@ -157,4 +190,56 @@ corrected without changing engines or labels. No failed run is counted as pass.
 
 ## Fresh checkout, GitHub CI and delivery
 
-Pending final evidence. No merge performed.
+Executable implementation commit: `b6cd0aefd262a950af768be29941abc8c288cf05`.
+Both complete clean Ubuntu 22.04 GitHub runs passed every job and step:
+
+- [Push CI 45327472455](https://github.com/ankit8github/FootPrint/actions/runs/45327472455): **SUCCESS**.
+- [PR CI 45327652362](https://github.com/ankit8github/FootPrint/actions/runs/45327652362): **SUCCESS**.
+
+Decoded logs independently confirm 150 backend tests, 284 frontend tests, nine
+Chromium scenarios, zero-known-vulnerability npm/pip audits, and
+`PASS: PostgreSQL upgrade, constraint enforcement, downgrade, re-upgrade; no personal tables.`
+Locked installs, contracts, lint/format/types, corpus, build, database cleanup
+and post-job cleanup all succeeded. Actual CI executes:
+
+```text
+docker compose config --quiet
+docker compose up -d --wait db
+uv run --frozen python -m scripts.check_database  # backend/
+docker compose down --volumes
+```
+
+Docker is unavailable on the Windows host; no local Docker pass is claimed.
+Only the original disposable scaffold tables/migration are exercised; no
+personal-data schema is installed. CI retains the existing Vite >500-kB advisory
+with the passing build. The 527.58-kB main bundle is a nonblocking performance
+concern for later review, without threshold changes or unrelated refactoring.
+
+A separate fresh Windows remote clone at the exact executable commit also passed
+all 18 install/check commands independently, with no environment file, virtualenv,
+node_modules or source copied from the working tree:
+
+```powershell
+git -c safe.directory=I:/FootPrint clone --no-hardlinks --branch phase5/integrated-synthetic-mvp https://github.com/ankit8github/FootPrint.git I:/FootPrint/.local/phase5-clean-checkout-b6cd0aef
+uv sync --project backend --frozen
+npm.cmd ci --prefix frontend --cache I:/FootPrint/.cache/npm
+```
+
+The remaining commands are the backend/frontend table above, including both
+audits and all nine browser scenarios. Full arrays, outputs and exit codes are in
+`.local/phase5-validation/clean-checkout.json`. The unchanged 65-second test-only
+cross-language harness bound remains separate from the five-second production
+worker deadline. Fresh checkout and both CI runs passed on first execution.
+
+[PR #5](https://github.com/ankit8github/FootPrint/pull/5) targets main and is open,
+unmerged. The GitHub connector could read but returned integration permission
+denied for PR creation; the authorized creation used the repository's existing
+Git credential helper. Credentials remained in memory, never logged or saved.
+No app permissions were changed. No review comments/threads were present at the
+implementation evidence check; no independent human review is claimed.
+
+This final documentation-only follow-up records completed evidence and the
+acceptance checklist. Final-head check links and exact review head are maintained
+in the PR description and delivery response, avoiding a self-referential commit
+hash inside its own report. Main remains unchanged at the base SHA above.
+No merge, deployment, real-user data or Phase 6 work performed. Stop for review.

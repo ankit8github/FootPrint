@@ -1,4 +1,4 @@
-﻿# Phase 5 implementation plan and acceptance checklist
+# Phase 5 implementation plan and acceptance checklist
 
 Date: 2026-11-24 (Asia/Calcutta). Base: synchronized, clean main
 20709ccc21fec9c49b0af7c316fdc9a0f1caee96, parent Phase 4 merge
@@ -28,24 +28,24 @@ f3dd579db4ef87d4adbbb2d771224deba6923133. No ground-truth changes authorized.
 
 ## Acceptance checklist
 
-- [ ] Integrated consent -> file selection -> findings -> details -> opened action
+- [x] Integrated consent -> file selection -> findings -> details -> opened action
       -> source removal -> full recomputation -> clear works in real browser.
-- [ ] Exact approved SHA-256 gate, .test restriction, MIME/JSON bounds, 20 files,
+- [x] Exact approved SHA-256 gate, .test restriction, MIME/JSON bounds, 20 files,
       1 MiB/email, 10 MiB/batch, 10,000 records and five-second deadline preserved.
-- [ ] Priority, type and confidence counts/filters; Unknown and excluded visible;
+- [x] Priority, type and confidence counts/filters; Unknown and excluded visible;
       evidence state, fixed reasons, limitations and safe provenance explained.
-- [ ] Every directory entry reviewable; unavailable links use exact fallback;
+- [x] Every directory entry reviewable; unavailable links use exact fallback;
       no auto-actions, redirects, discovery or false completion claims.
-- [ ] Removal uses only remaining sources, preserves duplicate alternatives and
+- [x] Removal uses only remaining sources, preserves duplicate alternatives and
       retires stale rationales, priorities, evidence links and action associations.
-- [ ] Six survivor oracles and all 29 initial immutable scenarios pass unchanged.
-- [ ] Clear, withdrawal, navigation and unmount discard sources/results/actions;
+- [x] Six survivor oracles and all 29 initial immutable scenarios pass unchanged.
+- [x] Clear, withdrawal, navigation and unmount discard sources/results/actions;
       worker deadline/error/races tested; no raw contents in React state/storage.
-- [ ] Egress, WebSocket frames, secrets, console, cookies, storage and lifecycle
+- [x] Egress, WebSocket frames, secrets, console, cookies, storage and lifecycle
       checks pass; raw filenames/content never rendered or logged.
-- [ ] Phase 0-4 routes/tests, APIs/contracts, migrations, corpus and locks preserved.
-- [ ] Lint/types/unit/E2E/contracts/audits/build/fresh-checkout CI/Docker pass;
+- [x] Phase 0-4 routes/tests, APIs/contracts, migrations, corpus and locks preserved.
+- [x] Lint/types/unit/E2E/contracts/audits/build/fresh-checkout CI/Docker pass;
       Vite size advisory recorded without unrelated refactoring.
-- [ ] ADRs/report include architecture, screenshots, exact tests/security evidence,
+- [x] ADRs/report include architecture, screenshots, exact tests/security evidence,
       memory limitations and exit gates; PR #5 exact head and CI links recorded.
-- [ ] No merge, deployment, real data, persistence, auth, external AI or Phase 6.
+- [x] No merge, deployment, real data, persistence, auth, external AI or Phase 6.
