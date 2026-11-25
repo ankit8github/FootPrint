@@ -181,7 +181,7 @@ to its selected sources, engine provenance and content address.
 - `backend/experiments/admission_data/55ac32eed45703e9cf9a5b51746f3ae1306a57371656417199ed09c4861a8031.json`
 - `backend/experiments/admission_data/584428b34c383eeaa4f65df0f0be60a435cc0d0b4187243055eadf9a1b6a3638.json`
 - `backend/experiments/admission_data/623d29db22dbe5c6906a3e2aa968ccd1bd15b97ba12aa6c1ab05f4dd8454dc1f.json`
-- `backend/experiments/admission_data/6a1cf3f5ce9d3bb5df5657f1221fb83cbc2f958adbc436077f51fd387a6c33ac.json`
+- `backend/experiments/admission_data/6a1cf3f5ce9d3bb5df5657f1221fb83cbc2f958adbc436077f51fd384a6c33ac.json`
 - `backend/experiments/admission_data/74c3b68542d5fd572b9dbec73365dc4b96a9d18218fe9cecfd14e8d4d37e35da.json`
 - `backend/experiments/admission_data/783a7e890e949738f275ab13765787f8ff61cccace2dbd38faddaceb76a86ee2.json`
 - `backend/experiments/admission_data/89ad7c7483352f83b3d46f01a11f1b38b51fb4ba2c6afeea7bb0de96e867c31f.json`
@@ -285,3 +285,27 @@ final SHA, push/PR CI and GitGuardian links in the [PR #11 description](https://
 This avoids another self-referential report commit and does not treat older CI
 as proof of the new change. The final response reports those exact-head results.
 PR #11 must remain open/unmerged; no next-phase work is authorized.
+
+### Verified hardened implementation and final report-only delivery
+
+Hardened implementation head: `3685c62bf9e437dd0c732df18499cb1dc0d7c1b5`.
+Both fresh decoded job logs were inspected; all checks pass with **951 backend
+cases**, 284 frontend cases, nine original Chromium scenarios, seven original
+privacy/rollback scenarios, offline registry/schema reproduction, audits,
+contracts/corpus and the preserved scaffold migration roundtrip. No older
+948-case result substitutes for this hardened implementation's evidence.
+
+| Hardened implementation evidence | Result |
+| --- | --- |
+| [Push CI 45572767117](https://github.com/ankit8github/FootPrint/actions/runs/45572767117) | SUCCESS, every job/step |
+| [PR CI 45572775157](https://github.com/ankit8github/FootPrint/actions/runs/45572775157) | SUCCESS, every job/step |
+| [GitGuardian 139063222078](https://github.com/ankit8github/FootPrint/runs/139063222078) | SUCCESS, secret scanning only |
+
+The final report-only correction regenerates the exact 52-file inventory from
+Git after a test-total edit changed three digits in one documented digest path.
+The actual registry file/content never changed. All 52 listed paths now match
+Git exactly; registry manifest pin and all 32 canonical files remain intact.
+This final evidence commit changes only this report. Its fresh exact-head CI,
+SHA and GitGuardian outcomes are recorded in the PR description and final
+response. Main remains unchanged, all inherited limitations remain open, and
+PR #11 remains unmerged for independent review. Stop after delivery.
