@@ -133,6 +133,35 @@ passes all 1,061 cases, with all nine frozen checks/audit commands successful.
 The final repair-head and final delivery checks are recorded separately rather
 than attributing these initial runs to a later commit.
 
+### Final repair-code head and verified CI
+
+**Final repair-code head: `91ee1a14842a2991a17ae7049b532c541b2637d2`.** This includes the early metadata-size
+checks and all AA-01/02/03 repairs. The repeated local backend run passed 1,061
+cases with zero xfail/skip, all nine frozen checks/audit commands successful.
+
+- [pull_request CI 45592473389](https://github.com/ankit8github/FootPrint/actions/runs/45592473389): **SUCCESS** on `91ee1a14842a2991a17ae7049b532c541b2637d2`.
+- [push CI 45592464450](https://github.com/ankit8github/FootPrint/actions/runs/45592464450): **SUCCESS** on `91ee1a14842a2991a17ae7049b532c541b2637d2`.
+- [GitGuardian](https://github.com/ankit8github/FootPrint/runs/139129923654): **SUCCESS**, secret scanning only.
+
+Every job/step and both decoded workflow logs were inspected: **1,061 backend
+passed**, **284 frontend**, **nine Chromium**, **seven original production privacy/
+rollback scenarios**, exact **70-profile/32-batch** reproduction, audits/contracts/
+corpus/schema and original PostgreSQL scaffold upgrade/constraint/downgrade/
+re-upgrade with no personal tables all pass. Proposed performance budgets remain
+FAILED; P5-F01 remains OPEN. Scaffold checks do not close G-S3 or certify RLS.
+
+This evidence is committed in a documentation-only child of that code head.
+Runtime and test bytes are identical between those two commits. To avoid a
+self-referential document commit hash, the literal final delivery SHA and its
+fresh push/PR/GitGuardian checks are pinned in the [PR #11 description](https://github.com/ankit8github/FootPrint/pull/11)
+and delivery record. Resolve the delivery ref with `git ls-remote origin
+refs/pull/11/head`, and compare to that pinned description before any decision;
+do not mislabel these code-head runs as runs for a later documentation commit.
+The final documentation head is also required to pass CI before delivery.
+
+Independent human approval remains **MISSING**, the product-owner exception
+**NOT GRANTED**, and the PR **OPEN/UNMERGED**. No review status is changed.
+
 ### Exact repair inventory
 
 Ten files change relative to the pre-repair head; two are new:
