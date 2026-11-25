@@ -44,6 +44,13 @@ jobs:
           npm test
           npm run build
           npm audit --audit-level=low
+      - name: Offline minimized synthetic registry and schema
+        run: |
+          cd frontend
+          npx tsc -p scripts/admission/tsconfig.json
+          node scripts/admission/generate.mjs
+          cd ../backend
+          uv run --frozen python -m scripts.export_minimized --check
       - name: Local database and migration roundtrip
         run: |
           python -c "import pathlib,secrets; pathlib.Path('.env').write_text('POSTGRES_PASSWORD='+secrets.token_hex(24)+'\nPOSTGRES_PORT=55432\n')"

@@ -1,0 +1,708 @@
+{
+  "$defs": {
+    "CommercialGroup": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "maxLength": 10,
+          "pattern": "^order(?:[0-9]{4}|10000)$",
+          "title": "Alias",
+          "type": "string"
+        },
+        "domain": {
+          "enum": [
+            "fictional-cafe.test",
+            "fictional-clinic.test",
+            "fictional-date.test",
+            "fictional-duplicate.test",
+            "fictional-library.test",
+            "fictional-museum.test",
+            "fictional-news.test",
+            "fictional-notes.test",
+            "fictional-parcel.test",
+            "fictional-postcard.test",
+            "fictional-shop.test",
+            "fictional-shopper.test",
+            "fictional-studio.test"
+          ],
+          "title": "Domain",
+          "type": "string"
+        },
+        "members": {
+          "items": {
+            "maxLength": 12,
+            "pattern": "^s[0-9]{4}:r[0-9]{5}$",
+            "type": "string"
+          },
+          "maxItems": 10000,
+          "minItems": 1,
+          "title": "Members",
+          "type": "array"
+        }
+      },
+      "required": [
+        "alias",
+        "domain",
+        "members"
+      ],
+      "title": "CommercialGroup",
+      "type": "object"
+    },
+    "Context": {
+      "additionalProperties": false,
+      "properties": {
+        "features": {
+          "items": {
+            "const": "CLINIC_APPOINTMENT_PORTAL_CONTEXT",
+            "type": "string"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "title": "Features",
+          "type": "array"
+        },
+        "observation_id": {
+          "maxLength": 12,
+          "pattern": "^s[0-9]{4}:r[0-9]{5}$",
+          "title": "Observation Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "observation_id",
+        "features"
+      ],
+      "title": "Context",
+      "type": "object"
+    },
+    "EmailObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter": {
+          "const": "email_eml_v1",
+          "title": "Adapter",
+          "type": "string"
+        },
+        "attribution": {
+          "const": "unverified_sender",
+          "title": "Attribution",
+          "type": "string"
+        },
+        "domain": {
+          "anyOf": [
+            {
+              "enum": [
+                "fictional-cafe.test",
+                "fictional-clinic.test",
+                "fictional-date.test",
+                "fictional-duplicate.test",
+                "fictional-library.test",
+                "fictional-museum.test",
+                "fictional-news.test",
+                "fictional-notes.test",
+                "fictional-parcel.test",
+                "fictional-postcard.test",
+                "fictional-shop.test",
+                "fictional-shopper.test",
+                "fictional-studio.test"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Domain"
+        },
+        "duplicate_of": {
+          "anyOf": [
+            {
+              "maxLength": 12,
+              "pattern": "^s[0-9]{4}:r[0-9]{5}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Duplicate Of"
+        },
+        "features": {
+          "items": {
+            "enum": [
+              "ACCOUNT_REQUEST",
+              "ACCOUNT_PREFERENCES_CHANGED",
+              "PAID_RECEIPT_CLAIM",
+              "CANCELLED_BEFORE_PAYMENT_CLAIM",
+              "UNPAID_INVOICE_CLAIM",
+              "NEWSLETTER_CUE",
+              "QUOTED_CONTEXT",
+              "UNTRUSTED_INSTRUCTIONS"
+            ],
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Features",
+          "type": "array"
+        },
+        "id": {
+          "maxLength": 12,
+          "pattern": "^s[0-9]{4}:r[0-9]{5}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "issue_code": {
+          "anyOf": [
+            {
+              "enum": [
+                "OK",
+                "EMAIL_UNCLASSIFIED",
+                "DUPLICATE_RECORD",
+                "INVALID_TIMESTAMP",
+                "INVALID_URL",
+                "INVALID_RECORD",
+                "INVALID_JSON",
+                "JSON_LIMIT",
+                "MALFORMED_MIME",
+                "UNSUPPORTED_ENCODING",
+                "MISSING_SENDER",
+                "ORIGIN_CONFLICT",
+                "HTML_ONLY_IGNORED",
+                "UNAVAILABLE_HISTORY",
+                "NOT_APPROVED_SYNTHETIC",
+                "FILE_LIMIT",
+                "BATCH_LIMIT",
+                "RECORD_LIMIT",
+                "UNSUPPORTED_FILE",
+                "PARSER_TIMEOUT",
+                "PARSER_FAILED"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "NO_SUPPORTED_FEATURE",
+                "QUOTED_CONTEXT",
+                "UNTRUSTED_INSTRUCTIONS",
+                "MULTIPLE_COMMERCIAL_REFERENCES",
+                "FEATURE_LIMIT"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Issue Code"
+        },
+        "kind": {
+          "enum": [
+            "registration_email_detected",
+            "transaction_email_detected",
+            "marketing_email_detected",
+            "account_notification_detected",
+            "unclassified_observation"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "occurred_at": {
+          "anyOf": [
+            {
+              "maxLength": 27,
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.(?:[0-9]{3}|[0-9]{6})Z$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Occurred At"
+        },
+        "order_keys": {
+          "items": {
+            "maxLength": 10,
+            "pattern": "^order(?:[0-9]{4}|10000)$",
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Order Keys",
+          "type": "array"
+        },
+        "record_index": {
+          "exclusiveMaximum": 10000,
+          "minimum": 0,
+          "title": "Record Index",
+          "type": "integer"
+        },
+        "source_id": {
+          "maxLength": 5,
+          "pattern": "^s[0-9]{4}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "time_status": {
+          "enum": [
+            "valid",
+            "invalid",
+            "missing"
+          ],
+          "title": "Time Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "record_index",
+        "domain",
+        "occurred_at",
+        "time_status",
+        "order_keys",
+        "duplicate_of",
+        "issue_code",
+        "adapter",
+        "kind",
+        "attribution",
+        "features"
+      ],
+      "title": "EmailObservation",
+      "type": "object"
+    },
+    "Excluded": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "anyOf": [
+            {
+              "enum": [
+                "OK",
+                "EMAIL_UNCLASSIFIED",
+                "DUPLICATE_RECORD",
+                "INVALID_TIMESTAMP",
+                "INVALID_URL",
+                "INVALID_RECORD",
+                "INVALID_JSON",
+                "JSON_LIMIT",
+                "MALFORMED_MIME",
+                "UNSUPPORTED_ENCODING",
+                "MISSING_SENDER",
+                "ORIGIN_CONFLICT",
+                "HTML_ONLY_IGNORED",
+                "UNAVAILABLE_HISTORY",
+                "NOT_APPROVED_SYNTHETIC",
+                "FILE_LIMIT",
+                "BATCH_LIMIT",
+                "RECORD_LIMIT",
+                "UNSUPPORTED_FILE",
+                "PARSER_TIMEOUT",
+                "PARSER_FAILED"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "NO_SUPPORTED_FEATURE",
+                "QUOTED_CONTEXT",
+                "UNTRUSTED_INSTRUCTIONS",
+                "MULTIPLE_COMMERCIAL_REFERENCES",
+                "FEATURE_LIMIT"
+              ],
+              "type": "string"
+            }
+          ],
+          "title": "Code"
+        },
+        "event_id": {
+          "maxLength": 12,
+          "pattern": "^s[0-9]{4}:r[0-9]{5}$",
+          "title": "Event Id",
+          "type": "string"
+        },
+        "record_index": {
+          "exclusiveMaximum": 10000,
+          "minimum": 0,
+          "title": "Record Index",
+          "type": "integer"
+        },
+        "source_id": {
+          "maxLength": 5,
+          "pattern": "^s[0-9]{4}$",
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "source_id",
+        "record_index",
+        "code"
+      ],
+      "title": "Excluded",
+      "type": "object"
+    },
+    "HistoryObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter": {
+          "const": "browser_chrome_json_v1",
+          "title": "Adapter",
+          "type": "string"
+        },
+        "attribution": {
+          "const": "browser_record",
+          "title": "Attribution",
+          "type": "string"
+        },
+        "domain": {
+          "anyOf": [
+            {
+              "enum": [
+                "fictional-cafe.test",
+                "fictional-clinic.test",
+                "fictional-date.test",
+                "fictional-duplicate.test",
+                "fictional-library.test",
+                "fictional-museum.test",
+                "fictional-news.test",
+                "fictional-notes.test",
+                "fictional-parcel.test",
+                "fictional-postcard.test",
+                "fictional-shop.test",
+                "fictional-shopper.test",
+                "fictional-studio.test"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Domain"
+        },
+        "duplicate_of": {
+          "anyOf": [
+            {
+              "maxLength": 12,
+              "pattern": "^s[0-9]{4}:r[0-9]{5}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Duplicate Of"
+        },
+        "features": {
+          "items": {
+            "const": "VISIT_RECORDED",
+            "type": "string"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "title": "Features",
+          "type": "array"
+        },
+        "id": {
+          "maxLength": 12,
+          "pattern": "^s[0-9]{4}:r[0-9]{5}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "issue_code": {
+          "anyOf": [
+            {
+              "enum": [
+                "OK",
+                "EMAIL_UNCLASSIFIED",
+                "DUPLICATE_RECORD",
+                "INVALID_TIMESTAMP",
+                "INVALID_URL",
+                "INVALID_RECORD",
+                "INVALID_JSON",
+                "JSON_LIMIT",
+                "MALFORMED_MIME",
+                "UNSUPPORTED_ENCODING",
+                "MISSING_SENDER",
+                "ORIGIN_CONFLICT",
+                "HTML_ONLY_IGNORED",
+                "UNAVAILABLE_HISTORY",
+                "NOT_APPROVED_SYNTHETIC",
+                "FILE_LIMIT",
+                "BATCH_LIMIT",
+                "RECORD_LIMIT",
+                "UNSUPPORTED_FILE",
+                "PARSER_TIMEOUT",
+                "PARSER_FAILED"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "NO_SUPPORTED_FEATURE",
+                "QUOTED_CONTEXT",
+                "UNTRUSTED_INSTRUCTIONS",
+                "MULTIPLE_COMMERCIAL_REFERENCES",
+                "FEATURE_LIMIT"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Issue Code"
+        },
+        "kind": {
+          "const": "site_visit_observed",
+          "title": "Kind",
+          "type": "string"
+        },
+        "occurred_at": {
+          "anyOf": [
+            {
+              "maxLength": 27,
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.(?:[0-9]{3}|[0-9]{6})Z$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Occurred At"
+        },
+        "order_keys": {
+          "items": {
+            "maxLength": 10,
+            "pattern": "^order(?:[0-9]{4}|10000)$",
+            "type": "string"
+          },
+          "maxItems": 8,
+          "title": "Order Keys",
+          "type": "array"
+        },
+        "record_index": {
+          "exclusiveMaximum": 10000,
+          "minimum": 0,
+          "title": "Record Index",
+          "type": "integer"
+        },
+        "source_id": {
+          "maxLength": 5,
+          "pattern": "^s[0-9]{4}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "time_status": {
+          "enum": [
+            "valid",
+            "invalid",
+            "missing"
+          ],
+          "title": "Time Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "record_index",
+        "domain",
+        "occurred_at",
+        "time_status",
+        "order_keys",
+        "duplicate_of",
+        "issue_code",
+        "adapter",
+        "kind",
+        "attribution",
+        "features"
+      ],
+      "title": "HistoryObservation",
+      "type": "object"
+    },
+    "MinimizedBatch": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment_version": {
+          "const": "sensitivity_rules_v1",
+          "title": "Assessment Version",
+          "type": "string"
+        },
+        "commercial_groups": {
+          "items": {
+            "$ref": "#/$defs/CommercialGroup"
+          },
+          "maxItems": 10000,
+          "title": "Commercial Groups",
+          "type": "array"
+        },
+        "context_version": {
+          "const": "email_context_v1",
+          "title": "Context Version",
+          "type": "string"
+        },
+        "contexts": {
+          "items": {
+            "$ref": "#/$defs/Context"
+          },
+          "maxItems": 10000,
+          "title": "Contexts",
+          "type": "array"
+        },
+        "duplicate_groups": {
+          "items": {
+            "items": {
+              "maxLength": 12,
+              "pattern": "^s[0-9]{4}:r[0-9]{5}$",
+              "type": "string"
+            },
+            "maxItems": 10000,
+            "minItems": 2,
+            "type": "array"
+          },
+          "maxItems": 10000,
+          "title": "Duplicate Groups",
+          "type": "array"
+        },
+        "excluded": {
+          "items": {
+            "$ref": "#/$defs/Excluded"
+          },
+          "maxItems": 10000,
+          "title": "Excluded",
+          "type": "array"
+        },
+        "feature_version": {
+          "const": "email_features_v1",
+          "title": "Feature Version",
+          "type": "string"
+        },
+        "fusion_version": {
+          "const": "relationship_fusion_v1",
+          "title": "Fusion Version",
+          "type": "string"
+        },
+        "observations": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "browser_chrome_json_v1": "#/$defs/HistoryObservation",
+                "email_eml_v1": "#/$defs/EmailObservation"
+              },
+              "propertyName": "adapter"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/EmailObservation"
+              },
+              {
+                "$ref": "#/$defs/HistoryObservation"
+              }
+            ]
+          },
+          "maxItems": 10000,
+          "title": "Observations",
+          "type": "array"
+        },
+        "parser_version": {
+          "const": "phase2-normalized-v1",
+          "title": "Parser Version",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "minimized-evidence-v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/Source"
+          },
+          "maxItems": 20,
+          "title": "Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "parser_version",
+        "feature_version",
+        "fusion_version",
+        "context_version",
+        "assessment_version",
+        "sources",
+        "observations",
+        "excluded",
+        "contexts",
+        "duplicate_groups",
+        "commercial_groups"
+      ],
+      "title": "MinimizedBatch",
+      "type": "object"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter": {
+          "enum": [
+            "email_eml_v1",
+            "browser_chrome_json_v1"
+          ],
+          "title": "Adapter",
+          "type": "string"
+        },
+        "record_count": {
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "Record Count",
+          "type": "integer"
+        },
+        "source_id": {
+          "maxLength": 5,
+          "pattern": "^s[0-9]{4}$",
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "adapter",
+        "record_count"
+      ],
+      "title": "Source",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "batch": {
+      "$ref": "#/$defs/MinimizedBatch"
+    },
+    "consent_epoch": {
+      "maximum": 1000000,
+      "minimum": 1,
+      "title": "Consent Epoch",
+      "type": "integer"
+    },
+    "consent_version": {
+      "const": "fictional-admission-consent-v1",
+      "title": "Consent Version",
+      "type": "string"
+    },
+    "expected_revision": {
+      "maximum": 1000000,
+      "minimum": 1,
+      "title": "Expected Revision",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "consent_version",
+    "consent_epoch",
+    "expected_revision",
+    "batch"
+  ],
+  "title": "AdmissionEnvelope",
+  "type": "object"
+}
