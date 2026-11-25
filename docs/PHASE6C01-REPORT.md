@@ -221,6 +221,38 @@ to its selected sources, engine provenance and content address.
 
 ## GitHub delivery evidence
 
-Pending first delivery commit and fresh push/PR checks. This section will record
-the tested implementation head and CI results. Exact final report-follow-up head
-will be in the PR and final response, avoiding a self-referential report SHA.
+Opened [PR #11](https://github.com/ankit8github/FootPrint/pull/11) against main.
+Tested implementation head: `234f1d560a9e9479c0d9d93009ba23297b30f1da`.
+Base: `d6b2afde058d57e23a75b903b40231dba56a2157`. GitHub confirms open,
+unmerged and mergeable with the exact 52-file inventory above. No reviews,
+inline comments or discussion comments were present at verification; absence
+of review is not independent approval.
+
+| Exact implementation-head evidence | Result |
+| --- | --- |
+| [Push CI 45568200104](https://github.com/ankit8github/FootPrint/actions/runs/45568200104) | SUCCESS, every job/step |
+| [PR CI 45569758568](https://github.com/ankit8github/FootPrint/actions/runs/45569758568) | SUCCESS, every job/step |
+| [GitGuardian 139053231746](https://github.com/ankit8github/FootPrint/runs/139053231746) | SUCCESS, secret scanning only |
+
+Decoded logs from both CI jobs were inspected through the GitHub connector.
+They confirm **948 backend tests, 284 frontend tests, nine original Chromium
+scenarios, seven original production privacy/rollback scenarios**, the separate
+offline generator/schema/type check and all quality/contracts/corpus/audits.
+Both record `PASS: PostgreSQL upgrade, constraint enforcement, downgrade,
+re-upgrade; no personal tables.` This is the preserved disposable scaffold
+roundtrip, **not tenant/RLS coverage**. Registry reproduction also passes on Linux
+with the documented engine-source line-ending policy and exact raw corpus bytes.
+The production privacy/rollback step explicitly retains FAILED performance
+budgets; this phase does not resolve P5-F01, P5-F02 or G-S3.
+
+The GitHub connector creation returned `403: Resource not accessible by
+integration`. The existing authenticated Git account completed the explicitly
+requested PR creation; credentials stayed in memory and were not printed or
+saved. Connector reads independently verified the PR metadata and CI job logs.
+
+This report-only evidence follow-up changes no other delivered file. Fresh final
+push/PR/GitGuardian checks and the exact final head are recorded in the PR and
+final response, avoiding a self-referential report hash. Main is unchanged and
+PR #11 remains open/unmerged for product-owner and independent engineering
+security review. No further phase work or production auth/data/persistence,
+provider connection, deployment or invitations are authorized.
