@@ -28,7 +28,7 @@ engines on exact approved bytes. Source selection/deletion metadata is used;
 expected labels never compute output. **70 profiles / 32 distinct complete batches**
 cover all 29 selections, six survivors and explicitly registered reversals.
 All 27 approved files are represented. Maximum canonical batch is **1977 bytes**.
-Manifest SHA-256: `333c513165273846a4645c74ba604900266d88e10fb6eda1848e0195949b0699`.
+Manifest SHA-256: `333c513165273876a4645c74ba604900266d88e10fb6eda1848e0195949b0699`.
 Source IDs/paths/raw digests appear only in offline provenance. Generated graph/
 assessment digests, module/tool/dependency versions and hashes permit reproduction.
 Independent human review of this proposed registry/contract remains pending.
@@ -63,7 +63,7 @@ revision advanced or session touched; replay is another current-state validation
 | MA-05 | Typed adapter/version/time/row/context/group checks and bounds; subset/reordering/alias/duplicate mutations denied |
 | MA-06 | Auth/session/owner/CSRF/consent/revision failures and both fence orders; expiry, epochs and swallowed cancellation fail closed |
 | MA-07 | 193 other historical Git contents unchanged; frontend/backend/API/contracts/corpus/source gate/workers/deadline and prior fixtures preserved |
-| MA-08 | 384 new backend cases including 36 races; secret/error/URL/log sentinels; no admitted state retained |
+| MA-08 | 387 new backend cases including 36 races; secret/error/URL/log sentinels; no admitted state retained |
 | MA-09 | Full frozen local checks passed; fresh GitHub CI/scaffold/GitGuardian evidence recorded below; PR stays unmerged |
 
 ## Executed local checks
@@ -83,7 +83,7 @@ Windows commands use `npm.cmd`/`npx.cmd`; CI repeats with locked tools on Ubuntu
 | backend | `uv run --frozen ruff check .` | PASS |
 | backend | `uv run --frozen ruff format --check .` | PASS |
 | backend | `uv run --frozen mypy` | PASS, 42 source files |
-| backend | `uv run --frozen pytest -q` | **948 passed: 564 original + 384 new**, no prior test edits |
+| backend | `uv run --frozen pytest -q` | **951 passed: 564 original + 387 new**, no prior test edits |
 | backend | `uv run --frozen python -m scripts.export_openapi --check` | PASS, unchanged |
 | backend | `uv run --frozen python -m scripts.export_phase2 --check` | PASS, unchanged |
 | backend | `uv run --frozen python -m scripts.validate_corpus` | PASS, 29 scenarios/six survivors/27 sources |
@@ -107,7 +107,7 @@ tests/test_minimized_admission.py -k 'owner_header or principal_mismatch'`;
 Ruff `--fix`/format on new files; schema export without `--check`; direct
 `SyntheticRegistry()` validation of all entries. Generator reproduction is one
 additional Vitest harness case, separate from 284 app tests. The 36 race cases
-are included in 384 new cases, not independent security assurance.
+are included in 387 new cases, not independent security assurance.
 
 Development discrepancies corrected: initial new-file formatting/import/line
 length issues; a misplaced type-ignore; one initial focused failure (326 passed)
@@ -181,7 +181,7 @@ to its selected sources, engine provenance and content address.
 - `backend/experiments/admission_data/55ac32eed45703e9cf9a5b51746f3ae1306a57371656417199ed09c4861a8031.json`
 - `backend/experiments/admission_data/584428b34c383eeaa4f65df0f0be60a435cc0d0b4187243055eadf9a1b6a3638.json`
 - `backend/experiments/admission_data/623d29db22dbe5c6906a3e2aa968ccd1bd15b97ba12aa6c1ab05f4dd8454dc1f.json`
-- `backend/experiments/admission_data/6a1cf3f5ce9d3bb5df5657f1221fb83cbc2f958adbc436077f51fd384a6c33ac.json`
+- `backend/experiments/admission_data/6a1cf3f5ce9d3bb5df5657f1221fb83cbc2f958adbc436077f51fd387a6c33ac.json`
 - `backend/experiments/admission_data/74c3b68542d5fd572b9dbec73365dc4b96a9d18218fe9cecfd14e8d4d37e35da.json`
 - `backend/experiments/admission_data/783a7e890e949738f275ab13765787f8ff61cccace2dbd38faddaceb76a86ee2.json`
 - `backend/experiments/admission_data/89ad7c7483352f83b3d46f01a11f1b38b51fb4ba2c6afeea7bb0de96e867c31f.json`
@@ -250,9 +250,38 @@ integration`. The existing authenticated Git account completed the explicitly
 requested PR creation; credentials stayed in memory and were not printed or
 saved. Connector reads independently verified the PR metadata and CI job logs.
 
-This report-only evidence follow-up changes no other delivered file. Fresh final
+Evidence commit `5dea325ad109f7dcf9997c8e0dc1623f986c464a` changed only this report. Fresh final
 push/PR/GitGuardian checks and the exact final head are recorded in the PR and
 final response, avoiding a self-referential report hash. Main is unchanged and
 PR #11 remains open/unmerged for product-owner and independent engineering
 security review. No further phase work or production auth/data/persistence,
 provider connection, deployment or invitations are authorized.
+
+### Final URL hardening and exact-head delivery
+
+The final logging review found that path/query redaction retained URL user-info,
+foreign authority or fragments on transport rejection. The new admission
+transport now replaces the **entire request URL** with the constant
+`https://127.0.0.1:9444/_admission/redacted` before HTTPX retention/logging.
+Three new DEBUG-log sentinel cases cover user-info, foreign host and fragment;
+all pass alongside the existing path/query case. The inherited Phase 6B
+transports are untouched; no real network request is made for the foreign host.
+
+Executed `uv run --frozen pytest -q tests/test_minimized_admission.py -k
+'entire_rejected_url or secret_path'`: four passed. Repeated the complete locked
+backend command group after this change: **951 passed (564 original + 387 new)**,
+Ruff lint/format, mypy, both original exports, corpus, new schema and dependency
+audit all pass. Final captured outputs are `backend.json`; earlier 948-test
+results are preserved in `backend-before-url-hardening.json`. The 36 races remain
+included in 387 new cases. The original frontend/browser/privacy checks and all
+registry bytes are unchanged.
+
+The table above is explicitly the earlier implementation's 948-test CI evidence.
+This hardening follow-up changes only the new fixture, its new tests and the new
+security/report documents; the 52-file inventory and all 193 protected historical
+Git contents remain exact. Fresh checks for this final hardening head, including
+**951** backend tests, are required before delivery and recorded with the exact
+final SHA, push/PR CI and GitGuardian links in the [PR #11 description](https://github.com/ankit8github/FootPrint/pull/11).
+This avoids another self-referential report commit and does not treat older CI
+as proof of the new change. The final response reports those exact-head results.
+PR #11 must remain open/unmerged; no next-phase work is authorized.

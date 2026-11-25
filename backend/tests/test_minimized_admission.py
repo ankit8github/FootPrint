@@ -682,3 +682,24 @@ def test_all_ownership_headers_are_denied_without_consuming_body(key: str) -> No
             assert status == 422 and json.loads(body) == ERROR and reads == 0
 
     asyncio.run(run())
+
+
+@pytest.mark.parametrize("part", ["userinfo", "host", "fragment"])
+def test_entire_rejected_url_is_replaced_before_logging(
+    part: str, caplog: pytest.LogCaptureFixture
+) -> None:
+    async def run() -> None:
+        secret = "SYNTHETIC_URL_SECRET"
+        urls = {
+            "userinfo": "https://" + secret + ":" + secret + "@127.0.0.1:9444/_admission/validate",
+            "host": "https://" + secret + ".test/_admission/validate",
+            "fragment": "https://127.0.0.1:9444/_admission/validate#" + secret,
+        }
+        async with harness() as (_, a, _, _):
+            caplog.set_level("DEBUG")
+            response = await a.post(urls[part], json={"raw_body": secret})
+            assert response.status_code in {403, 422} and response.json() == ERROR
+            assert str(response.request.url) == "https://127.0.0.1:9444/_admission/redacted"
+            assert secret.lower() not in (response.text + caplog.text).lower()
+
+    asyncio.run(run())

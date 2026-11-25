@@ -35,7 +35,8 @@ epoch/revision; 413 body ceiling; 415 unsupported media/encoding/transfer;
 422 malformed/extra/unregistered payload; 404 unknown fixture route; 503 corrupt
 or missing trusted state. No input, field location, ID or exception reflection.
 Inherited no-store/no-cache/no-referrer/nosniff/restrictive CSP on every response.
-Fixture transport redacts handled path/query before HTTP client logging; body/
+Fixture transport replaces the entire handled URL with a fixed fixture URL,
+including authority/user-info/path/query/fragment, before HTTP client logging; body/
 schema exception details are never logged. External proxy/APM/browser retention
 and hostile in-process Python code are outside this never-served harness.
 

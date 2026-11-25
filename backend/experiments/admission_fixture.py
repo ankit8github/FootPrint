@@ -8,7 +8,7 @@ import time
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from httpx2 import ASGITransport, AsyncBaseTransport, Response
+from httpx2 import URL, ASGITransport, AsyncBaseTransport, Response
 from httpx2 import Request as HTTPRequest
 from starlette.requests import Request
 from starlette.responses import JSONResponse
@@ -64,7 +64,7 @@ class AdmissionTransport(AsyncBaseTransport):
             return response
         finally:
             # Synthetic path/query sentinels must not enter HTTPX retained URL/logs.
-            request.url = url.copy_with(path=PREFIX + "/redacted", query=None)
+            request.url = URL(BFF + PREFIX + "/redacted")
 
 
 class AdmissionFixture:
