@@ -23,14 +23,55 @@ also pass as ordinary tests; protected bytes and 70 profiles/32 batches remain
 unchanged. These runs precede the decision-only documentation commit; fresh
 exact-head checks are required before the authorized merge commit.
 
-Only this report and the new decision record may change during finalization.
-The authoritative merge SHA and fresh CI evidence will be recorded after actual
-merge. No new functionality or fixture activation is authorized. G-S3, P5-F01,
+Only this report and the new decision record changed during finalization.
+No new functionality or fixture activation is authorized. G-S3, P5-F01,
 P5-F02, vendor/Auth0, legal/retention, ownership and independent security gaps
 remain open; the decision retains stream/resource, replay/provenance,
 discarded-model-state and non-durable/distributed session/consent limitations.
 No next phase, real authentication/data, tenant schema, persistence, provider,
 deployment or beta is authorized.
+
+### Authoritative merge and exact decision-head evidence
+
+PR #11 merged at **2026-11-25T10:52:45Z** under the explicit owner exception.
+Authoritative merge SHA: **`73847db6ab2a1ca2fd87e5f0e1a7338f4f1f61dd`**.
+GitHub confirmed merged=true and the two parents:
+`d6b2afde058d57e23a75b903b40231dba56a2157` (base) and
+`a20c9205bd17d94bd04f42e70065c75e46543038` (final decision head).
+This is a merge commit, not squash/rebase; its Git tree exactly matches the
+verified decision head. No security review approval was submitted or fabricated.
+
+| Decision-head check, verified before merge | Result |
+| --- | --- |
+| [Push CI 45598101611](https://github.com/ankit8github/FootPrint/actions/runs/45598101611), job 139149433747 | SUCCESS, every step |
+| [PR CI 45598112553](https://github.com/ankit8github/FootPrint/actions/runs/45598112553), job 139149475778 | SUCCESS, every step |
+| [GitGuardian 139149466435](https://github.com/ankit8github/FootPrint/runs/139149466435) | SUCCESS; secret scanning only |
+
+Both decoded logs confirm 1,061 backend tests (zero skips/xfails), 284 frontend,
+nine Chromium, seven privacy/rollback scenarios, 70-profile/32-batch regeneration,
+frozen checks/audits and original PostgreSQL scaffold roundtrip. The original
+17 repaired assertions also passed locally before the decision commit. All 193
+protected historical files and prior PROPOSED ADRs remain exact; application,
+engines, corpus/oracles, Phase 2, prior fixtures, dependencies and worker deadline
+are identical to the owner-reviewed head. The final PR inventory is 59 files:
+58 additions and the sole additive baseline CI workflow change. The owner
+decision added one document; finalization changed no code, test or registry byte.
+
+The GitHub connector rejected metadata/merge writes with "Resource not accessible
+by integration". The authorized operations used the repository's existing Git
+credentials in memory through the GitHub API, with exact head/base, clean-tree,
+CI, absent-review/comment and documentation-scope guards. No policy, branch
+protection, review status or approval requirement was changed to merge.
+
+Local main was synchronized by fast-forward to the remote merge and verified
+clean. This report and the decision record are the only subsequent evidence
+changes. Their final main commit requires its own green CI/security checks; its
+exact SHA, run links and results are recorded in
+[PR #11 metadata](https://github.com/ankit8github/FootPrint/pull/11) and the final
+delivery response after verification. No prior result is attributed to that new
+commit. Qualified independent human approval remains MISSING, the normal gate is
+NOT SATISFIED, and the exception supplies no authorization beyond this completed
+repository-only merge/finalization. Stop here with every remaining gate open.
 
 ## Historical implementation and review evidence
 

@@ -2,8 +2,8 @@
 
 Prepared 2026-11-25 for [PR #11](https://github.com/ankit8github/FootPrint/pull/11).
 
-**Owner decision: APPROVED, limited repository-only exception. Merge: authorized
-only after fresh exact-head CI/security checks and unchanged-boundary verification.**
+**Owner decision: APPROVED, limited repository-only exception. Merge: COMPLETED
+after fresh exact-head CI/security checks and unchanged-boundary verification.**
 Qualified independent human security review remains **MISSING**. The normal
 independent approval gate is **NOT SATISFIED**. This record documents the user's
 explicit engineering-risk acceptance; it is not independent security approval
@@ -34,7 +34,7 @@ gate.
 | Base, local main and origin/main | `d6b2afde058d57e23a75b903b40231dba56a2157` |
 | Verified repair code head | `91ee1a14842a2991a17ae7049b532c541b2637d2` |
 | Difference from repair code head | Only `docs/PHASE6C01-AI-ASSURANCE.md`; no runtime/test changes |
-| Remote PR state | OPEN, unmerged, mergeable; no submitted reviews or comments |
+| Remote PR state at approval preflight | OPEN, unmerged, mergeable; no submitted reviews or comments |
 | Worktree before preparing this draft | Clean and synchronized with the remote feature branch |
 | Existing PR inventory | 58 files: 57 additions and one additive baseline workflow change |
 
@@ -175,7 +175,7 @@ rollback does not authorize deployment or production processing.
 | Qualified independent human reviewer / approval | **MISSING** |
 | Normal independent approval gate | **NOT SATISFIED** |
 | Exception | **GRANTED for repository-only disabled fictional research code** |
-| Merge authorization / authoritative merge SHA | **CONDITIONAL ON FRESH CHECKS / NOT YET MERGED** |
+| Merge authorization / authoritative merge SHA | **EXECUTED after fresh checks**; `73847db6ab2a1ca2fd87e5f0e1a7338f4f1f61dd` |
 
 The requesting product owner's actual follow-up approval is reproduced verbatim
 below. This is conversation evidence of the accountable owner's decision, not a
@@ -187,9 +187,34 @@ signature, qualified independent review or GitHub review approval:
 > I authorize committing the decision documentation and, after fresh exact-head CI and security checks pass, merging PR #11 using a merge commit.
 > This approval does not authorize Phase 6C-02, production authentication, personal-data persistence, external integrations, deployment or beta access.
 
-Finalization may now commit only required decision/report documentation, obtain
-fresh exact-head CI/security evidence, recheck preservation and use a merge commit.
-The authoritative merge SHA and finalization evidence must be recorded after the
-actual merge. No approving GitHub review is submitted or inferred. Historical
+Finalization changed only required decision/report documentation, obtained fresh
+exact-head CI/security evidence, rechecked preservation and used a merge commit.
+No approving GitHub review was submitted or inferred. Historical
 PENDING / NOT GRANTED and open/unmerged statements in earlier evidence describe
 the state before this explicit owner decision; they are not independent approval.
+
+## Authoritative merge and finalization evidence
+
+GitHub confirmed PR #11 merged at **2026-11-25T10:52:45Z**, with authoritative
+merge commit `73847db6ab2a1ca2fd87e5f0e1a7338f4f1f61dd`. Its two parents are
+the unchanged base `d6b2afde058d57e23a75b903b40231dba56a2157` and exact verified
+decision head `a20c9205bd17d94bd04f42e70065c75e46543038` (merge, not squash/rebase).
+
+The decision head differs from the owner-reviewed head only in this new record
+and `PHASE6C01-REPORT.md`. Its fresh
+[push CI 45598101611](https://github.com/ankit8github/FootPrint/actions/runs/45598101611),
+[PR CI 45598112553](https://github.com/ankit8github/FootPrint/actions/runs/45598112553)
+and [GitGuardian 139149466435](https://github.com/ankit8github/FootPrint/runs/139149466435)
+all passed before merge. Both complete CI logs and every step were verified:
+1,061 backend, 284 frontend, nine Chromium, seven preservation scenarios and
+original scaffold migration checks pass. No new review or comment was present.
+The merged Git tree exactly matches that decision head.
+
+Local main was fast-forwarded to the authoritative remote merge with a clean
+worktree. This subsequent documentation-only commit records the actual merge;
+the exact final main SHA and its own CI/security results are published in
+[PR #11's finalization metadata](https://github.com/ankit8github/FootPrint/pull/11)
+and the final delivery response after verification, avoiding a self-referential
+commit SHA in its own contents. Earlier CI is not substituted for that final check.
+The limited merge/finalization authorization is consumed; it authorizes no later
+phase or capability. All expiration triggers and outstanding gates remain in force.
