@@ -1,5 +1,39 @@
 # Phase 6C-01 report: fictional minimized admission only
 
+## Controlled finalization under explicit product-owner exception
+
+2026-11-25: the accountable product owner explicitly approved the limited
+repository-only engineering-risk exception in
+[the decision record](PHASE6C01-PRODUCT-OWNER-DECISION.md). Qualified independent
+human security approval remains **MISSING** and the normal review gate remains
+**NOT SATISFIED**. This is a limited merge exception, not security certification.
+Earlier open/unmerged or NOT GRANTED statements below and in historical evidence
+describe the state before this explicit decision.
+
+Reviewed/approved runtime head: `41f8aac5c9b817012162b8abb297f09ddd173cb0`;
+unchanged base: `d6b2afde058d57e23a75b903b40231dba56a2157`.
+AA-01/02/03 are resolved as recorded in the
+[assurance follow-up](PHASE6C01-AI-ASSURANCE.md). Existing exact-head push
+[45593296985](https://github.com/ankit8github/FootPrint/actions/runs/45593296985),
+PR [45593309492](https://github.com/ankit8github/FootPrint/actions/runs/45593309492)
+and [GitGuardian 139132802224](https://github.com/ankit8github/FootPrint/runs/139132802224)
+are successful: 1,061 backend, 284 frontend, nine Chromium and seven preservation
+scenarios pass with zero test xfails/skips. The 17 original security assertions
+also pass as ordinary tests; protected bytes and 70 profiles/32 batches remain
+unchanged. These runs precede the decision-only documentation commit; fresh
+exact-head checks are required before the authorized merge commit.
+
+Only this report and the new decision record may change during finalization.
+The authoritative merge SHA and fresh CI evidence will be recorded after actual
+merge. No new functionality or fixture activation is authorized. G-S3, P5-F01,
+P5-F02, vendor/Auth0, legal/retention, ownership and independent security gaps
+remain open; the decision retains stream/resource, replay/provenance,
+discarded-model-state and non-durable/distributed session/consent limitations.
+No next phase, real authentication/data, tenant schema, persistence, provider,
+deployment or beta is authorized.
+
+## Historical implementation and review evidence
+
 2026-11-25. **Validation-only prototype; no saved data or production readiness.**
 Scope is the explicitly authorized 6C-01 experiment. See the [plan](PHASE6C01-PLAN.md),
 [proposed contract](PHASE6C01-MINIMIZED-CONTRACT.md) and
