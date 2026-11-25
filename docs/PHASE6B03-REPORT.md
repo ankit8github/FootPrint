@@ -1,5 +1,8 @@
 # Phase 6B-03 implementation report
 
+Initial delivery evidence is preserved below. The later explicitly authorized
+PR #9 merge and finalization are recorded in the final section.
+
 Date: 2026-11-25 (Asia/Calcutta). **Fictional ownership/authorization experiment;
 not production approval.** Base main/origin/main:
 `0dc69cc296a53d88353da573ed35a882c209bc3f`, including Phase 6B-02 merge
@@ -185,3 +188,86 @@ security assurance. ADRs remain PROPOSED; P5-F01 and P5-F02 stay unresolved.
 **STOP: leave PR open and unmerged for product-owner and independent engineering
 security review. No Phase 6B-04 or Phase 6C work, deployment or further phase is
 authorized by this implementation.**
+
+## Merge finalization — 2026-11-25
+
+The subsequent user instruction explicitly authorized finalization of PR #9 only.
+Immediately before merging, guarded verification reconfirmed exact PR head
+`a717303bd71cea58edf088af65b52090a79213c9`, expected main base
+`0dc69cc296a53d88353da573ed35a882c209bc3f`, a clean synchronized feature branch,
+the exact ten added files listed above, and clean mergeability. GitHub connector
+and direct API reads showed zero submitted reviews, zero review threads, zero
+inline comments and zero discussion comments. There were no blocking comments;
+this does not represent independent review approval.
+
+The guarded merge repeated the checks immediately before an expected-head merge
+request with method `merge`. The connector's merge action returned
+`403: Resource not accessible by integration`; the existing authenticated Git
+account completed the explicitly authorized operation. Credentials remained in
+memory and were not printed or saved.
+
+**Authoritative merge commit:**
+[`c2bc3be8a18d9917bfb1e0a490497652f54b81ce`](https://github.com/ankit8github/FootPrint/commit/c2bc3be8a18d9917bfb1e0a490497652f54b81ce).
+GitHub confirmed PR #9 merged at `2026-11-25T04:54:30Z` and is closed. The merge's
+ordered parents are the expected main base and exact PR head above; this is a
+merge commit, not squash or rebase. Its tree is identical to the reviewed head.
+Local main was fast-forwarded to origin/main at this authoritative merge.
+
+### Reverified CI and boundary evidence
+
+| Check | Observed result |
+| --- | --- |
+| [Final PR-head push CI 45548987880](https://github.com/ankit8github/FootPrint/actions/runs/45548987880) | SUCCESS, every job/step on expected PR head |
+| [Final PR CI 45548992368](https://github.com/ankit8github/FootPrint/actions/runs/45548992368) | SUCCESS, every job/step on expected PR head |
+| [GitGuardian 138985364768](https://github.com/ankit8github/FootPrint/runs/138985364768) | SUCCESS on expected PR head; secret scanning only |
+| [Post-merge main CI 45549937384](https://github.com/ankit8github/FootPrint/actions/runs/45549937384) | SUCCESS on authoritative merge, every job/step and check run |
+| Local default-disabled/normal-route/lifespan regression | `uv run --frozen pytest -q tests/test_ownership_security.py::test_default_disabled_normal_routes_and_lifespan`: **1 passed in 1.41s** |
+| Ownership collection check | **213 tests collected** in the two unchanged ownership test modules |
+| Preservation/documentation checks | PASS: all 163 historical files, all 172 other reviewed files, proposed ADRs, corpus/gate and 16 local Markdown targets/anchors preserved |
+
+Decoded logs from both final PR-head jobs and post-merge main CI were inspected.
+Each confirms **564 backend tests** (all **351 previous** plus **213 ownership**
+cases), **284 frontend tests**, **nine Chromium scenarios**, successful
+lint/format/types/contracts/corpus/audits and the PostgreSQL scaffold roundtrip:
+`PASS: PostgreSQL upgrade, constraint enforcement, downgrade, re-upgrade; no personal tables.`
+Post-merge backend and browser timings were 46.83s and 12.4s. This is the unchanged
+scaffold migration check, not tenant database, restricted-role or RLS coverage.
+No full local suite was rerun merely for this report-only update; fresh main CI
+executes the complete validation workflow after its commit/push.
+
+### Preservation, limitations and completion scope
+
+Only this report changes after the verified merge. All 172 other reviewed files
+are preserved, including every ownership/session/OIDC implementation and test,
+the normal FastAPI application and external-facing routes, existing frontend,
+dependencies/locks, contracts, corpus/oracles, synthetic input gate, migrations
+and workflow. All 163 historical tracked files remain unchanged from the expected
+pre-6B-03 base. The approved corpus manifest SHA-256 remains
+`53b4ff49c5b31e4fa5b2670c757c02058d0ffab3f6b0472fe8d198a86bdd36b1`.
+ADR-015 through ADR-022 are byte-for-byte unchanged and **PROPOSED**.
+
+The ownership experiment remains disabled by default, explicitly activated only
+for fictional ASGI tests, unmounted from the normal app and absent from its
+OpenAPI/frontend contracts. No serving CLI, public activation flag or production
+authorization claim is introduced. All 213 ownership cases and previous 351
+backend tests are preserved. Additional tests and successful GitGuardian checks
+are regression evidence, not independent security assurance.
+
+**G-S3 remains missing** until real PostgreSQL restricted-role/FK/RLS, pool reuse
+and endpoint tests pass under separate authorization. There is no production
+browser/auth integration, distributed lock, durable session/revocation, durable
+consent or personal-data guarantee. The inherited shared-host mock cookie limit,
+test-only tab clearing, memory-only teardown and incomplete operational logging/
+provider/recovery coverage remain. Auth0/vendor capability and selection,
+accountable ownership, legal/retention decisions, independent security assessment,
+and previous findings P5-F01/P5-F02 remain unresolved.
+
+Local main is checked against origin/main for clean synchronization after the
+report commit. Its exact final HEAD and newest main CI result are reported in the
+finalization response, avoiding a self-referential report commit hash. The merge
+SHA above remains authoritative regardless of the report-only follow-up SHA.
+
+**Stop after Phase 6B-03 finalization.** No Phase 6B-04 or 6C work, tenant database
+schema, durable personal-data persistence, real-provider connection, deployment,
+real-user processing or beta invitations are authorized. Finalization does not
+resolve the limitations or approve a next phase.
