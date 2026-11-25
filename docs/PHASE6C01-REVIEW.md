@@ -305,3 +305,16 @@ AA-01/AA-02 OPEN in trusted Python interfaces and AA-03 OPEN in raw-ASGI
 header rejection. Its strict expected failures are not passing security checks. This earlier review's two fixes and 962-case
 result remain historical evidence, not a declaration that all defects were found.
 The qualified independent human gate remains NOT SATISFIED.
+
+
+AA-01/02/03 remediation follow-up (pre-repair head
+`a6cba7e99411cfb57a87d9ee1169a100a0d339e6`): all 17 failures reproduced without
+xfail before coding, then passed under the same filter after repairs. Their
+markers are converted to ordinary regressions with assertions/lowercase controls
+preserved. Shared faithful retained-state validation and admission-only raw
+header normalization repair the three findings; additional corruption, warning,
+duplicate-header and no-echo cases are recorded in the
+[current assurance disposition](PHASE6C01-AI-ASSURANCE.md). Earlier OPEN labels
+above describe historical findings, not current code. Qualified independent
+human approval remains MISSING and the product-owner exception NOT GRANTED.
+PR #11 stays open/unmerged; no review submission or next phase is authorized.

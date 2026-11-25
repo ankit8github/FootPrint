@@ -260,7 +260,7 @@ class AdmissionEnvelope(Contract):
 
 def canonical(batch: MinimizedBatch) -> bytes:
     return json.dumps(
-        batch.model_dump(),
+        batch.model_dump(warnings="error"),
         sort_keys=True,
         separators=(",", ":"),
         ensure_ascii=True,

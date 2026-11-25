@@ -1,4 +1,4 @@
-"""Bounded adversarial evidence, not independent approval. Open flaws are strict xfails."""
+"""Bounded adversarial regressions; passing checks are not independent approval."""
 
 import asyncio
 import copy
@@ -80,11 +80,6 @@ def extra_model(level: str) -> AdmissionEnvelope:
     return value
 
 
-@pytest.mark.xfail(
-    strict=True,
-    raises=pytest.fail.Exception,
-    reason="AA-01 OPEN: model_copy extras disappear before validation",
-)
 @pytest.mark.parametrize(
     "level", ["envelope", "batch", "source", "observation", "excluded", "context", "commercial"]
 )
@@ -99,22 +94,12 @@ def test_unvalidated_extra_fields_must_not_be_silently_dropped(level: str) -> No
     asyncio.run(run())
 
 
-@pytest.mark.xfail(
-    strict=True,
-    raises=pytest.fail.Exception,
-    reason="AA-01 OPEN: direct catalog also drops model_copy extras",
-)
 def test_direct_registry_must_reject_unvalidated_extra_fields() -> None:
     value = MinimizedBatch.model_validate(example()).model_copy(update={"raw_body": SENTINEL})
     with pytest.raises(Denied):
         SyntheticRegistry().admit(value)
 
 
-@pytest.mark.xfail(
-    strict=True,
-    raises=AssertionError,
-    reason="AA-02 OPEN: direct catalog serializer warning reflects input",
-)
 def test_direct_registry_must_not_emit_sensitive_serializer_warning() -> None:
     value = MinimizedBatch.model_validate(example())
     value.sources[0].__dict__["record_count"] = SENTINEL
@@ -453,20 +438,7 @@ def test_debug_warning_capture_and_responses_do_not_reflect_http_sentinels(
         ("Transfer-Encoding", 415),
     ],
 )
-@pytest.mark.parametrize(
-    "capitalized",
-    [
-        False,
-        pytest.param(
-            True,
-            marks=pytest.mark.xfail(
-                strict=True,
-                raises=AssertionError,
-                reason="AA-03 OPEN: case-sensitive direct ASGI forbidden-header screening",
-            ),
-        ),
-    ],
-)
+@pytest.mark.parametrize("capitalized", [False, True])
 def test_direct_asgi_forbidden_headers_must_be_case_insensitive(
     name: str, status: int, capitalized: bool
 ) -> None:

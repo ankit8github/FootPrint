@@ -3,6 +3,7 @@
 import asyncio
 import hashlib
 import hmac
+import re
 import secrets
 import time
 from collections.abc import Callable
@@ -14,6 +15,7 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 from starlette.types import Receive, Scope, Send
 
+from experiments.admission_boundary import model_input
 from experiments.admission_registry import SyntheticRegistry
 from experiments.minimized_contract import MAX_BODY, AdmissionEnvelope, parse_json
 from experiments.oidc_protocol import BFF
@@ -152,9 +154,8 @@ class AdmissionFixture:
         if type(envelope) is not AdmissionEnvelope:
             raise Denied(422)
         try:
-            # model_copy/model_construct deliberately skip Pydantic validation.
-            # Copy and revalidate all fields, not just the batch or object type.
-            envelope = AdmissionEnvelope.model_validate(envelope.model_dump(warnings="error"))
+            # Inspect retained internal state before a serializer can omit extras.
+            envelope = AdmissionEnvelope.model_validate(model_input(envelope))
         except (ValueError, TypeError):
             raise Denied(422) from None
         self.precondition(principal, token, envelope)
@@ -196,6 +197,7 @@ class AdmissionFixture:
             await self.session.bff(scope, receive, send)
             return
         try:
+            scope = admission_scope(scope)
             response = await self.handle(Request(scope, receive))
         except Denied as error:
             response = JSONResponse(ERROR, status_code=error.status)
@@ -241,6 +243,27 @@ class AdmissionFixture:
         except (ValueError, RecursionError, UnicodeError):
             raise Denied(422) from None
         return JSONResponse(await self.validate(principal, envelope, tokens[0]))
+
+
+def admission_scope(scope: Scope) -> Scope:
+    """Normalize names only, preserving values/order/duplicates for existing checks."""
+    raw = scope.get("headers")
+    if raw is None or type(raw) not in (list, tuple):
+        raise Denied(422)
+    headers: list[tuple[bytes, bytes]] = []
+    for pair in raw:
+        if type(pair) not in (list, tuple) or len(pair) != 2:
+            raise Denied(422)
+        name, value = pair
+        if (
+            type(name) is not bytes
+            or type(value) is not bytes
+            or re.fullmatch(rb"[!#$%&'*+.^_`|~0-9A-Za-z-]+", name) is None
+            or any(byte in value for byte in (b"\r", b"\n", b"\x00"))
+        ):
+            raise Denied(422)
+        headers.append((name.lower(), value))
+    return {**scope, "headers": headers}
 
 
 async def streamed(request: Request) -> bytes:

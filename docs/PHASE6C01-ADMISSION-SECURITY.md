@@ -18,10 +18,14 @@ consent. No browser API grants it. Corrupt controls/registry/session fail closed
 Each granted control also pins the fictional session auth epoch; a new epoch
 requires trusted test setup to grant consent again. This is not durable consent.
 Direct Python calls run the same authorization preconditions before serializing
-or validating supplied data, then revalidate every envelope field; Pydantic object
-type alone is insufficient because `model_copy`/`model_construct` skip validation.
+or validating supplied data, then inspect complete retained internal model state
+and revalidate every envelope field using a faithful plain snapshot. Pydantic
+object type or a lossy serialized projection is insufficient because
+`model_copy`/`model_construct` skip validation. Data already discarded before
+entry cannot be reconstructed. See the contract for that explicit limitation.
 
-Order: exact transport/host/path/header checks; authentication; same-origin;
+Order: admission-only raw header name validation/normalization (without merging
+duplicates) before framework Request parsing; exact transport/host/path/header checks; authentication; same-origin;
 action CSRF and current explicit consent; media/length/transfer checks; bounded
 stream; strict JSON/depth; typed envelope/preconditions; owner fence; revalidate
 session/epoch/CSRF/consent/revision; test barrier; revalidate; structural/registry
@@ -56,9 +60,11 @@ G-S3 still lacks actual restricted-role PostgreSQL/RLS/endpoint tests. Durable
 consent/session, distributed fences, production browser/provider, legal/retention,
 accountable ownership, independent security, P5-F01/P5-F02 remain unresolved.
 
-Additional adversarial evidence: [AI assurance](PHASE6C01-AI-ASSURANCE.md) records
-three OPEN defects: lossy trusted-Python unknown-field serialization, direct
-catalog serializer-warning reflection and case-sensitive raw-ASGI header
-rejection. Runtime behavior remains unchanged; direct-object, header rejection
-and no-log guarantees must be read with those exceptions. No repair, risk
-acceptance or independent approval is supplied by that evidence-only change.
+[AI assurance](PHASE6C01-AI-ASSURANCE.md) preserves the three original findings
+and the current repairs: retained-state checks before serialization at both direct
+interfaces; fresh strict validation and fail-on-warning canonical serialization;
+admission-only case-insensitive raw names with duplicate/value/order preservation.
+All 17 old expected failures are ordinary passing tests after verified repairs.
+This is engineering remediation, not qualified independent human approval. No
+product-owner exception is granted. Stream/time/concurrency and all prior risks
+remain open. Historical Phase 6B session/header implementations stay unchanged.

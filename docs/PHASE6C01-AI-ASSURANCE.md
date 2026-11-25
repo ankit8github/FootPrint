@@ -1,5 +1,159 @@
 # Phase 6C-01 additional AI-assisted adversarial assurance
 
+## Current disposition: AA-01 / AA-02 / AA-03 repaired, independent approval MISSING
+
+2026-11-25 repair follow-up in the same open PR #11. Pre-repair exact head:
+`a6cba7e99411cfb57a87d9ee1169a100a0d339e6`; unchanged base/main:
+`d6b2afde058d57e23a75b903b40231dba56a2157`. Fetch, PR metadata and clean/upstream
+checks matched those refs before coding. All 193 historical files were verified
+unchanged (the pre-existing additive CI step is the sole changed baseline file).
+
+**Engineering disposition: the three reproduced defects are fixed and retested.
+This is AI-assisted remediation by the implementing assistant, not an approving
+or qualified independent human review. Human approval is MISSING, the review gate
+is NOT SATISFIED, the product-owner exception remains PROPOSED / NOT GRANTED,
+and PR #11 stays OPEN and UNMERGED.** The original experiment below is preserved
+as historical pre-repair evidence; its OPEN labels and xfail counts are not the
+current engineering disposition.
+
+### Exact before/after reproduction
+
+Before any repair, the original filter was run with xfail disabled at the exact
+pre-repair head. It exited 1: **17 failed, 52 deselected**. After the repairs, the
+same command exits 0: **17 passed, 52 deselected**. All 17 markers were removed
+only after the full original assurance module passed with `--runxfail` (**69
+passed**). No assertion or lowercase control was removed or weakened.
+
+```text
+uv run --frozen pytest -q tests/test_admission_assurance.py --runxfail -k "unvalidated_extra_fields or direct_registry or (direct_asgi_forbidden_headers and True)" --tb=short
+```
+
+Before/after raw output is retained in `.local/phase6c01-fixes/before.txt` and
+`after.txt`. The original historical 962 tests are unchanged. The original 69
+assurance cases are now ordinary passing security regressions, with no xfail/skip
+markers. Thirty additional repair cases exercise retained internal state and
+header ambiguities. No dependency or global warning suppression was introduced.
+
+### Repair details and affected interfaces
+
+| Finding | Repair and verified behavior |
+| --- | --- |
+| AA-01 (Medium, direct retained-model contract) | Shared `experiments/admission_boundary.py:model_input` inspects retained state before any serializer: exact allowlisted model classes; exact required `__dict__` keys; exact complete string `__pydantic_fields_set__`; `__pydantic_extra__` / `model_extra` and `__pydantic_private__` must be None. Missing slots/fields, extra/private state, unknown models/containers and bool/int coercion fail closed. It copies retained declared fields into plain data without invoking input serializers, then both `AdmissionFixture.validate` and `SyntheticRegistry.admit` strictly revalidate the complete snapshot with existing models. All seven levels, both email/history variants and both applicable entry points are covered. Unknown fields are rejected, never sanitized into an accepted projection. |
+| AA-02 (Low, direct catalog warning channel) | Registry admission no longer calls `model_dump()` on supplied objects. Only the freshly revalidated model reaches canonical serialization; that serializer uses local `warnings="error"` as a further fail-closed guard. Malformed supplied state produces fixed Denied(422) without warnings, stderr, DEBUG log content or arbitrary `repr` calls. Corrupt/missing catalog startup remains fixed 503. No global warning filter is added; catalog digests, byte equality and registry/source hashes stay unchanged. |
+| AA-03 (Low, raw ASGI header rejection) | Only explicitly enabled admission scopes copy/validate raw header pairs before constructing a framework Request. ASCII token names are lowercased, values/order/duplicate entries preserved; malformed names or CR/LF/NUL values reject with fixed 422. Existing host/cookie/Origin/Fetch-Metadata/CSRF/media/length/encoding/owner/forwarding/override checks then see all case variants. Eight mixed-case negatives return their matching lowercase fixed 422/415 with zero body reads; lowercase controls remain. Mixed-case duplicate host 422, cookie 400, Origin/CSRF/Fetch-Metadata 403, Content-Type 415 and Content-Length 422 all reject before reading. A fully case-preserved valid request still succeeds. No historical Phase 6B parser is changed. |
+
+The faithful-state walk is bounded by existing depth/row ceilings and an 8-MiB
+node/string-character work budget before snapshot allocation can grow without
+bound. This is a defensive direct-call traversal budget, not a new public capacity,
+processing deadline or profile. The exact 70 profiles / 32 batches remain the
+admission authority. Normal JSON still has the original actual streamed 8-MiB
+ceiling, depth 8 and strict schema/registry checks.
+
+**Irrecoverable-input limit:** if a constructor (including `model_construct` with
+extra-forbid), prior serializer or caller discarded a field *before* this boundary
+received the object, that field cannot be reconstructed or rejected retroactively.
+The guard verifies the complete retained state, not the caller's earlier history.
+It never treats object construction, hashes, flags or a receipt as provenance or
+source authentication. Hostile Python/interpreter/class modification is not
+sandboxed. No input serializer is used to hide unexpected retained state.
+
+Authorization still precedes direct data work. The same owner fence, post-lock
+session/epoch/consent/revision checks, cancellation checks and final no-await guard
+remain; the snapshot prevents subsequent nested mutations from being published.
+No admitted batch is saved, retained, assigned a durable ID or made authoritative.
+
+### Additional regression evidence and preserved scope
+
+The 30 new cases include 105 retained-state corruptions across both interfaces
+and all applicable levels/union variants (seven damage modes), an object whose
+`repr` must never run, seven conflicting case-duplicate header cases, a fully
+uppercase valid exchange, duplicate-preservation/nonmutation and six malformed
+raw-header cases. Warnings, stderr and DEBUG metadata are checked without exposing
+input. The log assertion is scoped to admission after synthetic harness login;
+legitimate setup logs are not mistaken for admission leaks.
+
+The four seeds **60101, 60102, 60103, 60104** and all **1,024** bounded leaf mutation
+attempts remain. Before full checks, 116 assurance/review/race cases passed,
+including all 36 both-owner fence/cancellation cases; the additional module passed
+30 cases. Environment and the 19 locked validation commands are unchanged from
+the historical inventory below. No actual .env contents are needed for this work.
+
+Local full-check results and exact-head CI evidence are recorded in this current
+section; the original command/environment inventory below remains reproducible.
+The original scaffold roundtrip is verified in CI, not claimed as local or RLS
+coverage. Historical engine/source/corpus/oracle bytes, all approved profiles,
+Phase 2/public routes, prior session/ownership fixtures, frontend and dependencies
+are preserved. All ADR-015 through ADR-022 remain PROPOSED.
+
+### Validation records and discrepancies
+
+Repair command output/exit/timing records are retained in
+`.local/phase6c01-fixes/backend.json` and `frontend.json`; preservation evidence
+is in `preservation.json`. Exact commands are the nine backend / ten frontend
+commands in the historical inventory below, plus the before/after filter, focused
+69-case module with `--runxfail`, 116-case assurance/review/race group and new
+30-case repair module. No local Docker/tenant test is claimed.
+
+Intermediate checks caught a strict typing issue in the raw-header None guard,
+a format-only blank line after marker removal, and an overly broad new log
+assertion that included harness setup logs (29 passed/one failed). These were
+corrected before full validation. The assertion still requires no warnings,
+stderr or admission log leak; its capture begins after login. No old security
+expectation was removed, loosened, skipped or converted to expected failure.
+
+Final local validation: **1,061 backend passed; zero xfail/skip cases**, including
+all original 962, all 69 assurance cases and 30 additional repair cases. Mypy
+checks 46 source files. **284 frontend tests, nine Chromium scenarios, seven
+privacy/rollback scenarios** and the offline 70-profile/32-batch reproduction pass.
+All nine frozen backend and ten locked frontend commands exit 0, including
+lint/format/types/contracts/corpus/schema/build and audits (no known/reported
+vulnerabilities). Original performance budgets remain FAILED and P5-F01 OPEN.
+The separate preservation audit verifies all 193 historical files, 27 source raw
+hashes, 29 scenarios/six survivors, engine provenance, canonical bytes/digests
+and repaired registry membership. No source or registry pin changes.
+
+### Exact repair inventory
+
+Ten files change relative to the pre-repair head; two are new:
+
+- `backend/experiments/admission_boundary.py` (new faithful retained-state boundary).
+- `backend/experiments/admission_fixture.py` (shared snapshot and admission-only raw header normalization).
+- `backend/experiments/admission_registry.py` (safe snapshot/revalidation, fixed malformed-state denial).
+- `backend/experiments/minimized_contract.py` (local fail-on-warning canonical serialization; no schema change).
+- `backend/tests/test_admission_assurance.py` (17 markers removed after verification; all assertions retained).
+- `backend/tests/test_admission_repairs.py` (new focused regressions).
+- `docs/PHASE6C01-AI-ASSURANCE.md` (this current disposition and preserved before/after evidence).
+- `docs/PHASE6C01-ADMISSION-SECURITY.md` (current boundary and disposition).
+- `docs/PHASE6C01-MINIMIZED-CONTRACT.md` (faithful-state / irrecoverable-input limitation).
+- `docs/PHASE6C01-REVIEW.md` (current remediation pointer, human gate unchanged).
+
+Complete PR inventory: 58 files (one modified baseline workflow and 57 additions).
+No prior 962-case test, corpus/oracle/schema/registry/engine file, dependency/lock,
+normal application, old experiment, migration or CI policy is changed by repairs.
+
+### Current unresolved risks and decisions
+
+AA-01/02/03 are repaired in code with regression evidence; independent validation
+and qualified human approval remain MISSING. No product-owner exception or merge
+permission is inferred. Remaining risks are unchanged: stream time/empty-frame/
+concurrency/queue limits; fixed 503 on disconnect; underdeclared streams consumed
+up to the byte ceiling before exact-length rejection; public catalog replay and
+no event/source/identity attestation; trusted fence-respecting consent seeding;
+no durable/distributed session, consent, lifecycle or lock guarantee; transport
+scheduling/previously delivered receipts; no production browser/auth, OS sandbox,
+proxy/APM audit or secure-erasure proof. G-S3, P5-F01/P5-F02, vendor/Auth0,
+accountable ownership, legal/retention and independent security remain unresolved.
+
+The PROPOSED exception template retained below is still blank and NOT GRANTED.
+Its old open-defect row is historical: a future decision must use the current
+repair/retest evidence, residual risks and exact candidate head. Human review,
+qualifications, independence and explicit product-owner decision remain separate.
+No merge/review approval, next phase, persistence/schema, real data/auth/provider,
+deployment or beta is authorized or performed.
+
+## Historical pre-repair assurance record (retained verbatim)
+
+
 2026-11-25. Examined PR #11 head:
 `40dee27ddde7208cbcce4c4a142fff98cc977066`. Base/main:
 `d6b2afde058d57e23a75b903b40231dba56a2157`. Fetch and GitHub metadata confirmed

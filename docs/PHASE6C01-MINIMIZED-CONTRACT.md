@@ -125,3 +125,19 @@ fractional digits rather than silently rewriting engine timestamps; the timestam
 table's three-digit example includes this six-digit union. The first generation
 produced 70 traceable profiles and 32 distinct complete batches, maximum 1977
 canonical bytes. No unresolved commercial aliases required a widened domain rule.
+
+
+AA-01/02 remediation: direct fixture and registry entry points inspect every
+retained model before serialization, including exact required field keys,
+complete declared fields-set, absent extra/private state and typed nested models.
+Unknown state is rejected rather than dropped. A bounded faithful plain snapshot
+is revalidated by the same strict models; only fresh validated models reach
+canonical serialization, with serializer warnings raised locally as errors.
+No global warning suppression, field/version/schema/profile or canonical-byte
+change is made. Invalid direct retained state is fixed 422.
+
+A constructor or caller that discarded data before reaching this boundary cannot
+be reverse-engineered to recover that data. In particular, extra-forbid
+`model_construct` may already have removed an extra key. This boundary promises
+faithfulness to retained state, not proof of earlier caller input/history or
+source authenticity. Arbitrary Python/interpreter control remains outside scope.

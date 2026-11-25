@@ -4,6 +4,7 @@ import hashlib
 from pathlib import Path
 from types import MappingProxyType
 
+from experiments.admission_boundary import model_input
 from experiments.minimized_contract import MAX_BODY, MinimizedBatch, canonical, parse_json
 from experiments.session_store import Denied
 
@@ -61,8 +62,12 @@ class SyntheticRegistry:
         try:
             if type(batch) is not MinimizedBatch:
                 raise Denied(422)
-            # Revalidate a possibly trusted-Python-mutated nested list, too.
-            encoded = canonical(MinimizedBatch.model_validate(batch.model_dump()))
+            try:
+                # No input serializer: extras cannot disappear or emit warnings.
+                validated = MinimizedBatch.model_validate(model_input(batch))
+            except (ValueError, TypeError):
+                raise Denied(422) from None
+            encoded = canonical(validated)
             digest = hashlib.sha256(encoded).hexdigest()
             if self.__entries.get(digest) != encoded:
                 raise Denied(422)
