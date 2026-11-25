@@ -1,0 +1,255 @@
+{
+  "schema": "footprint-proposed-budgets-v1",
+  "approvedPolicy": false,
+  "pass": false,
+  "checks": [
+    {
+      "name": "/ mobile initial gzip JS bytes",
+      "actual": 70973,
+      "limit": 102400,
+      "pass": true
+    },
+    {
+      "name": "/ mobile p75 LCP ms",
+      "actual": 2208,
+      "limit": 2500,
+      "pass": true
+    },
+    {
+      "name": "/ mobile unused route modules fetched",
+      "actual": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "name": "/ mobile worker scripts initially fetched",
+      "actual": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "name": "/ desktop initial gzip JS bytes",
+      "actual": 70973,
+      "limit": 102400,
+      "pass": true
+    },
+    {
+      "name": "/ desktop p75 LCP ms",
+      "actual": 2180,
+      "limit": 2500,
+      "pass": true
+    },
+    {
+      "name": "/ desktop unused route modules fetched",
+      "actual": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "name": "/ desktop worker scripts initially fetched",
+      "actual": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "name": "/phase5 mobile initial gzip JS bytes",
+      "actual": 190610,
+      "limit": 225280,
+      "pass": true
+    },
+    {
+      "name": "/phase5 mobile p75 LCP ms",
+      "actual": 2580,
+      "limit": 2500,
+      "pass": false
+    },
+    {
+      "name": "/phase5 mobile selection p75 ms (10% regression)",
+      "actual": 1295.699999988079,
+      "limit": 1240.910000026226,
+      "pass": false
+    },
+    {
+      "name": "/phase5 mobile filter p75 ms (10% regression)",
+      "actual": 54,
+      "limit": 63.91000002622605,
+      "pass": true
+    },
+    {
+      "name": "/phase5 mobile disclosure p75 ms (10% regression)",
+      "actual": 188.60000002384186,
+      "limit": 168.74000003933907,
+      "pass": false
+    },
+    {
+      "name": "/phase5 mobile recompute p75 ms (10% regression)",
+      "actual": 966.3000000119209,
+      "limit": 1005.1800000131132,
+      "pass": true
+    },
+    {
+      "name": "/phase5 mobile unused route modules fetched",
+      "actual": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "name": "/phase5 mobile worker scripts initially fetched",
+      "actual": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "name": "/phase5 desktop initial gzip JS bytes",
+      "actual": 190610,
+      "limit": 225280,
+      "pass": true
+    },
+    {
+      "name": "/phase5 desktop p75 LCP ms",
+      "actual": 2564,
+      "limit": 2500,
+      "pass": false
+    },
+    {
+      "name": "/phase5 desktop selection p75 ms (10% regression)",
+      "actual": 1276.199999988079,
+      "limit": 1251.360000026226,
+      "pass": false
+    },
+    {
+      "name": "/phase5 desktop filter p75 ms (10% regression)",
+      "actual": 62.200000047683716,
+      "limit": 56.86999998688698,
+      "pass": false
+    },
+    {
+      "name": "/phase5 desktop disclosure p75 ms (10% regression)",
+      "actual": 197.4000000357628,
+      "limit": 156.53000001311304,
+      "pass": false
+    },
+    {
+      "name": "/phase5 desktop recompute p75 ms (10% regression)",
+      "actual": 972.1000000238419,
+      "limit": 1015.5200000524521,
+      "pass": true
+    },
+    {
+      "name": "/phase5 desktop unused route modules fetched",
+      "actual": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "name": "/phase5 desktop worker scripts initially fetched",
+      "actual": 0,
+      "limit": 0,
+      "pass": true
+    },
+    {
+      "name": "largest emitted JS chunk raw bytes (workers included)",
+      "actual": 299007,
+      "limit": 512000,
+      "pass": true
+    }
+  ],
+  "transfers": [
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "initialGzipJS": {
+        "before": 191121,
+        "after": 70973
+      },
+      "deferredGzipJS": {
+        "before": 0,
+        "after": 0
+      },
+      "totalEncodedBodies": {
+        "before": 192762,
+        "after": 72364
+      },
+      "totalHTTP": {
+        "before": 197222,
+        "after": 80091
+      },
+      "requests": {
+        "before": 4,
+        "after": 7
+      }
+    },
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "initialGzipJS": {
+        "before": 191121,
+        "after": 70973
+      },
+      "deferredGzipJS": {
+        "before": 0,
+        "after": 0
+      },
+      "totalEncodedBodies": {
+        "before": 192762,
+        "after": 72364
+      },
+      "totalHTTP": {
+        "before": 197222,
+        "after": 80091
+      },
+      "requests": {
+        "before": 4,
+        "after": 7
+      }
+    },
+    {
+      "route": "/phase5",
+      "viewport": "mobile",
+      "initialGzipJS": {
+        "before": 191121,
+        "after": 190610
+      },
+      "deferredGzipJS": {
+        "before": 247774,
+        "after": 247774
+      },
+      "totalEncodedBodies": {
+        "before": 440439,
+        "after": 440189
+      },
+      "totalHTTP": {
+        "before": 445757,
+        "after": 452079
+      },
+      "requests": {
+        "before": 5,
+        "after": 11
+      }
+    },
+    {
+      "route": "/phase5",
+      "viewport": "desktop",
+      "initialGzipJS": {
+        "before": 191121,
+        "after": 190610
+      },
+      "deferredGzipJS": {
+        "before": 247774,
+        "after": 247774
+      },
+      "totalEncodedBodies": {
+        "before": 440439,
+        "after": 440189
+      },
+      "totalHTTP": {
+        "before": 445757,
+        "after": 452079
+      },
+      "requests": {
+        "before": 5,
+        "after": 11
+      }
+    }
+  ]
+}

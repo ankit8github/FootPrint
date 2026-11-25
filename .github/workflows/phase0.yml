@@ -56,6 +56,9 @@ jobs:
         run: |
           npx playwright install --with-deps chromium
           npm run test:smoke
+      - name: Production privacy and rollback preservation
+        working-directory: frontend
+        run: npm run test:performance -- --baseline
       - name: Stop disposable database
         if: always()
         run: |
