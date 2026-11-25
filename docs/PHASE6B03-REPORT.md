@@ -111,9 +111,41 @@ Executed: PASS, **163 historical tracked files unchanged**, exact ten additions,
 response to avoid a self-referential report commit hash. GitHub assigns the PR
 number; expected #9 is not an authority to overwrite an existing PR.
 
-GitHub evidence is pending observation at this document's initial writing. The
-branch will be pushed and a separate PR opened against main, then push and PR
-workflow jobs/logs and GitGuardian will be inspected. No merge is authorized.
+## GitHub delivery evidence
+
+[PR #9](https://github.com/ankit8github/FootPrint/pull/9) is open and unmerged
+against main. Verified implementation head:
+`1d18692620bcd4b5bcb9e517767130bdab9e31b7`.
+
+| Observed check on implementation head | Result |
+| --- | --- |
+| [Push CI 45548405672](https://github.com/ankit8github/FootPrint/actions/runs/45548405672) | SUCCESS, every job/step |
+| [PR CI 45548519481](https://github.com/ankit8github/FootPrint/actions/runs/45548519481) | SUCCESS, every job/step |
+| [GitGuardian 138983840668](https://github.com/ankit8github/FootPrint/runs/138983840668) | SUCCESS; secret scanning, not independent security review |
+
+Decoded logs from both fresh-checkout jobs were inspected through the GitHub
+connector. Each confirms **564 backend tests**, **284 frontend tests**, **nine
+Chromium scenarios**, clean audits/contracts/corpus checks and
+`PASS: PostgreSQL upgrade, constraint enforcement, downgrade, re-upgrade; no personal tables.`
+Backend timings were 29.80s/51.44s; browser timings were 6.1s/11.7s for push/PR.
+The unchanged workflow runs Docker Compose and `scripts.check_database`, then
+cleans its disposable volume. This proves only the old scaffold migration, not
+tenant/FK/RLS database coverage.
+
+The connector independently confirmed all ten changed filenames. Read-only API
+verification confirmed unchanged remote main, exact PR head/base, all check runs
+successful, no pending legacy status, zero submitted reviews and zero inline or
+discussion comments. Absence of reviews is not approval. The connector could read
+metadata/logs but PR creation returned `403: Resource not accessible by integration`;
+the existing authenticated Git account created the explicitly requested PR.
+Credentials stayed in memory and were neither printed nor saved.
+
+This follow-up changes only this report to record observed implementation-head
+evidence. Final exact head, its fresh push/PR CI and GitGuardian results are
+recorded in the PR body and delivery response after verification, avoiding a
+self-referential report commit hash. No implementation files changed after the
+successful 564-test local run or implementation CI. Repeat preservation/link and
+whitespace checks before the report commit. Leave PR open and unmerged.
 
 ## Security limitations, incomplete cases and stop gate
 
