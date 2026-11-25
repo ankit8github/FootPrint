@@ -55,3 +55,10 @@ synthetic tests is not independent security approval or source attestation.
 G-S3 still lacks actual restricted-role PostgreSQL/RLS/endpoint tests. Durable
 consent/session, distributed fences, production browser/provider, legal/retention,
 accountable ownership, independent security, P5-F01/P5-F02 remain unresolved.
+
+Additional adversarial evidence: [AI assurance](PHASE6C01-AI-ASSURANCE.md) records
+three OPEN defects: lossy trusted-Python unknown-field serialization, direct
+catalog serializer-warning reflection and case-sensitive raw-ASGI header
+rejection. Runtime behavior remains unchanged; direct-object, header rejection
+and no-log guarantees must be read with those exceptions. No repair, risk
+acceptance or independent approval is supplied by that evidence-only change.

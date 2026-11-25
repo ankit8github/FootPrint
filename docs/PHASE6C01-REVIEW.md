@@ -298,3 +298,10 @@ Migrations are intentionally checked only in CI using the original scaffold.
 Engineering fixes and automated evidence do not satisfy this table. Keep PR #11
 **OPEN and UNMERGED** until actual qualified review and approval are recorded.
 No Phase 6C-02, schema/persistence, production auth/data/provider, deployment or beta.
+
+Subsequent evidence at head `40dee27ddde7208cbcce4c4a142fff98cc977066`:
+[additional AI-assisted adversarial assurance](PHASE6C01-AI-ASSURANCE.md) finds
+AA-01/AA-02 OPEN in trusted Python interfaces and AA-03 OPEN in raw-ASGI
+header rejection. Its strict expected failures are not passing security checks. This earlier review's two fixes and 962-case
+result remain historical evidence, not a declaration that all defects were found.
+The qualified independent human gate remains NOT SATISFIED.
