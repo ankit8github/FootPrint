@@ -1,0 +1,2422 @@
+{
+  "schema": "footprint-performance-v1",
+  "rawSamplesSHA256": "3a5cde44be97b54d4b81f409b85efb0acfd6954aeafdf24d46571c26a44716b6",
+  "publishedSamples": "phase6b04-results-samples.jsonl",
+  "publishedSamplesSHA256": "2fc57a13df0c1b23be4b8e363fdcbd74e693c460cfe6595d40e1bf418c3efbd2",
+  "environment": {
+    "node": "v22.15.0",
+    "npm": "10.9.2",
+    "vite": "8.3.8",
+    "playwright": "1.65.1",
+    "os": {
+      "platform": "win32",
+      "release": "10.0.26200",
+      "arch": "x64",
+      "system": {
+        "Caption": "Microsoft Windows 11 Home Single Language",
+        "Version": "10.0.26200",
+        "BuildNumber": "26200",
+        "TotalVisibleMemorySize": 8168948
+      }
+    },
+    "hardware": {
+      "cpu": "Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz",
+      "logicalCPUs": 8,
+      "totalRAMBytes": 8365002752
+    },
+    "protocol": {
+      "iterations": 30,
+      "cpuRate": 4,
+      "latency": 150,
+      "downloadThroughput": 200000,
+      "uploadThroughput": 93750,
+      "gzipLevel": 6,
+      "mobile": {
+        "width": 390,
+        "height": 844
+      },
+      "desktop": {
+        "width": 1440,
+        "height": 900
+      },
+      "deviceScaleFactor": 1,
+      "schedule": "serial round-robin route/viewport cells; fresh Chromium per sample"
+    },
+    "instrumentation": {
+      "browser.mjs": "3812f45d7ed3d49ea918d6fa9594bbf99ed1e9522dbc7abfd32beab2961d2bdb",
+      "probe.mjs": "b1a90afb29aa09118c90fc2d94096f769ad99d1749471c44b959eef6679e9622",
+      "server.mjs": "50c099c921fd0469b5ed871d2f63e9139f5e967b0526d66f1817288a4f4cdeff",
+      "run.mjs": "9c2f1d67331e47e4494327008d0a928ee370f8effc92567f34878a556fa0432e",
+      "build.mjs": "e934f5ffddd976bb6972c1fd9b073f20cdc9ea9dfda2ef384173fddac3d3c68e"
+    },
+    "limitations": [
+      "CPU emulation applied to page target; dedicated-worker CPU inheritance unverified",
+      "V8 compile trace durations are inclusive event sums; isolated JS syntax parse CPU unverified",
+      "Chromium dedicated-worker request sizes undercount bodies; total HTTP payload uses public server socket counters with one request per Connection:close connection",
+      "HTTP byte sizes exclude TCP/IP overhead and the local backend proxy hop; no TLS on loopback",
+      "OS disk cache, thermal/power state and physical mobile equivalence unverified",
+      "DOM input-to-two-RAF timings are lab proxies, not field INP; automation can dispatch untrusted DOM change events"
+    ]
+  },
+  "build": {
+    "schema": "footprint-build-inventory-v1",
+    "gzipLevel": 6,
+    "assets": [
+      {
+        "file": "assets/App-DNNiVTY5.js",
+        "bytes": 3021,
+        "gzipBytes": 1328,
+        "sha256": "de21b62c7c8e76106099ffe3156864b5fc9d4c72c25f3817fa27d705080658ea"
+      },
+      {
+        "file": "assets/assessment.worker-C8IXT5T1.js",
+        "bytes": 299007,
+        "gzipBytes": 123887,
+        "sha256": "3323c20a69f1a1794602007d502798a4c099a1e2b1fbe04bed4ca4a895bfb191"
+      },
+      {
+        "file": "assets/AssessmentDetails-CRdTylCr.js",
+        "bytes": 5204,
+        "gzipBytes": 2123,
+        "sha256": "1d537cc1e8600e52649dff5e14cdf37a7f36f7dd41016f7cde0f185a136d3b82"
+      },
+      {
+        "file": "assets/AssessmentLab-c-w9_Ynh.js",
+        "bytes": 4140,
+        "gzipBytes": 1756,
+        "sha256": "4bb0d96efd25fea03ebeda6c08ea206f39f31cacdb984eb683c97bffe1c76a21"
+      },
+      {
+        "file": "assets/discovery.worker-BKysb9TZ.js",
+        "bytes": 291190,
+        "gzipBytes": 121442,
+        "sha256": "e6021143a1a34c83fef5bfd9450de8e6dc07ca08b7a348796dbd366eb150e17e"
+      },
+      {
+        "file": "assets/EvidenceLab-CLQ1bBgV.js",
+        "bytes": 4173,
+        "gzipBytes": 1789,
+        "sha256": "7dbbb3f51bfb9665dcca48d14daa79168d7c518e5f1fd92c1887c889c3199df7"
+      },
+      {
+        "file": "assets/import.worker-DkRfHpQD.js",
+        "bytes": 282739,
+        "gzipBytes": 118612,
+        "sha256": "d09c735a75948332fde2f49265140db6b12fa2549d9086b9cdba8cafce95b7ec"
+      },
+      {
+        "file": "assets/ImportLab-D6w3UBpZ.js",
+        "bytes": 4988,
+        "gzipBytes": 1987,
+        "sha256": "154080cdf0f7325e54606ab28f6f470599e6d2aa09be15abcc6fd67f99fd4776"
+      },
+      {
+        "file": "assets/index-CXmjuSuf.js",
+        "bytes": 3450,
+        "gzipBytes": 1483,
+        "sha256": "28f0c71d1d70665fa88439735f2773c94f8bcad4a27bac23394abc1db7e02b4e"
+      },
+      {
+        "file": "assets/index-lVi0YC3-.css",
+        "bytes": 2088,
+        "gzipBytes": 959,
+        "sha256": "b048167930e4582c7118a7781617423e2b79972d19e78562667e4b17b03a1053"
+      },
+      {
+        "file": "assets/IntegratedMvp-D9IeWGNM.js",
+        "bytes": 15782,
+        "gzipBytes": 5431,
+        "sha256": "3e5775143a05899d5fa75a5012be720667de74f83cbbe223e764fc5bfb8a60e6"
+      },
+      {
+        "file": "assets/IntegratedMvp-oQGNQ3KE.css",
+        "bytes": 1136,
+        "gzipBytes": 511,
+        "sha256": "b087eaab3d12b390be4851acddd684f129bf208d17a316c98d7f1581eb7feb88"
+      },
+      {
+        "file": "assets/jsx-runtime-Am8b9ysO.js",
+        "bytes": 8276,
+        "gzipBytes": 3116,
+        "sha256": "9bd1e242e0169cc4dc70b19b33bcdae67118a8d2e564f794723fd15f0d4cab40"
+      },
+      {
+        "file": "assets/parsers-NWfqFHAR.js",
+        "bytes": 271184,
+        "gzipBytes": 113411,
+        "sha256": "d92a359717e0bf17cc8760518626171630c70c8bec55fa322c4b4e84ee92613e"
+      },
+      {
+        "file": "assets/render-CadkVlM9.js",
+        "bytes": 210645,
+        "gzipBytes": 65046,
+        "sha256": "a7eabb62f2573a45bca576f110280fd7b92fa3aa27888edb8ee38255f1b1b0d1"
+      },
+      {
+        "file": "index.html",
+        "bytes": 588,
+        "gzipBytes": 335,
+        "sha256": "ad0d1258bc781b99d92bf65ffdef5d4225e6a3aa9421fd36b2f3203fcc45b025"
+      }
+    ],
+    "graphs": [
+      {
+        "realm": "worker",
+        "chunks": [
+          {
+            "file": "assets/discovery.worker-BKysb9TZ.js",
+            "entry": true,
+            "dynamicEntry": false,
+            "imports": [],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/domain.js",
+                "renderedLength": 1763
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+                "renderedLength": 291
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+                "renderedLength": 10710
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-ip.js",
+                "renderedLength": 1478
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+                "renderedLength": 2290
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-valid.js",
+                "renderedLength": 1449
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+                "renderedLength": 2333
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/options.js",
+                "renderedLength": 655
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/subdomain.js",
+                "renderedLength": 262
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/factory.js",
+                "renderedLength": 2289
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+                "renderedLength": 1433
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/index.js",
+                "renderedLength": 0
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/src/data/trie.js",
+                "renderedLength": 186274
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/src/suffix-trie.js",
+                "renderedLength": 141076
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/index.js",
+                "renderedLength": 187
+              },
+              {
+                "id": "src/features/imports/approved-sources.json",
+                "renderedLength": 3807
+              },
+              {
+                "id": "src/features/imports/parsers.ts",
+                "renderedLength": 18320
+              },
+              {
+                "id": "src/features/discovery/discovery.ts",
+                "renderedLength": 9897
+              },
+              {
+                "id": "src/features/discovery/discovery.worker.ts",
+                "renderedLength": 292
+              }
+            ]
+          }
+        ],
+        "modules": [
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/factory.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/domain.js",
+              "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+              "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+              "node_modules/tldts-core/dist/es6/src/is-ip.js",
+              "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+              "node_modules/tldts-core/dist/es6/src/is-valid.js",
+              "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+              "node_modules/tldts-core/dist/es6/src/options.js",
+              "node_modules/tldts-core/dist/es6/src/subdomain.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/subdomain.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/parsers.ts",
+            "imports": [
+              "node_modules/tldts/dist/es6/index.js",
+              "src/features/imports/approved-sources.json"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/domain.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-valid.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/src/suffix-trie.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/index.js",
+              "node_modules/tldts/dist/es6/src/data/trie.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/domain.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/discovery/discovery.worker.ts",
+            "imports": [
+              "src/features/imports/parsers.ts",
+              "src/features/discovery/discovery.ts"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-ip.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/index.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/index.js",
+              "node_modules/tldts/dist/es6/src/suffix-trie.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/discovery/discovery.ts",
+            "imports": [
+              "src/features/imports/parsers.ts"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/src/data/trie.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/approved-sources.json",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/index.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/factory.js",
+              "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+              "node_modules/tldts-core/dist/es6/src/options.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/options.js",
+            "imports": [],
+            "dynamicImports": []
+          }
+        ]
+      },
+      {
+        "realm": "worker",
+        "chunks": [
+          {
+            "file": "assets/assessment.worker-C8IXT5T1.js",
+            "entry": true,
+            "dynamicEntry": false,
+            "imports": [],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/domain.js",
+                "renderedLength": 1763
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+                "renderedLength": 291
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+                "renderedLength": 10710
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-ip.js",
+                "renderedLength": 1478
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+                "renderedLength": 2290
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-valid.js",
+                "renderedLength": 1449
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+                "renderedLength": 2333
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/options.js",
+                "renderedLength": 655
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/subdomain.js",
+                "renderedLength": 262
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/factory.js",
+                "renderedLength": 2289
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+                "renderedLength": 1433
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/index.js",
+                "renderedLength": 0
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/src/data/trie.js",
+                "renderedLength": 186274
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/src/suffix-trie.js",
+                "renderedLength": 141076
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/index.js",
+                "renderedLength": 187
+              },
+              {
+                "id": "src/features/imports/approved-sources.json",
+                "renderedLength": 3807
+              },
+              {
+                "id": "src/features/imports/parsers.ts",
+                "renderedLength": 18320
+              },
+              {
+                "id": "src/features/discovery/discovery.ts",
+                "renderedLength": 9897
+              },
+              {
+                "id": "src/features/assessments/explanations.ts",
+                "renderedLength": 3575
+              },
+              {
+                "id": "src/features/assessments/assessments.ts",
+                "renderedLength": 7341
+              },
+              {
+                "id": "src/features/assessments/assessment.worker.ts",
+                "renderedLength": 294
+              }
+            ]
+          }
+        ],
+        "modules": [
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/factory.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/domain.js",
+              "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+              "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+              "node_modules/tldts-core/dist/es6/src/is-ip.js",
+              "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+              "node_modules/tldts-core/dist/es6/src/is-valid.js",
+              "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+              "node_modules/tldts-core/dist/es6/src/options.js",
+              "node_modules/tldts-core/dist/es6/src/subdomain.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/subdomain.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/parsers.ts",
+            "imports": [
+              "node_modules/tldts/dist/es6/index.js",
+              "src/features/imports/approved-sources.json"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/domain.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-valid.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/assessments/explanations.ts",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/src/suffix-trie.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/index.js",
+              "node_modules/tldts/dist/es6/src/data/trie.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/domain.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-ip.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/assessments/assessments.ts",
+            "imports": [
+              "src/features/discovery/discovery.ts",
+              "src/features/imports/parsers.ts",
+              "src/features/assessments/explanations.ts"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/index.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/index.js",
+              "node_modules/tldts/dist/es6/src/suffix-trie.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/discovery/discovery.ts",
+            "imports": [
+              "src/features/imports/parsers.ts"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/src/data/trie.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/approved-sources.json",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/assessments/assessment.worker.ts",
+            "imports": [
+              "src/features/imports/parsers.ts",
+              "src/features/assessments/assessments.ts"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/index.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/factory.js",
+              "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+              "node_modules/tldts-core/dist/es6/src/options.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/options.js",
+            "imports": [],
+            "dynamicImports": []
+          }
+        ]
+      },
+      {
+        "realm": "worker",
+        "chunks": [
+          {
+            "file": "assets/import.worker-DkRfHpQD.js",
+            "entry": true,
+            "dynamicEntry": false,
+            "imports": [],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/domain.js",
+                "renderedLength": 1763
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+                "renderedLength": 291
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+                "renderedLength": 10710
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-ip.js",
+                "renderedLength": 1478
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+                "renderedLength": 2290
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-valid.js",
+                "renderedLength": 1449
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+                "renderedLength": 2333
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/options.js",
+                "renderedLength": 655
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/subdomain.js",
+                "renderedLength": 262
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/factory.js",
+                "renderedLength": 2289
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+                "renderedLength": 1433
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/index.js",
+                "renderedLength": 0
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/src/data/trie.js",
+                "renderedLength": 186274
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/src/suffix-trie.js",
+                "renderedLength": 141076
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/index.js",
+                "renderedLength": 187
+              },
+              {
+                "id": "src/features/imports/approved-sources.json",
+                "renderedLength": 3807
+              },
+              {
+                "id": "src/features/imports/parsers.ts",
+                "renderedLength": 14698
+              },
+              {
+                "id": "src/features/imports/import.worker.ts",
+                "renderedLength": 284
+              }
+            ]
+          }
+        ],
+        "modules": [
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/factory.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/domain.js",
+              "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+              "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+              "node_modules/tldts-core/dist/es6/src/is-ip.js",
+              "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+              "node_modules/tldts-core/dist/es6/src/is-valid.js",
+              "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+              "node_modules/tldts-core/dist/es6/src/options.js",
+              "node_modules/tldts-core/dist/es6/src/subdomain.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/subdomain.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/domain.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/parsers.ts",
+            "imports": [
+              "node_modules/tldts/dist/es6/index.js",
+              "src/features/imports/approved-sources.json"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/import.worker.ts",
+            "imports": [
+              "src/features/imports/parsers.ts"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-valid.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/src/suffix-trie.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/index.js",
+              "node_modules/tldts/dist/es6/src/data/trie.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/domain.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-ip.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/index.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/index.js",
+              "node_modules/tldts/dist/es6/src/suffix-trie.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/src/data/trie.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/approved-sources.json",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/index.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/factory.js",
+              "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+              "node_modules/tldts-core/dist/es6/src/options.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/options.js",
+            "imports": [],
+            "dynamicImports": []
+          }
+        ]
+      },
+      {
+        "realm": "worker",
+        "chunks": [
+          {
+            "file": "assets/assessment.worker-C8IXT5T1.js",
+            "entry": true,
+            "dynamicEntry": false,
+            "imports": [],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/domain.js",
+                "renderedLength": 1763
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+                "renderedLength": 291
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+                "renderedLength": 10710
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-ip.js",
+                "renderedLength": 1478
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+                "renderedLength": 2290
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-valid.js",
+                "renderedLength": 1449
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+                "renderedLength": 2333
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/options.js",
+                "renderedLength": 655
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/subdomain.js",
+                "renderedLength": 262
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/factory.js",
+                "renderedLength": 2289
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+                "renderedLength": 1433
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/index.js",
+                "renderedLength": 0
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/src/data/trie.js",
+                "renderedLength": 186274
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/src/suffix-trie.js",
+                "renderedLength": 141076
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/index.js",
+                "renderedLength": 187
+              },
+              {
+                "id": "src/features/imports/approved-sources.json",
+                "renderedLength": 3807
+              },
+              {
+                "id": "src/features/imports/parsers.ts",
+                "renderedLength": 18320
+              },
+              {
+                "id": "src/features/discovery/discovery.ts",
+                "renderedLength": 9897
+              },
+              {
+                "id": "src/features/assessments/explanations.ts",
+                "renderedLength": 3575
+              },
+              {
+                "id": "src/features/assessments/assessments.ts",
+                "renderedLength": 7341
+              },
+              {
+                "id": "src/features/assessments/assessment.worker.ts",
+                "renderedLength": 294
+              }
+            ]
+          }
+        ],
+        "modules": [
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/factory.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/domain.js",
+              "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+              "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+              "node_modules/tldts-core/dist/es6/src/is-ip.js",
+              "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+              "node_modules/tldts-core/dist/es6/src/is-valid.js",
+              "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+              "node_modules/tldts-core/dist/es6/src/options.js",
+              "node_modules/tldts-core/dist/es6/src/subdomain.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/subdomain.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/parsers.ts",
+            "imports": [
+              "node_modules/tldts/dist/es6/index.js",
+              "src/features/imports/approved-sources.json"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/domain.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-valid.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/assessments/explanations.ts",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/src/suffix-trie.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/index.js",
+              "node_modules/tldts/dist/es6/src/data/trie.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/domain.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-ip.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/assessments/assessments.ts",
+            "imports": [
+              "src/features/discovery/discovery.ts",
+              "src/features/imports/parsers.ts",
+              "src/features/assessments/explanations.ts"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/index.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/index.js",
+              "node_modules/tldts/dist/es6/src/suffix-trie.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/discovery/discovery.ts",
+            "imports": [
+              "src/features/imports/parsers.ts"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/src/data/trie.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/approved-sources.json",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/assessments/assessment.worker.ts",
+            "imports": [
+              "src/features/imports/parsers.ts",
+              "src/features/assessments/assessments.ts"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/index.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/factory.js",
+              "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+              "node_modules/tldts-core/dist/es6/src/options.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/options.js",
+            "imports": [],
+            "dynamicImports": []
+          }
+        ]
+      },
+      {
+        "realm": "page",
+        "chunks": [
+          {
+            "file": "assets/index-CXmjuSuf.js",
+            "entry": true,
+            "dynamicEntry": false,
+            "imports": [],
+            "dynamicImports": [
+              "assets/IntegratedMvp-D9IeWGNM.js",
+              "assets/AssessmentLab-c-w9_Ynh.js",
+              "assets/EvidenceLab-CLQ1bBgV.js",
+              "assets/ImportLab-D6w3UBpZ.js",
+              "assets/App-DNNiVTY5.js",
+              "assets/render-CadkVlM9.js"
+            ],
+            "modules": [
+              {
+                "id": "\u0000vite/modulepreload-polyfill.js",
+                "renderedLength": 1185
+              },
+              {
+                "id": "src/style.css",
+                "renderedLength": 0
+              },
+              {
+                "id": "\u0000vite/preload-helper.js",
+                "renderedLength": 3188
+              },
+              {
+                "id": "src/main.tsx",
+                "renderedLength": 930
+              },
+              {
+                "id": "index.html",
+                "renderedLength": 0
+              }
+            ]
+          },
+          {
+            "file": "assets/App-DNNiVTY5.js",
+            "entry": false,
+            "dynamicEntry": true,
+            "imports": [
+              "assets/jsx-runtime-Am8b9ysO.js"
+            ],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "src/App.tsx",
+                "renderedLength": 4852
+              }
+            ]
+          },
+          {
+            "file": "assets/AssessmentDetails-CRdTylCr.js",
+            "entry": false,
+            "dynamicEntry": false,
+            "imports": [
+              "assets/parsers-NWfqFHAR.js",
+              "assets/jsx-runtime-Am8b9ysO.js"
+            ],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "src/features/assessments/explanations.ts",
+                "renderedLength": 3538
+              },
+              {
+                "id": "src/features/assessments/AssessmentDetails.tsx",
+                "renderedLength": 3093
+              }
+            ]
+          },
+          {
+            "file": "assets/AssessmentLab-c-w9_Ynh.js",
+            "entry": false,
+            "dynamicEntry": true,
+            "imports": [
+              "assets/jsx-runtime-Am8b9ysO.js",
+              "assets/parsers-NWfqFHAR.js",
+              "assets/AssessmentDetails-CRdTylCr.js"
+            ],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "src/features/assessments/AssessmentLab.tsx",
+                "renderedLength": 6885
+              }
+            ]
+          },
+          {
+            "file": "assets/EvidenceLab-CLQ1bBgV.js",
+            "entry": false,
+            "dynamicEntry": true,
+            "imports": [
+              "assets/jsx-runtime-Am8b9ysO.js",
+              "assets/parsers-NWfqFHAR.js"
+            ],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "src/features/discovery/EvidenceLab.tsx",
+                "renderedLength": 7034
+              }
+            ]
+          },
+          {
+            "file": "assets/ImportLab-D6w3UBpZ.js",
+            "entry": false,
+            "dynamicEntry": true,
+            "imports": [
+              "assets/jsx-runtime-Am8b9ysO.js",
+              "assets/parsers-NWfqFHAR.js"
+            ],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "src/features/imports/ImportLab.tsx",
+                "renderedLength": 8985
+              }
+            ]
+          },
+          {
+            "file": "assets/IntegratedMvp-D9IeWGNM.js",
+            "entry": false,
+            "dynamicEntry": true,
+            "imports": [
+              "assets/jsx-runtime-Am8b9ysO.js",
+              "assets/AssessmentDetails-CRdTylCr.js",
+              "assets/parsers-NWfqFHAR.js"
+            ],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "src/features/actions/directory.ts",
+                "renderedLength": 990
+              },
+              {
+                "id": "src/features/findings/session.ts",
+                "renderedLength": 4044
+              },
+              {
+                "id": "src/features/findings/findings.css",
+                "renderedLength": 0
+              },
+              {
+                "id": "src/features/findings/IntegratedMvp.tsx",
+                "renderedLength": 20664
+              }
+            ]
+          },
+          {
+            "file": "assets/jsx-runtime-Am8b9ysO.js",
+            "entry": false,
+            "dynamicEntry": false,
+            "imports": [],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "\u0000rolldown/runtime.js",
+                "renderedLength": 154
+              },
+              {
+                "id": "node_modules/react/cjs/react.production.js",
+                "renderedLength": 15988
+              },
+              {
+                "id": "node_modules/react/index.js",
+                "renderedLength": 165
+              },
+              {
+                "id": "node_modules/react/cjs/react-jsx-runtime.production.js",
+                "renderedLength": 860
+              },
+              {
+                "id": "node_modules/react/jsx-runtime.js",
+                "renderedLength": 189
+              }
+            ]
+          },
+          {
+            "file": "assets/parsers-NWfqFHAR.js",
+            "entry": false,
+            "dynamicEntry": false,
+            "imports": [],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/domain.js",
+                "renderedLength": 1096
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+                "renderedLength": 171
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+                "renderedLength": 8492
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-ip.js",
+                "renderedLength": 1092
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+                "renderedLength": 552
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/is-valid.js",
+                "renderedLength": 908
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+                "renderedLength": 1905
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/options.js",
+                "renderedLength": 635
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/subdomain.js",
+                "renderedLength": 204
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/factory.js",
+                "renderedLength": 2002
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+                "renderedLength": 1392
+              },
+              {
+                "id": "node_modules/tldts-core/dist/es6/index.js",
+                "renderedLength": 0
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/src/data/trie.js",
+                "renderedLength": 163942
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/src/suffix-trie.js",
+                "renderedLength": 140274
+              },
+              {
+                "id": "node_modules/tldts/dist/es6/index.js",
+                "renderedLength": 181
+              },
+              {
+                "id": "src/features/imports/parsers.ts",
+                "renderedLength": 1337
+              }
+            ]
+          },
+          {
+            "file": "assets/render-CadkVlM9.js",
+            "entry": false,
+            "dynamicEntry": true,
+            "imports": [
+              "assets/jsx-runtime-Am8b9ysO.js"
+            ],
+            "dynamicImports": [],
+            "modules": [
+              {
+                "id": "node_modules/scheduler/cjs/scheduler.production.js",
+                "renderedLength": 9053
+              },
+              {
+                "id": "node_modules/scheduler/index.js",
+                "renderedLength": 177
+              },
+              {
+                "id": "node_modules/react-dom/cjs/react-dom.production.js",
+                "renderedLength": 6259
+              },
+              {
+                "id": "node_modules/react-dom/index.js",
+                "renderedLength": 457
+              },
+              {
+                "id": "node_modules/react-dom/cjs/react-dom-client.production.js",
+                "renderedLength": 529545
+              },
+              {
+                "id": "node_modules/react-dom/client.js",
+                "renderedLength": 462
+              },
+              {
+                "id": "src/render.tsx",
+                "renderedLength": 386
+              }
+            ]
+          }
+        ],
+        "modules": [
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/factory.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/domain.js",
+              "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+              "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+              "node_modules/tldts-core/dist/es6/src/is-ip.js",
+              "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+              "node_modules/tldts-core/dist/es6/src/is-valid.js",
+              "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+              "node_modules/tldts-core/dist/es6/src/options.js",
+              "node_modules/tldts-core/dist/es6/src/subdomain.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/discovery/EvidenceLab.tsx",
+            "imports": [
+              "node_modules/react/index.js",
+              "src/features/imports/parsers.ts",
+              "node_modules/react/jsx-runtime.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/subdomain.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/react-dom/cjs/react-dom-client.production.js",
+            "imports": [
+              "node_modules/scheduler/index.js",
+              "node_modules/react/index.js",
+              "node_modules/react-dom/index.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/extract-hostname.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/scheduler/index.js",
+            "imports": [
+              "node_modules/scheduler/cjs/scheduler.production.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/assessments/AssessmentLab.tsx",
+            "imports": [
+              "node_modules/react/index.js",
+              "src/features/imports/parsers.ts",
+              "src/features/assessments/AssessmentDetails.tsx",
+              "node_modules/react/jsx-runtime.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/domain.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/parsers.ts",
+            "imports": [
+              "node_modules/tldts/dist/es6/index.js",
+              "src/features/imports/approved-sources.json"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "\u0000vite/preload-helper.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/findings/session.ts",
+            "imports": [
+              "src/features/actions/directory.ts",
+              "src/features/imports/parsers.ts"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/react-dom/cjs/react-dom.production.js",
+            "imports": [
+              "node_modules/react/index.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/react/cjs/react-jsx-runtime.production.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-valid.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "\u0000vite/modulepreload-polyfill.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/assessments/AssessmentDetails.tsx",
+            "imports": [
+              "src/features/imports/parsers.ts",
+              "src/features/assessments/explanations.ts",
+              "node_modules/react/jsx-runtime.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/assessments/explanations.ts",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/src/suffix-trie.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/index.js",
+              "node_modules/tldts/dist/es6/src/data/trie.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/react/jsx-runtime.js",
+            "imports": [
+              "node_modules/react/cjs/react-jsx-runtime.production.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/lookup/extra-suffixes.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/domain.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/react/index.js",
+            "imports": [
+              "node_modules/react/cjs/react.production.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/App.tsx",
+            "imports": [
+              "node_modules/react/index.js",
+              "node_modules/react/jsx-runtime.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/domain-without-suffix.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/style.css",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/actions/directory.ts",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/findings/findings.css",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "index.html",
+            "imports": [
+              "\u0000vite/modulepreload-polyfill.js",
+              "src/main.tsx"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/ImportLab.tsx",
+            "imports": [
+              "node_modules/react/index.js",
+              "src/features/imports/parsers.ts",
+              "node_modules/react/jsx-runtime.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/findings/IntegratedMvp.tsx",
+            "imports": [
+              "node_modules/react/index.js",
+              "src/features/actions/directory.ts",
+              "src/features/assessments/AssessmentDetails.tsx",
+              "src/features/imports/parsers.ts",
+              "src/features/findings/session.ts",
+              "src/features/findings/findings.css",
+              "node_modules/react/jsx-runtime.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-ip.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/render.tsx",
+            "imports": [
+              "node_modules/react/index.js",
+              "node_modules/react-dom/client.js",
+              "node_modules/react/jsx-runtime.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/index.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/index.js",
+              "node_modules/tldts/dist/es6/src/suffix-trie.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/react-dom/client.js",
+            "imports": [
+              "node_modules/react-dom/cjs/react-dom-client.production.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/is-special-use.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts/dist/es6/src/data/trie.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/react/cjs/react.production.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/features/imports/approved-sources.json",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/react-dom/index.js",
+            "imports": [
+              "node_modules/react-dom/cjs/react-dom.production.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "src/main.tsx",
+            "imports": [
+              "src/style.css",
+              "\u0000vite/preload-helper.js"
+            ],
+            "dynamicImports": [
+              "src/features/findings/IntegratedMvp.tsx",
+              "src/features/assessments/AssessmentLab.tsx",
+              "src/features/discovery/EvidenceLab.tsx",
+              "src/features/imports/ImportLab.tsx",
+              "src/App.tsx",
+              "src/render.tsx"
+            ]
+          },
+          {
+            "id": "node_modules/scheduler/cjs/scheduler.production.js",
+            "imports": [],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/index.js",
+            "imports": [
+              "node_modules/tldts-core/dist/es6/src/factory.js",
+              "node_modules/tldts-core/dist/es6/src/lookup/fast-path.js",
+              "node_modules/tldts-core/dist/es6/src/options.js"
+            ],
+            "dynamicImports": []
+          },
+          {
+            "id": "node_modules/tldts-core/dist/es6/src/options.js",
+            "imports": [],
+            "dynamicImports": []
+          }
+        ]
+      }
+    ]
+  },
+  "cells": [
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "browser": [
+        "159.0.8154.6"
+      ],
+      "initialPaths": [
+        "/",
+        "/assets/index-CXmjuSuf.js",
+        "/assets/index-lVi0YC3-.css",
+        "/assets/App-DNNiVTY5.js",
+        "/assets/jsx-runtime-Am8b9ysO.js",
+        "/assets/render-CadkVlM9.js",
+        "/api/v1/demo"
+      ],
+      "workerPaths": [],
+      "lcpMs": {
+        "n": 30,
+        "min": 1540,
+        "p50": 2044,
+        "p75": 2208,
+        "p95": 3332,
+        "max": 3376
+      },
+      "fcpMs": {
+        "n": 30,
+        "min": 1540,
+        "p50": 2044,
+        "p75": 2208,
+        "p95": 3332,
+        "max": 3376
+      },
+      "scriptMs": {
+        "n": 30,
+        "min": 245.771,
+        "p50": 472.30499999999995,
+        "p75": 547.8100000000001,
+        "p95": 892.169,
+        "max": 929.804
+      },
+      "taskMs": {
+        "n": 30,
+        "min": 943.87,
+        "p50": 1624.299,
+        "p75": 1858.365,
+        "p95": 2886.8239999999996,
+        "max": 3026.153
+      },
+      "layoutMs": {
+        "n": 30,
+        "min": 74.973,
+        "p50": 450.538,
+        "p75": 523.9430000000001,
+        "p95": 866.482,
+        "max": 881.8340000000001
+      },
+      "styleMs": {
+        "n": 30,
+        "min": 5.043,
+        "p50": 10.866999999999999,
+        "p75": 14.701,
+        "p95": 19.310000000000002,
+        "max": 34.801
+      },
+      "longTaskMs": {
+        "n": 30,
+        "min": 136,
+        "p50": 422,
+        "p75": 521,
+        "p95": 856,
+        "max": 942
+      },
+      "initialJSBytes": {
+        "n": 30,
+        "min": 225392,
+        "p50": 225392,
+        "p75": 225392,
+        "p95": 225392,
+        "max": 225392
+      },
+      "initialJSGzipBytes": {
+        "n": 30,
+        "min": 70973,
+        "p50": 70973,
+        "p75": 70973,
+        "p95": 70973,
+        "max": 70973
+      },
+      "deferredJSBytes": {
+        "n": 30,
+        "min": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "deferredJSGzipBytes": {
+        "n": 30,
+        "min": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "workerJSBytes": {
+        "n": 30,
+        "min": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "workerGzipBytes": {
+        "n": 30,
+        "min": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "totalJSBytes": {
+        "n": 30,
+        "min": 225392,
+        "p50": 225392,
+        "p75": 225392,
+        "p95": 225392,
+        "max": 225392
+      },
+      "totalJSGzipBytes": {
+        "n": 30,
+        "min": 70973,
+        "p50": 70973,
+        "p75": 70973,
+        "p95": 70973,
+        "max": 70973
+      },
+      "initialBodyBytes": {
+        "n": 30,
+        "min": 72364,
+        "p50": 72364,
+        "p75": 72364,
+        "p95": 72364,
+        "max": 72364
+      },
+      "totalBodyBytes": {
+        "n": 30,
+        "min": 72364,
+        "p50": 72364,
+        "p75": 72364,
+        "p95": 72364,
+        "max": 72364
+      },
+      "totalHTTPBytes": {
+        "n": 30,
+        "min": 80091,
+        "p50": 80091,
+        "p75": 80091,
+        "p95": 80091,
+        "max": 80091
+      },
+      "requests": {
+        "n": 30,
+        "min": 7,
+        "p50": 7,
+        "p75": 7,
+        "p95": 7,
+        "max": 7
+      },
+      "operations": {}
+    },
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "browser": [
+        "159.0.8154.6"
+      ],
+      "initialPaths": [
+        "/",
+        "/assets/index-CXmjuSuf.js",
+        "/assets/index-lVi0YC3-.css",
+        "/assets/App-DNNiVTY5.js",
+        "/assets/jsx-runtime-Am8b9ysO.js",
+        "/assets/render-CadkVlM9.js",
+        "/api/v1/demo"
+      ],
+      "workerPaths": [],
+      "lcpMs": {
+        "n": 30,
+        "min": 1664,
+        "p50": 2076,
+        "p75": 2180,
+        "p95": 2868,
+        "max": 3420
+      },
+      "fcpMs": {
+        "n": 30,
+        "min": 1664,
+        "p50": 2076,
+        "p75": 2180,
+        "p95": 2868,
+        "max": 3420
+      },
+      "scriptMs": {
+        "n": 30,
+        "min": 170.24200000000002,
+        "p50": 469.646,
+        "p75": 536.72,
+        "p95": 800.377,
+        "max": 931.886
+      },
+      "taskMs": {
+        "n": 30,
+        "min": 1121.913,
+        "p50": 1610.242,
+        "p75": 1801.741,
+        "p95": 2801.3979999999997,
+        "max": 3028.243
+      },
+      "layoutMs": {
+        "n": 30,
+        "min": 291.779,
+        "p50": 493.376,
+        "p75": 539.914,
+        "p95": 822.43,
+        "max": 881.522
+      },
+      "styleMs": {
+        "n": 30,
+        "min": 5.109,
+        "p50": 11.178,
+        "p75": 13.672,
+        "p95": 20.074,
+        "max": 21.206
+      },
+      "longTaskMs": {
+        "n": 30,
+        "min": 50,
+        "p50": 410,
+        "p75": 516,
+        "p95": 786,
+        "max": 891
+      },
+      "initialJSBytes": {
+        "n": 30,
+        "min": 225392,
+        "p50": 225392,
+        "p75": 225392,
+        "p95": 225392,
+        "max": 225392
+      },
+      "initialJSGzipBytes": {
+        "n": 30,
+        "min": 70973,
+        "p50": 70973,
+        "p75": 70973,
+        "p95": 70973,
+        "max": 70973
+      },
+      "deferredJSBytes": {
+        "n": 30,
+        "min": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "deferredJSGzipBytes": {
+        "n": 30,
+        "min": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "workerJSBytes": {
+        "n": 30,
+        "min": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "workerGzipBytes": {
+        "n": 30,
+        "min": 0,
+        "p50": 0,
+        "p75": 0,
+        "p95": 0,
+        "max": 0
+      },
+      "totalJSBytes": {
+        "n": 30,
+        "min": 225392,
+        "p50": 225392,
+        "p75": 225392,
+        "p95": 225392,
+        "max": 225392
+      },
+      "totalJSGzipBytes": {
+        "n": 30,
+        "min": 70973,
+        "p50": 70973,
+        "p75": 70973,
+        "p95": 70973,
+        "max": 70973
+      },
+      "initialBodyBytes": {
+        "n": 30,
+        "min": 72364,
+        "p50": 72364,
+        "p75": 72364,
+        "p95": 72364,
+        "max": 72364
+      },
+      "totalBodyBytes": {
+        "n": 30,
+        "min": 72364,
+        "p50": 72364,
+        "p75": 72364,
+        "p95": 72364,
+        "max": 72364
+      },
+      "totalHTTPBytes": {
+        "n": 30,
+        "min": 80091,
+        "p50": 80091,
+        "p75": 80091,
+        "p95": 80091,
+        "max": 80091
+      },
+      "requests": {
+        "n": 30,
+        "min": 7,
+        "p50": 7,
+        "p75": 7,
+        "p95": 7,
+        "max": 7
+      },
+      "operations": {}
+    },
+    {
+      "route": "/phase5",
+      "viewport": "mobile",
+      "browser": [
+        "159.0.8154.6"
+      ],
+      "initialPaths": [
+        "/phase5",
+        "/assets/index-CXmjuSuf.js",
+        "/assets/index-lVi0YC3-.css",
+        "/assets/IntegratedMvp-D9IeWGNM.js",
+        "/assets/jsx-runtime-Am8b9ysO.js",
+        "/assets/AssessmentDetails-CRdTylCr.js",
+        "/assets/parsers-NWfqFHAR.js",
+        "/assets/IntegratedMvp-oQGNQ3KE.css",
+        "/assets/render-CadkVlM9.js"
+      ],
+      "workerPaths": [
+        "/assets/assessment.worker-C8IXT5T1.js"
+      ],
+      "lcpMs": {
+        "n": 30,
+        "min": 2132,
+        "p50": 2460,
+        "p75": 2580,
+        "p95": 3200,
+        "max": 3392
+      },
+      "fcpMs": {
+        "n": 30,
+        "min": 2132,
+        "p50": 2460,
+        "p75": 2580,
+        "p95": 3200,
+        "max": 3392
+      },
+      "scriptMs": {
+        "n": 30,
+        "min": 202.167,
+        "p50": 473.16999999999996,
+        "p75": 543.089,
+        "p95": 885.639,
+        "max": 926.3710000000001
+      },
+      "taskMs": {
+        "n": 30,
+        "min": 996.981,
+        "p50": 1512.21,
+        "p75": 1758.007,
+        "p95": 2521.751,
+        "max": 2813.973
+      },
+      "layoutMs": {
+        "n": 30,
+        "min": 236.4,
+        "p50": 383.33299999999997,
+        "p75": 489.659,
+        "p95": 733.292,
+        "max": 739.14
+      },
+      "styleMs": {
+        "n": 30,
+        "min": 5.997,
+        "p50": 14.458,
+        "p75": 17.509,
+        "p95": 24.832,
+        "max": 30.986
+      },
+      "longTaskMs": {
+        "n": 30,
+        "min": 124,
+        "p50": 472,
+        "p75": 564,
+        "p95": 921,
+        "max": 971
+      },
+      "initialJSBytes": {
+        "n": 30,
+        "min": 514541,
+        "p50": 514541,
+        "p75": 514541,
+        "p95": 514541,
+        "max": 514541
+      },
+      "initialJSGzipBytes": {
+        "n": 30,
+        "min": 190610,
+        "p50": 190610,
+        "p75": 190610,
+        "p95": 190610,
+        "max": 190610
+      },
+      "deferredJSBytes": {
+        "n": 30,
+        "min": 598014,
+        "p50": 598014,
+        "p75": 598014,
+        "p95": 598014,
+        "max": 598014
+      },
+      "deferredJSGzipBytes": {
+        "n": 30,
+        "min": 247774,
+        "p50": 247774,
+        "p75": 247774,
+        "p95": 247774,
+        "max": 247774
+      },
+      "workerJSBytes": {
+        "n": 30,
+        "min": 598014,
+        "p50": 598014,
+        "p75": 598014,
+        "p95": 598014,
+        "max": 598014
+      },
+      "workerGzipBytes": {
+        "n": 30,
+        "min": 247774,
+        "p50": 247774,
+        "p75": 247774,
+        "p95": 247774,
+        "max": 247774
+      },
+      "totalJSBytes": {
+        "n": 30,
+        "min": 1112555,
+        "p50": 1112555,
+        "p75": 1112555,
+        "p95": 1112555,
+        "max": 1112555
+      },
+      "totalJSGzipBytes": {
+        "n": 30,
+        "min": 438384,
+        "p50": 438384,
+        "p75": 438384,
+        "p95": 438384,
+        "max": 438384
+      },
+      "initialBodyBytes": {
+        "n": 30,
+        "min": 192415,
+        "p50": 192415,
+        "p75": 192415,
+        "p95": 192415,
+        "max": 192415
+      },
+      "totalBodyBytes": {
+        "n": 30,
+        "min": 440189,
+        "p50": 440189,
+        "p75": 440189,
+        "p95": 440189,
+        "max": 440189
+      },
+      "totalHTTPBytes": {
+        "n": 30,
+        "min": 452079,
+        "p50": 452079,
+        "p75": 452079,
+        "p95": 452079,
+        "max": 452079
+      },
+      "requests": {
+        "n": 30,
+        "min": 11,
+        "p50": 11,
+        "p75": 11,
+        "p95": 11,
+        "max": 11
+      },
+      "operations": {
+        "selection": {
+          "n": 30,
+          "min": 995.6999999880791,
+          "p50": 1124.8999999761581,
+          "p75": 1295.699999988079,
+          "p95": 1366.300000011921,
+          "max": 1377.5
+        },
+        "filter": {
+          "n": 30,
+          "min": 19.19999998807907,
+          "p50": 43.59999996423721,
+          "p75": 54,
+          "p95": 74.30000001192093,
+          "max": 86.89999997615814
+        },
+        "disclosure": {
+          "n": 30,
+          "min": 33.19999998807907,
+          "p50": 117.80000001192093,
+          "p75": 188.60000002384186,
+          "p95": 234.80000001192093,
+          "max": 235.30000001192093
+        },
+        "recompute": {
+          "n": 30,
+          "min": 859.6999999880791,
+          "p50": 906.3000000119209,
+          "p75": 966.3000000119209,
+          "p95": 988.1000000238419,
+          "max": 994.6999999880791
+        }
+      }
+    },
+    {
+      "route": "/phase5",
+      "viewport": "desktop",
+      "browser": [
+        "159.0.8154.6"
+      ],
+      "initialPaths": [
+        "/phase5",
+        "/assets/index-CXmjuSuf.js",
+        "/assets/index-lVi0YC3-.css",
+        "/assets/IntegratedMvp-D9IeWGNM.js",
+        "/assets/jsx-runtime-Am8b9ysO.js",
+        "/assets/AssessmentDetails-CRdTylCr.js",
+        "/assets/parsers-NWfqFHAR.js",
+        "/assets/IntegratedMvp-oQGNQ3KE.css",
+        "/assets/render-CadkVlM9.js"
+      ],
+      "workerPaths": [
+        "/assets/assessment.worker-C8IXT5T1.js"
+      ],
+      "lcpMs": {
+        "n": 30,
+        "min": 1960,
+        "p50": 2416,
+        "p75": 2564,
+        "p95": 3348,
+        "max": 3416
+      },
+      "fcpMs": {
+        "n": 30,
+        "min": 1960,
+        "p50": 2416,
+        "p75": 2564,
+        "p95": 3348,
+        "max": 3416
+      },
+      "scriptMs": {
+        "n": 30,
+        "min": 319.022,
+        "p50": 467.824,
+        "p75": 541.3090000000001,
+        "p95": 853.8670000000001,
+        "max": 880.1099999999999
+      },
+      "taskMs": {
+        "n": 30,
+        "min": 937.641,
+        "p50": 1549.304,
+        "p75": 1741.749,
+        "p95": 2693.632,
+        "max": 2727.27
+      },
+      "layoutMs": {
+        "n": 30,
+        "min": 180.57500000000002,
+        "p50": 392.517,
+        "p75": 488.519,
+        "p95": 750.947,
+        "max": 805.8929999999999
+      },
+      "styleMs": {
+        "n": 30,
+        "min": 5.603000000000001,
+        "p50": 15.549999999999999,
+        "p75": 19.352,
+        "p95": 27.018,
+        "max": 27.259999999999998
+      },
+      "longTaskMs": {
+        "n": 30,
+        "min": 271,
+        "p50": 451,
+        "p75": 527,
+        "p95": 893,
+        "max": 914
+      },
+      "initialJSBytes": {
+        "n": 30,
+        "min": 514541,
+        "p50": 514541,
+        "p75": 514541,
+        "p95": 514541,
+        "max": 514541
+      },
+      "initialJSGzipBytes": {
+        "n": 30,
+        "min": 190610,
+        "p50": 190610,
+        "p75": 190610,
+        "p95": 190610,
+        "max": 190610
+      },
+      "deferredJSBytes": {
+        "n": 30,
+        "min": 598014,
+        "p50": 598014,
+        "p75": 598014,
+        "p95": 598014,
+        "max": 598014
+      },
+      "deferredJSGzipBytes": {
+        "n": 30,
+        "min": 247774,
+        "p50": 247774,
+        "p75": 247774,
+        "p95": 247774,
+        "max": 247774
+      },
+      "workerJSBytes": {
+        "n": 30,
+        "min": 598014,
+        "p50": 598014,
+        "p75": 598014,
+        "p95": 598014,
+        "max": 598014
+      },
+      "workerGzipBytes": {
+        "n": 30,
+        "min": 247774,
+        "p50": 247774,
+        "p75": 247774,
+        "p95": 247774,
+        "max": 247774
+      },
+      "totalJSBytes": {
+        "n": 30,
+        "min": 1112555,
+        "p50": 1112555,
+        "p75": 1112555,
+        "p95": 1112555,
+        "max": 1112555
+      },
+      "totalJSGzipBytes": {
+        "n": 30,
+        "min": 438384,
+        "p50": 438384,
+        "p75": 438384,
+        "p95": 438384,
+        "max": 438384
+      },
+      "initialBodyBytes": {
+        "n": 30,
+        "min": 192415,
+        "p50": 192415,
+        "p75": 192415,
+        "p95": 192415,
+        "max": 192415
+      },
+      "totalBodyBytes": {
+        "n": 30,
+        "min": 440189,
+        "p50": 440189,
+        "p75": 440189,
+        "p95": 440189,
+        "max": 440189
+      },
+      "totalHTTPBytes": {
+        "n": 30,
+        "min": 452079,
+        "p50": 452079,
+        "p75": 452079,
+        "p95": 452079,
+        "max": 452079
+      },
+      "requests": {
+        "n": 30,
+        "min": 11,
+        "p50": 11,
+        "p75": 11,
+        "p95": 11,
+        "max": 11
+      },
+      "operations": {
+        "selection": {
+          "n": 30,
+          "min": 951.8000000119209,
+          "p50": 1092.3999999761581,
+          "p75": 1276.199999988079,
+          "p95": 1346.1000000238419,
+          "max": 1367
+        },
+        "filter": {
+          "n": 30,
+          "min": 16.600000023841858,
+          "p50": 40.39999997615814,
+          "p75": 62.200000047683716,
+          "p95": 68.70000004768372,
+          "max": 76.30000001192093
+        },
+        "disclosure": {
+          "n": 30,
+          "min": 48.799999952316284,
+          "p50": 112.90000003576279,
+          "p75": 197.4000000357628,
+          "p95": 247.80000001192093,
+          "max": 284.69999998807907
+        },
+        "recompute": {
+          "n": 30,
+          "min": 853.1000000238419,
+          "p50": 912.4000000357628,
+          "p75": 972.1000000238419,
+          "p95": 1014,
+          "max": 1198.199999988079
+        }
+      }
+    }
+  ]
+}
