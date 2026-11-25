@@ -104,6 +104,15 @@ profiles/version changes require explicit offline regeneration, source/engine
 and canonicalization review, a separately reviewed registry pin update, tests
 and PR approval; no runtime registration/configuration shortcut.
 
+Review hardening: manifest reads stop at 8 MiB plus one overflow-detection byte;
+batch-file reads allow at most 8 MiB canonical content plus its framing newline,
+and one overflow-detection byte. Size rejection occurs before an unbounded file
+read or decoding. Direct trusted-Python admission calls authenticate and check
+CSRF/explicit consent before data work, then copy and strictly revalidate the
+**whole** envelope. An instance produced by unvalidated `model_copy` or
+`model_construct` is not accepted as proof of contract compliance. These checks
+do not change fields, registered bytes/profiles, versions or admission authority.
+
 Replay is intentionally permitted only as repeated validation of the same batch
 under current explicit fictional consent/epoch/revision/session. Nothing is
 stored or consumed, no receipt confers authority, no idempotent save is implied.

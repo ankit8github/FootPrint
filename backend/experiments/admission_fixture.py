@@ -147,10 +147,17 @@ class AdmissionFixture:
     async def validate(
         self, principal: AuthenticatedPrincipal, envelope: AdmissionEnvelope, token: str
     ) -> dict[str, str]:
-        # Revalidate trusted Python callers as well as the HTTP path.
+        # Authenticate before data work, including for direct trusted-Python callers.
+        initial = self.precondition(principal, token)
         if type(envelope) is not AdmissionEnvelope:
             raise Denied(422)
-        initial = self.precondition(principal, token, envelope)
+        try:
+            # model_copy/model_construct deliberately skip Pydantic validation.
+            # Copy and revalidate all fields, not just the batch or object type.
+            envelope = AdmissionEnvelope.model_validate(envelope.model_dump(warnings="error"))
+        except (ValueError, TypeError):
+            raise Denied(422) from None
+        self.precondition(principal, token, envelope)
         store = self.session.store
         if store is None:
             raise Denied(503)

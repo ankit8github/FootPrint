@@ -17,6 +17,9 @@ fictional admission consent, separate from local-processing or future save
 consent. No browser API grants it. Corrupt controls/registry/session fail closed.
 Each granted control also pins the fictional session auth epoch; a new epoch
 requires trusted test setup to grant consent again. This is not durable consent.
+Direct Python calls run the same authorization preconditions before serializing
+or validating supplied data, then revalidate every envelope field; Pydantic object
+type alone is insufficient because `model_copy`/`model_construct` skip validation.
 
 Order: exact transport/host/path/header checks; authentication; same-origin;
 action CSRF and current explicit consent; media/length/transfer checks; bounded
@@ -34,11 +37,16 @@ invalid/revoked principal; 403 origin/CSRF/no explicit consent; 409 stale consen
 epoch/revision; 413 body ceiling; 415 unsupported media/encoding/transfer;
 422 malformed/extra/unregistered payload; 404 unknown fixture route; 503 corrupt
 or missing trusted state. No input, field location, ID or exception reflection.
+Inherited malformed cookie framing (duplicate/oversized cookie headers or repeated
+recognized cookie names) returns fixed 400 before principal resolution. This
+documented exception preserves the unchanged Phase 6B parser; it grants no access.
 Inherited no-store/no-cache/no-referrer/nosniff/restrictive CSP on every response.
 Fixture transport replaces the entire handled URL with a fixed fixture URL,
 including authority/user-info/path/query/fragment, before HTTP client logging; body/
 schema exception details are never logged. External proxy/APM/browser retention
 and hostile in-process Python code are outside this never-served harness.
+Catalog startup also bounds each binary read before hash/decode/schema checks,
+including the overflow-detection byte and the canonical file's framing newline.
 
 Security cases map to MA-03/04/05 (TM-07/08/09), MA-06 (authorization/consent and
 revocation races), MA-07 (isolation), MA-08 (sentinel nonreflection). All registered

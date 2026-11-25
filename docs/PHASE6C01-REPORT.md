@@ -5,6 +5,11 @@ Scope is the explicitly authorized 6C-01 experiment. See the [plan](PHASE6C01-PL
 [proposed contract](PHASE6C01-MINIMIZED-CONTRACT.md) and
 [security boundary](PHASE6C01-ADMISSION-SECURITY.md).
 
+Review follow-up: the [AI-assisted engineering review](PHASE6C01-REVIEW.md) records
+the two fixed findings, current checks and still-pending qualified human gate.
+Earlier 52-file/951-case delivery evidence below is historical at head
+`227232a63621f66422a72f5c46d00d84e46a3856`; see the review for current results.
+
 ## Baseline and behavior
 
 Fetched origin and verified clean synchronized main/origin/main
@@ -309,3 +314,28 @@ This final evidence commit changes only this report. Its fresh exact-head CI,
 SHA and GitGuardian outcomes are recorded in the PR description and final
 response. Main remains unchanged, all inherited limitations remain open, and
 PR #11 remains unmerged for independent review. Stop after delivery.
+
+## Requested review follow-up
+
+Reviewed expected head `227232a63621f66422a72f5c46d00d84e46a3856` in PR #11.
+All 70 profiles/32 batches match the exact original corpus and engines; all 193
+protected historical Git contents, proposed ADRs, Phase 2 and oracles are unchanged.
+The [review record](PHASE6C01-REVIEW.md) maps fields to S6A-01/04/12 and TM-07/08/09,
+records explicit exceptions, reproductions, fixes and residual risks.
+
+Fixed direct-Python envelope revalidation (unvalidated Pydantic model instances)
+and bounded catalog file reads before size/hash/schema checks. HTTP was already
+strict; no anonymous/foreign-owner HTTP bypass or unregistered batch admission
+was demonstrated. Registered bytes/profiles/schema/engine/gates remain exact.
+Eleven new regressions pass; full local result is **962 backend**, **284 frontend**,
+**nine Chromium**, **seven privacy/rollback** and one separate offline generator
+case, with all locked quality/contracts/corpus/audits successful. Review evidence
+is under `.local/phase6c01-review/`. Fresh exact-final-head push/PR/GitGuardian
+results are recorded in PR #11 and the review response after verification.
+
+This is AI review by the implementing assistant, not independent human approval.
+No qualified independent reviewer or approval record is present. **Independent
+review gate remains NOT SATISFIED; PR #11 stays OPEN and UNMERGED.** G-S3, P5-F01,
+P5-F02, real provider/browser, durable state/consent, legal/retention and independent
+security remain unresolved. No next phase, database/persistence, production auth,
+deployment or beta work is authorized.

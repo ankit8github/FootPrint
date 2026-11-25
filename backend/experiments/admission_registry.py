@@ -11,11 +11,20 @@ DATA = Path(__file__).with_name("admission_data")
 MANIFEST_SHA256 = "333c513165273846a4645c74ba604900266d88e10fb6eda1848e0195949b0699"
 
 
+def _bounded_file(path: Path, limit: int) -> bytes:
+    # A corrupt trusted artifact must not be read without a bound before rejection.
+    with path.open("rb") as stream:
+        raw = stream.read(limit + 1)
+    if len(raw) > limit:
+        raise ValueError("invalid registry")
+    return raw
+
+
 class SyntheticRegistry:
     def __init__(self) -> None:
         try:
-            raw = (DATA / "manifest.json").read_bytes()
-            if len(raw) > MAX_BODY or hashlib.sha256(raw).hexdigest() != MANIFEST_SHA256:
+            raw = _bounded_file(DATA / "manifest.json", MAX_BODY)
+            if hashlib.sha256(raw).hexdigest() != MANIFEST_SHA256:
                 raise ValueError
             manifest = parse_json(raw)
             if not isinstance(manifest, dict) or not isinstance(manifest.get("entries"), list):
@@ -29,8 +38,8 @@ class SyntheticRegistry:
                     or any(c not in "0123456789abcdef" for c in digest)
                 ):
                     raise ValueError
-                stored = (DATA / (digest + ".json")).read_bytes()
-                if len(stored) > MAX_BODY or not stored.endswith(b"\n"):
+                stored = _bounded_file(DATA / (digest + ".json"), MAX_BODY + 1)
+                if not stored.endswith(b"\n"):
                     raise ValueError
                 encoded = stored[:-1]
                 batch = MinimizedBatch.model_validate(parse_json(encoded))
