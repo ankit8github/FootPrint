@@ -112,6 +112,27 @@ The separate preservation audit verifies all 193 historical files, 27 source raw
 hashes, 29 scenarios/six survivors, engine provenance, canonical bytes/digests
 and repaired registry membership. No source or registry pin changes.
 
+### Executed initial repair CI evidence
+
+Initial tested repair head: `6b011312df6be093792a92f64ce266cad2f50878` (all three original findings repaired).
+
+- [pull_request CI 45590295779](https://github.com/ankit8github/FootPrint/actions/runs/45590295779): SUCCESS on that exact head.
+- [push CI 45590280734](https://github.com/ankit8github/FootPrint/actions/runs/45590280734): SUCCESS on that exact head.
+- [GitGuardian](https://github.com/ankit8github/FootPrint/runs/139122418505): SUCCESS, secret scanning only.
+
+Both decoded logs and every job/step were inspected: 1,061 backend passed with
+no xfail/skip, 284 frontend, nine Chromium, seven privacy/rollback, exact registry
+reproduction and original PostgreSQL scaffold upgrade/constraint/downgrade/
+re-upgrade with no personal tables. This is not tenant/RLS or independent review.
+
+Final inspection additionally moves metadata length rejection before key iteration
+and set construction. It preserves accepted data and denial statuses while
+avoiding oversized malformed-object bookkeeping. All 99 assurance/repair cases,
+strict types, lint/format pass with these checks; the repeated full backend also
+passes all 1,061 cases, with all nine frozen checks/audit commands successful.
+The final repair-head and final delivery checks are recorded separately rather
+than attributing these initial runs to a later commit.
+
 ### Exact repair inventory
 
 Ten files change relative to the pre-repair head; two are new:

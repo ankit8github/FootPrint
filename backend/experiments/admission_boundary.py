@@ -48,9 +48,11 @@ def model_input(model: AdmissionEnvelope | MinimizedBatch) -> dict[str, object]:
             supplied = object.__getattribute__(value, "__pydantic_fields_set__")
             if (
                 type(state) is not dict
+                or len(state) != len(fields)
                 or any(type(key) is not str for key in state)
                 or set(state) != fields
                 or type(supplied) is not set
+                or len(supplied) != len(fields)
                 or any(type(key) is not str for key in supplied)
                 or supplied != fields
                 or object.__getattribute__(value, "__pydantic_extra__") is not None
