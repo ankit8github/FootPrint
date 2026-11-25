@@ -3,8 +3,10 @@
 Date: 2026-11-25. Scope: isolated synthetic frontend performance measurement.
 **No performance remediation is accepted.** The route-loading candidate failed
 seven proposed checks and was rolled back. P5-F01 remains OPEN; original eager
-imports and the original Vite advisory remain. Deliver the evidence for
-product-owner/frontend-security review; do not merge or start another phase.
+imports and the original Vite advisory remain. The subsequent user instruction
+authorized a benchmark-evidence-only merge, recorded below. Engineering outcome:
+**measurement completed; candidate rejected; P5-F01 open**. This is not successful
+performance remediation and does not authorize another phase.
 
 ## Authority, baseline and measured outcome
 
@@ -142,19 +144,22 @@ legal/retention decisions, independent security review, P5-F02 and other inherit
 findings remain unresolved. No personal-data persistence, tenant tables, real
 provider/data processing, deployment or external user invitations occurred.
 
-**Leave PR #10 unmerged. Stop for product-owner/frontend-security review.**
+The original delivery stopped with PR #10 unmerged for product-owner/frontend-
+security review. The later finalization instruction authorized only the rejected
+experiment's benchmark-evidence merge described below.
 No further optimization, Phase 6C/database work, production authentication,
 real-user/provider integration, deployment or beta enrollment is authorized.
 
-## GitHub delivery evidence
+## Pre-merge GitHub delivery evidence
 
 Opened [PR #10](https://github.com/ankit8github/FootPrint/pull/10), against main,
 on `phase6b/frontend-performance`. Verified implementation head:
 `81cf783e5da9e2548e81ed2a601a83aa24dd43bc`; verified base:
-`4565d4c5665f941b486d569c35fe7aebc14654f2`. GitHub confirms open/unmerged,
+`4565d4c5665f941b486d569c35fe7aebc14654f2`. At delivery, GitHub confirmed open/unmerged,
 clean mergeability and the exact 23-file inventory above. Zero reviews, inline
 comments or discussion comments were present at verification; this is not
-independent approval. Do not merge despite clean mechanical mergeability.
+independent approval. The original instruction stopped before merging; later
+explicit finalization authority is recorded below.
 
 | Exact implementation-head remote evidence | Result |
 | --- | --- |
@@ -178,6 +183,119 @@ Connector reads independently confirmed PR metadata and decoded CI logs.
 This evidence update is report-only after the tested implementation head. The
 PR records its exact final head and fresh final push/PR/GitGuardian check results,
 avoiding a self-referential report commit hash. All other 22 delivered files and
-all 171 protected historical files remain unchanged. Main is not modified or
-merged. **Stop with the performance proposal failed, remedy rolled back and
-P5-F01 open for product-owner/frontend-security review.**
+all 171 protected historical files remained unchanged. At that delivery point,
+main had not been modified or merged. Delivery ended with the performance
+proposal failed, remedy rolled back and P5-F01 open for review.
+
+## Merge finalization - 2026-11-25
+
+**Engineering outcome: measurement completed; candidate rejected; P5-F01 open.**
+The subsequent user instruction authorized finalizing PR #10 exclusively as a
+**REJECTED PERFORMANCE EXPERIMENT / benchmark-evidence-only merge**. It did not
+approve the candidate, relax budgets or authorize additional optimization.
+
+Immediately before merging, fetched refs and repeated guarded local/API checks:
+clean synchronized feature branch at exact head
+`634d624d0de3756fda903217e5bd853e8e9290c3`, base main/origin/main
+`4565d4c5665f941b486d569c35fe7aebc14654f2`, exact 23-file inventory, clean
+mergeability and zero submitted reviews, review threads, inline comments or
+discussion comments. No new blocking review/comment was present. Absence of
+reviews does not constitute independent security/performance approval.
+
+**Authoritative merge commit:**
+[`1e4662d9a4355232fabac10d3366297032547970`](https://github.com/ankit8github/FootPrint/commit/1e4662d9a4355232fabac10d3366297032547970).
+GitHub confirmed PR #10 closed/merged at `2026-11-25T06:22:34Z`. Ordered parents
+are the exact expected base and reviewed head above; this is a merge commit,
+not squash or rebase. Its tree is identical to the reviewed head. Local main was
+fast-forwarded to origin/main at the authoritative merge without a reset.
+
+The connector merge action returned `403: Resource not accessible by integration`.
+The existing authenticated Git account repeated all guards immediately before
+the explicitly authorized expected-head `merge` request. Credentials stayed in
+memory and were not printed or saved. Connector reads independently reconfirmed
+the merged state and authoritative SHA.
+
+### Exact pre-merge and post-merge CI evidence
+
+| Reverified evidence | Result |
+| --- | --- |
+| [Final PR-head push CI 45558303162](https://github.com/ankit8github/FootPrint/actions/runs/45558303162) | SUCCESS on exact reviewed head; every job/step |
+| [Final PR CI 45558309657](https://github.com/ankit8github/FootPrint/actions/runs/45558309657) | SUCCESS on exact reviewed head; every job/step |
+| [GitGuardian 139015615613](https://github.com/ankit8github/FootPrint/runs/139015615613) | SUCCESS on exact reviewed head; secret scanning only |
+| [Post-merge main CI 45560134922](https://github.com/ankit8github/FootPrint/actions/runs/45560134922) | SUCCESS on authoritative merge; every job/step |
+
+Decoded logs from both final PR-head jobs and post-merge main CI were inspected.
+All confirm **564 backend tests, 284 frontend tests, nine original Chromium
+scenarios and seven new preservation scenarios** remain successful, along with
+lint/format/types/contracts/corpus/audits and the scaffold migration roundtrip:
+`PASS: PostgreSQL upgrade, constraint enforcement, downgrade, re-upgrade; no personal tables.`
+Post-merge pytest completed in 35.17s; existing browser scenarios in 7.0s. These
+are functional/regression results, not acceptance of the failed performance
+proposal or tenant/RLS database coverage.
+
+The mandatory `Production privacy and rollback preservation` CI step remains
+unchanged, without a condition or `continue-on-error`, and executes
+`npm run test:performance -- --baseline`. It verifies exact original active
+JS/CSS asset hashes and original eager route-module inventory, along with worker
+selection/lifecycle, network, storage and error checks. Its log explicitly says
+the proposed performance budgets remain **FAILED**. The strict default check and
+the archived statistical decision are not reclassified as passing.
+
+### Failure decision, baseline and rollback retained
+
+The unchanged-main baseline remains
+`4565d4c5665f941b486d569c35fe7aebc14654f2`. All **240 formal samples** remain
+exact: 120 baseline and 120 rejected-candidate samples, 30 per route/viewport in
+each stage. Both published JSONL hashes, full local JSONL hashes, asset/module
+graphs, scripts/instrumentation hashes, archived rejected patch and all other
+reports are unchanged from the reviewed head. No new candidate or measurement
+stage was introduced during finalization.
+
+The decision remains **seven failed checks out of 25**, without budget changes:
+
+| Failed proposed check | Rejected candidate | Required limit / baseline comparison |
+| --- | ---: | --- |
+| Phase 5 mobile p75 LCP | 2580 ms | <=2500 ms; baseline 2532 ms |
+| Phase 5 desktop p75 LCP | 2564 ms | <=2500 ms; baseline 2568 ms |
+| Mobile selection p75 | 1295.7 ms | +14.86%, exceeds 10% regression allowance |
+| Desktop selection p75 | 1276.2 ms | +12.18%, exceeds 10% regression allowance |
+| Mobile disclosure p75 | 188.6 ms | +22.95%, exceeds 10% regression allowance |
+| Desktop disclosure p75 | 197.4 ms | +38.72%, exceeds 10% regression allowance |
+| Desktop filter p75 | 62.2 ms | +20.31%, exceeds 10% regression allowance |
+
+LCP tails worsened in all cells. Root's transfer reduction did not justify these
+failures. Phase 5's complete HTTP transfer increased by 6322 bytes (445757 to
+452079); worker costs and all deferred bytes remain disclosed in the results.
+The original eager imports/build structure and oversized-chunk advisory remain
+active. The rejected patch is **not applied**: all original application
+JS/TS/TSX/CSS, backend/API routes, dependencies/locks, corpus/oracles, prior tests,
+rules, source gate and exact **5000-ms worker deadline** match the baseline.
+Only a dry-run `git apply --check` validated patch reproducibility.
+
+Preservation checks reconfirm all 171 protected historical files and all 193
+other reviewed files unchanged; this finalization changes only this report.
+The 29 corpus scenarios, six deletion survivor snapshots and 27 approved source
+files remain exact. ADR-015 through ADR-022 remain byte-identical and PROPOSED.
+The fictional Phase 6B fixtures remain disabled by default, ASGI-only, untouched
+and unmounted from normal FastAPI.
+
+The original pinned lab environment remains recorded in the baseline: Node
+22.15.0, Vite 8.3.8, Playwright 1.65.1, Chromium 159.0.8154.6, Windows 11 build
+26200 on the documented i5-10210U host, page CPU 4x and 150-ms / 1.6-Mbps-down /
+0.75-Mbps-up network emulation. Worker CPU-throttle inheritance, isolated parse
+CPU, complete browser worker waterfall phases, OS cache/power/thermal control,
+physical-mobile equivalence and production/field performance remain unverified.
+Sequential host observations do not isolate timing-regression causes. No new
+performance, durable-session/consent, provider, legal or security guarantee is
+created by merging evidence. P5-F02 and G-S3 remain unresolved; the scaffold
+roundtrip is not PostgreSQL restricted-role/RLS/tenant endpoint assurance.
+
+The report-only follow-up triggers fresh main CI. Its final HEAD, clean
+synchronization with origin/main and exact final CI result are reported in the
+finalization response, avoiding a self-referential report commit hash. The merge
+SHA above remains authoritative regardless of the report-only follow-up SHA.
+
+**Stop after finalization: measurement completed; candidate rejected; P5-F01 open.**
+No rejected-patch reapplication, budget relaxation, new performance candidate,
+Phase 6C, real auth/data, tenant persistence, provider connection or deployment
+is authorized.
