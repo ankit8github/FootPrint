@@ -80,7 +80,7 @@ proposed-budget comparison described above.
 | Candidate functional check, before rollback | **7 passed**; separate from statistical performance acceptance |
 | Evidence integrity / independent numeric audit | PASS: 240 rows, SHA-256 checks, nearest-rank LCP/interaction calculations and exact five instrumentation hashes |
 | Scoped rollback / patch check | PASS; no application-source diff and rejected patch applies cleanly |
-| Scaffold migration roundtrip | Not run locally; preserved Docker CI step must be verified from fresh job logs below. No tenant/RLS claim |
+| Scaffold migration roundtrip | Not run locally; verified in both fresh CI job logs below. No tenant/RLS claim |
 
 The new strict production check still rejects the restored oversized/eager build.
 CI explicitly calls `test:performance -- --baseline`, testing preservation and
@@ -148,7 +148,36 @@ real-user/provider integration, deployment or beta enrollment is authorized.
 
 ## GitHub delivery evidence
 
-Exact pushed head, PR URL, push/PR CI and GitGuardian results are populated after
-remote verification. A later report-only commit may follow the tested code head;
-the PR records its exact current head and fresh final check results, avoiding a
-self-referential report commit hash. Main is not modified or merged by this work.
+Opened [PR #10](https://github.com/ankit8github/FootPrint/pull/10), against main,
+on `phase6b/frontend-performance`. Verified implementation head:
+`81cf783e5da9e2548e81ed2a601a83aa24dd43bc`; verified base:
+`4565d4c5665f941b486d569c35fe7aebc14654f2`. GitHub confirms open/unmerged,
+clean mergeability and the exact 23-file inventory above. Zero reviews, inline
+comments or discussion comments were present at verification; this is not
+independent approval. Do not merge despite clean mechanical mergeability.
+
+| Exact implementation-head remote evidence | Result |
+| --- | --- |
+| [Push CI 45557448778](https://github.com/ankit8github/FootPrint/actions/runs/45557448778) | SUCCESS, every job/step |
+| [PR CI 45557675215](https://github.com/ankit8github/FootPrint/actions/runs/45557675215) | SUCCESS, every job/step |
+| [GitGuardian 139013559489](https://github.com/ankit8github/FootPrint/runs/139013559489) | SUCCESS, secret scanning only |
+
+Decoded logs from both jobs were inspected. Each confirms **564 backend tests,
+284 frontend tests, nine existing Chromium scenarios, seven new production
+privacy/rollback scenarios**, successful quality/contracts/corpus/audits and
+`PASS: PostgreSQL upgrade, constraint enforcement, downgrade, re-upgrade; no personal tables.`
+This is the preserved disposable scaffold migration check, not tenant-schema,
+restricted-role or RLS coverage. Both logs explicitly retain the failed
+performance-budget outcome; passing functional CI does not approve it.
+
+The GitHub connector's creation action returned `403: Resource not accessible by
+integration`; the existing authenticated Git account completed the explicitly
+requested creation. Credentials remained in memory and were not printed/saved.
+Connector reads independently confirmed PR metadata and decoded CI logs.
+
+This evidence update is report-only after the tested implementation head. The
+PR records its exact final head and fresh final push/PR/GitGuardian check results,
+avoiding a self-referential report commit hash. All other 22 delivered files and
+all 171 protected historical files remain unchanged. Main is not modified or
+merged. **Stop with the performance proposal failed, remedy rolled back and
+P5-F01 open for product-owner/frontend-security review.**
