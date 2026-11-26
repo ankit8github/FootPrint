@@ -1,0 +1,52 @@
+name: Phase 6 blocker design building blocks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  lifecycle-model:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.9'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.9.29'
+      - run: uv sync --project backend --frozen
+      - name: Isolated model quality and explicit scope
+        working-directory: backend
+        run: |
+          uv run --frozen ruff check blocker_proofs blocker_tests
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen ruff format --check blocker_proofs blocker_tests
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen mypy blocker_proofs blocker_tests
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen pytest -q blocker_tests
+  linux-syscall-building-block:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.9'
+      - name: Per-child syscall denial, not full worker isolation
+        working-directory: backend
+        run: python -m blocker_proofs.linux_network_probe
+  native-windows-startup-gate:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.9'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.15.0'
+      - name: Native probe must launch before claiming a network denial
+        working-directory: backend
+        run: python -m blocker_proofs.windows_probe
