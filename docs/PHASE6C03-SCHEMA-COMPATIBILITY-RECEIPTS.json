@@ -1,0 +1,317 @@
+{
+  "scope": "C03-COMP-01 disabled synthetic-only schema candidate; separate adoption pending",
+  "preflight_head": "511dfee080d3bcd3c68aaa35ec1474700ff0cf63",
+  "base_main": "2038c65554501b7f0a099976ea07b75606cb7ff7",
+  "preflight_branch": "experiment/phase6c03-shared-rules",
+  "database": {
+    "platform": "Windows native PostgreSQL 17.5; Python 3.11.9",
+    "cluster": "fp6c03-provenance-disposable-c588a5bc96a343fcae2e361a242de9fd",
+    "port": 55449,
+    "server_stopped": true,
+    "baseline_pristine": {
+      "passed": 434,
+      "seconds": 41.95
+    },
+    "after_candidate_roundtrip": {
+      "passed": 434,
+      "seconds": 38.89,
+      "test_only_catalog_compatibility_plugin": "experiments.provenance_legacy_compat",
+      "rebindings": [
+        "db_tests.conftest.require_disposable",
+        "db_tests.test_tenant_security.require_disposable",
+        "db_tests.test_tenant_security.EXPECTED_TABLES"
+      ],
+      "legacy_fixture_values_admission_and_assertions_unchanged": true
+    },
+    "new_cases": {
+      "passed": 93,
+      "seconds": 2.93
+    },
+    "races": [
+      "READ COMMITTED/insert: delete=23503, contender=23505",
+      "READ COMMITTED/delete-reinsert: delete=23503, contender=23505",
+      "REPEATABLE READ/insert: delete=23503, contender=23505",
+      "REPEATABLE READ/delete-reinsert: delete=23503, contender=23505",
+      "READ COMMITTED/insert: delete=23503, contender=23505",
+      "READ COMMITTED/delete-reinsert: delete=23503, contender=23505",
+      "REPEATABLE READ/insert: delete=23503, contender=23505",
+      "REPEATABLE READ/delete-reinsert: delete=23503, contender=23505"
+    ],
+    "ledger_retained_exactly": true,
+    "nonempty_upgrade": "23514 refusal; no invented lineage",
+    "empty_candidate_upgrade_downgrade_reupgrade": "PASS",
+    "nonempty_candidate_downgrade": "23514 refusal; every binding/ledger row unchanged",
+    "old_migration_cannot_drop_candidate": "PASS; original guard refuses added objects"
+  },
+  "preservation": {
+    "prior_worktree_and_evidence_files": 444,
+    "snapshot_sha256": "ff9f72113099aeb4dbd455a22f9700e1bef1922ecf0d1cca7229b706f0f7e920",
+    "preflight_git_blobs": 312,
+    "base_git_blobs": 270,
+    "pre_experiment_protected_blobs": 285,
+    "immutable_profiles": 70,
+    "original_suite_passed": 71,
+    "historical_schema_counterexample_still_passes": 1
+  },
+  "sources_normalized_lf_sha256": {
+    "backend/experiments/provenance_schema.py": "3ad95344cf04fd904365e747f4e5d00288b5eb70d99ee4eb5c50eb2b601e8c3f",
+    "backend/experiments/provenance_legacy_compat.py": "8b279a841a101b253128708aa04d0a4aa411d8bc499f6e19d3e3219a3863501c",
+    "backend/provenance-alembic.ini": "e9483de33e557f0cdac643a43c7f77541bdf46f59f4ba5a37d9d1d7df5e980f5",
+    "backend/provenance_migrations/env.py": "ed22dfe343fbf8c269bd1b14a1812bcac1e4e1516f48f43de643f934c7700f74",
+    "backend/provenance_migrations/versions/c03_comp01_0001.py": "14bfcdcea2de7d589ca655f606911d4ec29caa0cc51288f984f8314c8a52debc",
+    "backend/provenance_migrations/versions/c03_comp01_0001.sql": "4776848bfb4f481c4fe642479233175941c0ec8ae5d03424be6ef7a932812530",
+    "backend/provenance_tests/conftest.py": "258dbc62c535df2269c7a7a02f0304effe5db9e45caf5ad57b36cbf463ade053",
+    "backend/provenance_tests/test_generation_binding.py": "7ed64c641b80e5c51c768c7dc07fe0d6b9ef0a53d40ca05126d52d33bf89678a",
+    "backend/scripts/check_provenance_database.py": "99441f73f2d8bc2a9c79752a2573ef86c0aec3efe674b9d3a847e0834d4f4869",
+    "backend/scripts/run_provenance_database.py": "6541bc59d2a575f55d2dc33a5f6c65949e0dceeb1b356a9569be305d2e5ad6fa",
+    "backend/scripts/check_provenance_preservation.py": "926571700e8929843559cda9577a1e446791e1af0b7a4822bf4b7f84dbd14460"
+  },
+  "checks": {
+    "database-04": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.run_provenance_database",
+        "--postgres-bin",
+        "C:/Program Files/PostgreSQL/17/bin"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 600.0,
+      "seconds": 104.484,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "bcba8d6baf657fbb343d3f8d4716782fce517f1ec6fa3ebfd794c9e45f87befd",
+      "log_bytes": 13016
+    },
+    "oracles-01": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "rule_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 180.0,
+      "seconds": 27.93,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "33a7ea24fef3e92ef18f689a67625164614327a665eca6737b80ae6d679a6683",
+      "log_bytes": 102
+    },
+    "historical-schema-01": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "completion_tests/test_storage_compatibility.py"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 120.0,
+      "seconds": 1.758,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "a23e4e23ff133452cbbea2116bde11299e8cd6492bc70e3d90b69afbfa735e28",
+      "log_bytes": 100
+    },
+    "preserve-285-01": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.check_indexing_preservation"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 120.0,
+      "seconds": 3.005,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "9df491c4714b678e56d0f44ea2da6709c7d0bdbdf251d821445227d98ca12325",
+      "log_bytes": 50
+    },
+    "preservation-01": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.check_provenance_preservation"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 120.0,
+      "seconds": 0.524,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "46f52078f5e9affeb2ec899bcbc18b9e9ae57a100c598ca946c8232d50082a18",
+      "log_bytes": 154
+    },
+    "quality-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "."
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 120.0,
+      "seconds": 0.079,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "log_bytes": 19
+    },
+    "format-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 120.0,
+      "seconds": 0.088,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "c0b753c0bfc7a70fc1f8c69d5afa1907a2fb41437df923ecb7ecac4d78676a19",
+      "log_bytes": 27
+    },
+    "types-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 120.0,
+      "seconds": 1.214,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "ff7fa338160fc834760e2981fabb96c5026e1c7b5fbf91dba5fe0364c0f97c94",
+      "log_bytes": 45
+    },
+    "types-new-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "provenance_migrations",
+        "provenance_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 120.0,
+      "seconds": 0.903,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "d9a5631f7d87a741fbecc3236286d1792d22d349ff13846d71cdc9217307bb76",
+      "log_bytes": 44
+    },
+    "types-linux-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "--platform",
+        "linux"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 120.0,
+      "seconds": 20.619,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "ff7fa338160fc834760e2981fabb96c5026e1c7b5fbf91dba5fe0364c0f97c94",
+      "log_bytes": 45
+    }
+  },
+  "failed_attempts_retained": [
+    {
+      "label": "database-01",
+      "cause_and_correction": "New row/statement triggers shared a name on one table; renamed the statement trigger.",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.run_provenance_database",
+        "--postgres-bin",
+        "C:/Program Files/PostgreSQL/17/bin"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 600.0,
+      "seconds": 76.222,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "540c44642c7b384f8165f000b31664bbd341e8bc4a3c961462b80fa965db793d",
+      "log_bytes": 11584
+    },
+    {
+      "label": "database-02",
+      "cause_and_correction": "FK addition alone did not reject existing generations. Added a locked physical CHECK(false) validation precondition; no historical backfill.",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.run_provenance_database",
+        "--postgres-bin",
+        "C:/Program Files/PostgreSQL/17/bin"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 600.0,
+      "seconds": 75.07,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "e263346a39a572f60d76afb3739319b8367a800353b8a74200f8c3733fe43a72",
+      "log_bytes": 1515
+    },
+    {
+      "label": "database-03",
+      "cause_and_correction": "New catalog reader used driver SQL with an unescaped percent. Changed catalog reads to SQLAlchemy text(). Physical precondition had rejected four existing generations.",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.run_provenance_database",
+        "--postgres-bin",
+        "C:/Program Files/PostgreSQL/17/bin"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 600.0,
+      "seconds": 52.408,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "6c069eaf14eb3ba2aaa2f03f96b4ff745c963ff8153845fb435233f96cbc4e96",
+      "log_bytes": 4395
+    }
+  ],
+  "not_tested": [
+    "new exact-head CI/GitGuardian",
+    "Linux/Docker/PostgreSQL 17.12 migration",
+    "full 1061 backend/284 frontend/browser/build/audits rerun in this task",
+    "unfinished durable provenance adapter",
+    "survivor implementation",
+    "executor failure matrix",
+    "crash/PITR/backup restore and independent human security review"
+  ],
+  "publication": "local review candidate only; no push that would automatically execute the existing completion_tests adapter tests"
+}

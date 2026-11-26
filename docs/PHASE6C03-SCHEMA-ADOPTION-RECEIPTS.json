@@ -1,0 +1,324 @@
+{
+  "scope": "schema review only; no adapter completion, application activation, survivor work or merge",
+  "refs": {
+    "reviewed_candidate": "e70447788145638fa6a4554b1b71503c8fee2c8a",
+    "preserved_pr13": "511dfee080d3bcd3c68aaa35ec1474700ff0cf63",
+    "preserved_main": "2038c65554501b7f0a099976ea07b75606cb7ff7"
+  },
+  "publication_branch": "review/c03-comp01-schema-adoption",
+  "candidate_additions": [
+    "backend/experiments/provenance_legacy_compat.py",
+    "backend/experiments/provenance_schema.py",
+    "backend/provenance-alembic.ini",
+    "backend/provenance_migrations/env.py",
+    "backend/provenance_migrations/versions/c03_comp01_0001.py",
+    "backend/provenance_migrations/versions/c03_comp01_0001.sql",
+    "backend/provenance_tests/conftest.py",
+    "backend/provenance_tests/test_generation_binding.py",
+    "backend/scripts/check_provenance_database.py",
+    "backend/scripts/check_provenance_preservation.py",
+    "backend/scripts/run_provenance_database.py",
+    "docs/PHASE6C03-SCHEMA-COMPATIBILITY-DECISION.md",
+    "docs/PHASE6C03-SCHEMA-COMPATIBILITY-RECEIPTS.json"
+  ],
+  "preservation": {
+    "git_blobs": {
+      "e70447788145638fa6a4554b1b71503c8fee2c8a": 325,
+      "511dfee080d3bcd3c68aaa35ec1474700ff0cf63": 312,
+      "2038c65554501b7f0a099976ea07b75606cb7ff7": 270
+    },
+    "candidate_source_hashes": {
+      "backend/experiments/provenance_schema.py": "3ad95344cf04fd904365e747f4e5d00288b5eb70d99ee4eb5c50eb2b601e8c3f",
+      "backend/experiments/provenance_legacy_compat.py": "8b279a841a101b253128708aa04d0a4aa411d8bc499f6e19d3e3219a3863501c",
+      "backend/provenance-alembic.ini": "e9483de33e557f0cdac643a43c7f77541bdf46f59f4ba5a37d9d1d7df5e980f5",
+      "backend/provenance_migrations/env.py": "ed22dfe343fbf8c269bd1b14a1812bcac1e4e1516f48f43de643f934c7700f74",
+      "backend/provenance_migrations/versions/c03_comp01_0001.py": "14bfcdcea2de7d589ca655f606911d4ec29caa0cc51288f984f8314c8a52debc",
+      "backend/provenance_migrations/versions/c03_comp01_0001.sql": "4776848bfb4f481c4fe642479233175941c0ec8ae5d03424be6ef7a932812530",
+      "backend/provenance_tests/conftest.py": "258dbc62c535df2269c7a7a02f0304effe5db9e45caf5ad57b36cbf463ade053",
+      "backend/provenance_tests/test_generation_binding.py": "7ed64c641b80e5c51c768c7dc07fe0d6b9ef0a53d40ca05126d52d33bf89678a",
+      "backend/scripts/check_provenance_database.py": "99441f73f2d8bc2a9c79752a2573ef86c0aec3efe674b9d3a847e0834d4f4869",
+      "backend/scripts/run_provenance_database.py": "6541bc59d2a575f55d2dc33a5f6c65949e0dceeb1b356a9569be305d2e5ad6fa",
+      "backend/scripts/check_provenance_preservation.py": "926571700e8929843559cda9577a1e446791e1af0b7a4822bf4b7f84dbd14460"
+    },
+    "prepublication_raw_files": 325
+  },
+  "source_hashes": {
+    "backend/experiments/provenance_legacy_compat.py": {
+      "raw_sha256": "8b279a841a101b253128708aa04d0a4aa411d8bc499f6e19d3e3219a3863501c",
+      "normalized_lf_sha256": "8b279a841a101b253128708aa04d0a4aa411d8bc499f6e19d3e3219a3863501c",
+      "git_blob": "1a568223dd455e69ba71c5d7c12a99f45a3ce598"
+    },
+    "backend/experiments/provenance_schema.py": {
+      "raw_sha256": "3ad95344cf04fd904365e747f4e5d00288b5eb70d99ee4eb5c50eb2b601e8c3f",
+      "normalized_lf_sha256": "3ad95344cf04fd904365e747f4e5d00288b5eb70d99ee4eb5c50eb2b601e8c3f",
+      "git_blob": "dec03ff8da89c0fdb806b439224defa4bc72b56a"
+    },
+    "backend/provenance-alembic.ini": {
+      "raw_sha256": "e9483de33e557f0cdac643a43c7f77541bdf46f59f4ba5a37d9d1d7df5e980f5",
+      "normalized_lf_sha256": "e9483de33e557f0cdac643a43c7f77541bdf46f59f4ba5a37d9d1d7df5e980f5",
+      "git_blob": "6082690f250ae4e3fda9e492a87aa981181f14b2"
+    },
+    "backend/provenance_migrations/env.py": {
+      "raw_sha256": "ed22dfe343fbf8c269bd1b14a1812bcac1e4e1516f48f43de643f934c7700f74",
+      "normalized_lf_sha256": "ed22dfe343fbf8c269bd1b14a1812bcac1e4e1516f48f43de643f934c7700f74",
+      "git_blob": "6580a178f31209d6802e314bf2ef9220f5e988f6"
+    },
+    "backend/provenance_migrations/versions/c03_comp01_0001.py": {
+      "raw_sha256": "14bfcdcea2de7d589ca655f606911d4ec29caa0cc51288f984f8314c8a52debc",
+      "normalized_lf_sha256": "14bfcdcea2de7d589ca655f606911d4ec29caa0cc51288f984f8314c8a52debc",
+      "git_blob": "10688617e9e3b5c963078af0f9303c2ae798acd4"
+    },
+    "backend/provenance_migrations/versions/c03_comp01_0001.sql": {
+      "raw_sha256": "4776848bfb4f481c4fe642479233175941c0ec8ae5d03424be6ef7a932812530",
+      "normalized_lf_sha256": "4776848bfb4f481c4fe642479233175941c0ec8ae5d03424be6ef7a932812530",
+      "git_blob": "07570a826045ccfa801befa8c75a8c860d34bfd7"
+    },
+    "backend/provenance_tests/conftest.py": {
+      "raw_sha256": "258dbc62c535df2269c7a7a02f0304effe5db9e45caf5ad57b36cbf463ade053",
+      "normalized_lf_sha256": "258dbc62c535df2269c7a7a02f0304effe5db9e45caf5ad57b36cbf463ade053",
+      "git_blob": "b50ba8e75f2f51cbc203e092bbb7b16a65096386"
+    },
+    "backend/provenance_tests/test_generation_binding.py": {
+      "raw_sha256": "7ed64c641b80e5c51c768c7dc07fe0d6b9ef0a53d40ca05126d52d33bf89678a",
+      "normalized_lf_sha256": "7ed64c641b80e5c51c768c7dc07fe0d6b9ef0a53d40ca05126d52d33bf89678a",
+      "git_blob": "4c5cf0a90a05496f198f6ef4d3a3bc6214ca8f1d"
+    },
+    "backend/scripts/check_provenance_database.py": {
+      "raw_sha256": "99441f73f2d8bc2a9c79752a2573ef86c0aec3efe674b9d3a847e0834d4f4869",
+      "normalized_lf_sha256": "99441f73f2d8bc2a9c79752a2573ef86c0aec3efe674b9d3a847e0834d4f4869",
+      "git_blob": "22a190136ff6d79f718783146d1d5df961437bdb"
+    },
+    "backend/scripts/check_provenance_preservation.py": {
+      "raw_sha256": "926571700e8929843559cda9577a1e446791e1af0b7a4822bf4b7f84dbd14460",
+      "normalized_lf_sha256": "926571700e8929843559cda9577a1e446791e1af0b7a4822bf4b7f84dbd14460",
+      "git_blob": "a6f17c495bcfeb33a7910970cd6e7a42e188ad2e"
+    },
+    "backend/scripts/run_provenance_database.py": {
+      "raw_sha256": "d3e4e0d323906a365c7ee9f5e05ca7b6dd14d21b7a202acfb4f4dc939e6b9977",
+      "normalized_lf_sha256": "6541bc59d2a575f55d2dc33a5f6c65949e0dceeb1b356a9569be305d2e5ad6fa",
+      "git_blob": "219df4178345cab37feb9a05379d0ce15266240a"
+    },
+    "docs/PHASE6C03-SCHEMA-COMPATIBILITY-DECISION.md": {
+      "raw_sha256": "05555dccd334dae3a99f95a0f071559b9077f0d9f0c75367fc489fc3d25abe26",
+      "normalized_lf_sha256": "05555dccd334dae3a99f95a0f071559b9077f0d9f0c75367fc489fc3d25abe26",
+      "git_blob": "b69842aa93a3b64d194a9ea8b604999c2676b0ed"
+    },
+    "docs/PHASE6C03-SCHEMA-COMPATIBILITY-RECEIPTS.json": {
+      "raw_sha256": "23716378331a3637fc22e8094746217f86db5c491939053d079c2e6e3d1ca0eb",
+      "normalized_lf_sha256": "b2aa356eb3e1d0173ab267dc6291b6182a23fc3f81f314c0dca33d0ff6649f69",
+      "git_blob": "677aa2b7fb457f625a5312fead70e41fffa3af2a"
+    },
+    "backend/scripts/review_provenance_database.py": {
+      "raw_sha256": "8e2fe33896c39405811029982ff70986ff3b8bed0813dc63a90c5d4de79fdc37",
+      "normalized_lf_sha256": "8e2fe33896c39405811029982ff70986ff3b8bed0813dc63a90c5d4de79fdc37",
+      "git_blob": "ac1e8c4e8b84ae14e64aa5a61e7a8eb62bcbf69c"
+    },
+    ".github/workflows/phase6c03-schema.yml": {
+      "raw_sha256": "11e5efdc99480e5937e1a90d48079991cc77188866d24263f0467905d3dfd6d3",
+      "normalized_lf_sha256": "52b7d3bf69ddeff2a7dd7fff6f9400b96618ed75b94a0b0ecea1aad9a88c749e",
+      "git_blob": "b2f497bd51484297a6892155fb40be7755d36347"
+    },
+    "docs/PHASE6C03-SCHEMA-ADOPTION-REVIEW.md": {
+      "raw_sha256": "ada44c3583429e2178cf629866b3b3b91fda1ce9d24bf1818a1fea003e781bb6",
+      "normalized_lf_sha256": "7e695fbf6a0ff5c2def5f12b032e39ec1daa4aabda1419929ed7c2bb398c83f8",
+      "git_blob": "aeca94f2737e3442736bb27df480096821e72854"
+    }
+  },
+  "protected_old_new_hashes": {
+    "backend/tenant_migrations/versions/6c02_0001.sql": {
+      "old_git_blob": "c1cffffffc2ee6f1cc29ae082755eab75e57c23e",
+      "new_git_blob": "c1cffffffc2ee6f1cc29ae082755eab75e57c23e",
+      "raw_sha256": "2d238bca69a03812af4097ffa65822b2e419c76db59875a7081997a301ea614c"
+    },
+    "backend/tenant_migrations/versions/6c02_0001_tenant.py": {
+      "old_git_blob": "9d071f34226ce95ee38e87b1531bcd357155bdfd",
+      "new_git_blob": "9d071f34226ce95ee38e87b1531bcd357155bdfd",
+      "raw_sha256": "bd23309b78f04ab70b63af7445eb1535a7f37eae1880348397d793c0b73d5a65"
+    },
+    "backend/db_tests/test_tenant_security.py": {
+      "old_git_blob": "68e38357808c69b2b8d9c129a5fd53d7c3d66fa6",
+      "new_git_blob": "68e38357808c69b2b8d9c129a5fd53d7c3d66fa6",
+      "raw_sha256": "3f286d0a0ffa83a6ebecd8f3bec4cfa0e8b8b287f725ed87cfb8bb80ff8cd014"
+    },
+    "backend/db_tests/conftest.py": {
+      "old_git_blob": "255770fb5196b6d2409395293c0d14da6399d502",
+      "new_git_blob": "255770fb5196b6d2409395293c0d14da6399d502",
+      "raw_sha256": "da98ac1c11affa7c353ef91f225e4cb0630ec3e9e515fa3a6dac8138c0c75a0c"
+    },
+    "backend/experiments/tenant_db.py": {
+      "old_git_blob": "98f0f59a72a049ea307cfb970536d1a14a1ce350",
+      "new_git_blob": "98f0f59a72a049ea307cfb970536d1a14a1ce350",
+      "raw_sha256": "f903c362f29cd4e5bf83a7e3e289af909c51153a3a1f0204f148405e8e577396"
+    },
+    "backend/experiments/rule_packages/manifest.json": {
+      "old_git_blob": "716b5a456333174f2776d632d3f53ec2a28f81de",
+      "new_git_blob": "716b5a456333174f2776d632d3f53ec2a28f81de",
+      "raw_sha256": "7485ac86c2cd9502e1414d68df7a930ae531b209706d44b8161a736ec7e24055"
+    },
+    ".github/workflows/phase0.yml": {
+      "old_git_blob": "b9af68d9d1f8176986ae1a7c44a7c27886f72c40",
+      "new_git_blob": "b9af68d9d1f8176986ae1a7c44a7c27886f72c40",
+      "raw_sha256": "eee58daca42e360f30055efe0e6275ac8660a8733877bcc50f82b9211d9b8caa"
+    },
+    ".github/workflows/phase6c02.yml": {
+      "old_git_blob": "0fe3f5f126f22efe82be64cf611a34dfa31b569e",
+      "new_git_blob": "0fe3f5f126f22efe82be64cf611a34dfa31b569e",
+      "raw_sha256": "cc00c5cf1a787a9a00473a08685f1bb01ffc14df6175fec3157238fc238b7f2a"
+    },
+    ".github/workflows/phase6c03-completion.yml": {
+      "old_git_blob": "9855cee21662b0a7010e5ff5d173492ba5ec48cf",
+      "new_git_blob": "9855cee21662b0a7010e5ff5d173492ba5ec48cf",
+      "raw_sha256": "bf759d22f8c0af39c4cb1ca8fc489ba62f3ca241f9f34375ad0a6cebe96dd7cf"
+    },
+    ".github/workflows/phase6c03-indexing.yml": {
+      "old_git_blob": "99c6eef6308e61df3f341cb5bf7e8b8023d1a52a",
+      "new_git_blob": "99c6eef6308e61df3f341cb5bf7e8b8023d1a52a",
+      "raw_sha256": "977fbbb920e40c03b345e462176a8db99c7650bff46dbf941c4cdf8125beabf0"
+    },
+    ".github/workflows/phase6c03.yml": {
+      "old_git_blob": "2e1bbb75b564cb09b8c8c2638bcad417aeb32185",
+      "new_git_blob": "2e1bbb75b564cb09b8c8c2638bcad417aeb32185",
+      "raw_sha256": "4b0129a20860e18b288edc0412e9d20b9df3565f6b6531be2033f18af2e4e283"
+    }
+  },
+  "local_logs": {
+    "database-01.log": {
+      "path": ".local/c03-comp01-adoption-review/database-01.log",
+      "sha256": "79d849037542aa5f1b7b5b4b927f362c5fff2a5f04f703baf59efac110d6ee0e",
+      "bytes": 1046,
+      "test_summaries": [],
+      "race_results": [],
+      "interruption_passes": [],
+      "independent_negative_passes": []
+    },
+    "database-02.log": {
+      "path": ".local/c03-comp01-adoption-review/database-02.log",
+      "sha256": "649f61f69a58df1e1c5d1f1a036318c562ea3c751b39aa1ab12e390f4f9265af",
+      "bytes": 26034,
+      "test_summaries": [
+        "434 passed in 41.28s",
+        "434 passed in 41.34s",
+        "93 passed in 3.02s"
+      ],
+      "race_results": [
+        "READ COMMITTED/insert: delete=23503, contender=23505",
+        "READ COMMITTED/delete-reinsert: delete=23503, contender=23505",
+        "REPEATABLE READ/insert: delete=23503, contender=23505",
+        "REPEATABLE READ/delete-reinsert: delete=23503, contender=23505",
+        "READ COMMITTED/insert: delete=23503, contender=23505",
+        "READ COMMITTED/delete-reinsert: delete=23503, contender=23505",
+        "REPEATABLE READ/insert: delete=23503, contender=23505",
+        "REPEATABLE READ/delete-reinsert: delete=23503, contender=23505"
+      ],
+      "interruption_passes": [],
+      "independent_negative_passes": []
+    },
+    "historical-verify-02.log": {
+      "path": ".local/c03-comp01-adoption-review/historical-verify-02.log",
+      "sha256": "e81f500fde7fdcf8a7da21bb25bf8137af34759a37acb3e591ac5f51ccefefc9",
+      "bytes": 702,
+      "test_summaries": [],
+      "race_results": [],
+      "interruption_passes": [],
+      "independent_negative_passes": []
+    },
+    "immutable-01.log": {
+      "path": ".local/c03-comp01-adoption-review/immutable-01.log",
+      "sha256": "9316588dc0e3cdbaf04f6bbe8ad951afe1d1b24ee11f416ac47c3b3b23967c51",
+      "bytes": 206,
+      "test_summaries": [
+        "71 passed in 29.47s"
+      ],
+      "race_results": [],
+      "interruption_passes": [],
+      "independent_negative_passes": []
+    },
+    "independent-01.log": {
+      "path": ".local/c03-comp01-adoption-review/independent-01.log",
+      "sha256": "4cb9dcf56007fdb53bdecafb9380ebc3ac6ccaf6db7ac48b175f34e35611e148",
+      "bytes": 29776,
+      "test_summaries": [
+        "434 passed in 42.80s",
+        "434 passed in 51.00s",
+        "93 passed in 3.10s"
+      ],
+      "race_results": [
+        "READ COMMITTED/insert: delete=23503, contender=23505",
+        "READ COMMITTED/delete-reinsert: delete=23503, contender=23505",
+        "REPEATABLE READ/insert: delete=23503, contender=23505",
+        "REPEATABLE READ/delete-reinsert: delete=23503, contender=23505",
+        "READ COMMITTED/insert: delete=23503, contender=23505",
+        "READ COMMITTED/delete-reinsert: delete=23503, contender=23505",
+        "REPEATABLE READ/insert: delete=23503, contender=23505",
+        "REPEATABLE READ/delete-reinsert: delete=23503, contender=23505"
+      ],
+      "interruption_passes": [
+        "down=False, after=CREATE TABLE fp6_guard.provenance_alembic_version; exact catalog/rows/journal retained",
+        "down=False, after=CREATE TABLE fp6_reference.implementation_packages; exact catalog/rows/journal retained",
+        "down=True, after=DROP TABLE fp6_data.generation_implementations; exact catalog/rows/journal retained",
+        "down=True, after=DROP TABLE fp6_guard.provenance_alembic_version; exact catalog/rows/journal retained"
+      ],
+      "independent_negative_passes": [
+        "1: exact SQLSTATE 42501; complete state retained",
+        "2: exact SQLSTATE 42501; complete state retained",
+        "3: exact SQLSTATE 42501; complete state retained",
+        "4: exact SQLSTATE 23503; complete state retained",
+        "5: exact SQLSTATE 42501; complete state retained",
+        "6: exact SQLSTATE 42501; complete state retained",
+        "7: exact SQLSTATE 42501; complete state retained",
+        "8: exact SQLSTATE 42501; complete state retained",
+        "9: exact SQLSTATE 42501; complete state retained",
+        "10: exact SQLSTATE 42501; complete state retained",
+        "11: exact SQLSTATE 42501; complete state retained",
+        "12: exact SQLSTATE 42501; complete state retained",
+        "13: exact SQLSTATE 42501; complete state retained",
+        "14: exact SQLSTATE 42501; complete state retained",
+        "15: exact SQLSTATE 23505; complete state retained",
+        "16: exact SQLSTATE 23503; complete state retained",
+        "17: exact SQLSTATE 23503; complete state retained",
+        "18: exact SQLSTATE 42501; complete state retained"
+      ]
+    },
+    "quality-02.log": {
+      "path": ".local/c03-comp01-adoption-review/quality-02.log",
+      "sha256": "aabbe01eca28fd739101d42de97a07564d1c20899055e711417fad59cd908999",
+      "bytes": 276,
+      "test_summaries": [],
+      "race_results": [],
+      "interruption_passes": [],
+      "independent_negative_passes": []
+    },
+    "types-linux-01.log": {
+      "path": ".local/c03-comp01-adoption-review/types-linux-01.log",
+      "sha256": "45c2c3651ae952d8c01752e501c43b341cbf7b39a5060a7966739c66c3b931cc",
+      "bytes": 1062,
+      "test_summaries": [],
+      "race_results": [],
+      "interruption_passes": [],
+      "independent_negative_passes": []
+    },
+    "types-linux-02.log": {
+      "path": ".local/c03-comp01-adoption-review/types-linux-02.log",
+      "sha256": "8633d0d52ac421f1f2d92a39b029bda076c5f57b2064c12869363a26ab8289c9",
+      "bytes": 92,
+      "test_summaries": [],
+      "race_results": [],
+      "interruption_passes": [],
+      "independent_negative_passes": []
+    }
+  },
+  "known_tooling_failures": [
+    "database-01: wrong cwd, scripts module not found; retained full log",
+    "initial new-file lint/type failures corrected only in additive review harness",
+    "old all-clusters-stopped verifier invoked during active review cluster; rerun only after shutdown",
+    "types-linux-01: wrong cwd, no mypy targets/config; retained full log"
+  ],
+  "ci_at_commit": "pending; exact final SHA, all push/PR responses, job logs and actual outcomes supplied in dedicated draft metadata and final local CI receipts",
+  "recommendation": "GO for isolated fresh-synthetic schema review; STOP application adoption, Phase 6C-03 completion and merge",
+  "not_tested": [
+    "server crash, power-loss, WAL/PITR/restore",
+    "actual worker execution attestation",
+    "durable adapter, survivor recomputation, complete executor failure matrix",
+    "independent human security/product acceptance"
+  ]
+}
