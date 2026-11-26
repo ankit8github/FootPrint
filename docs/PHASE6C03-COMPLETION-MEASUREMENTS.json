@@ -1,0 +1,13 @@
+{
+  "command": [
+    "backend/.venv/Scripts/python.exe",
+    ".local/phase6c03-completion-20261126/stagea_probe.py"
+  ],
+  "cwd": ".",
+  "timeout_seconds": 120.0,
+  "seconds": 9.835,
+  "status": "PASS",
+  "exit_code": 0,
+  "log_sha256": "7d273a49ae654db6e3021a97d0dccc5fe39dc6dc63caded4ba50014a89259e5a",
+  "log_bytes": 2019
+}

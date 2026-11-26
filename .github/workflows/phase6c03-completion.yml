@@ -1,0 +1,58 @@
+name: Phase 6C-03 stopped implementation revision evidence
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  stopped-candidate-evidence:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.9'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.15.0'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.9.29'
+      - name: Frozen dependencies
+        run: |
+          uv sync --project backend --frozen
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm ci --prefix frontend
+      - name: Separate historical and indexed packages
+        run: node frontend/scripts/shared-rules/build-packages.mjs
+      - name: Stopped candidate quality and preservation
+        working-directory: backend
+        run: |
+          uv run --frozen ruff check .
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen ruff format --check .
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen mypy completion_tests
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen python -m scripts.check_indexing_preservation
+      - name: Full package parity and partial seed-codec evidence
+        working-directory: backend
+        run: uv run --frozen pytest -q -x completion_tests
+      - name: Bounded stopped-candidate measurements only
+        working-directory: backend
+        run: uv run --frozen python -m scripts.benchmark_rule_packages
+      - name: Confirm implementation is stopped at schema provenance gate
+        shell: pwsh
+        run: |
+          $decision = Get-Content -Raw backend/experiments/rule_packages/storage-compatibility.json | ConvertFrom-Json
+          if ($decision.status -ne 'STOP' -or $decision.durable_projection_enabled) { throw 'Owner/schema review required' }
+          Write-Output 'C03-COMP-01 OPEN. These checks do not complete Phase 6C-03.'
+      - name: Build provenance only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase6c03-stopped-revisions-${{ github.run_id }}
+          path: |
+            .local/phase6c03-packages/candidate-manifest.json
+            .local/phase6c03-package-benchmark-*/measurements.json
