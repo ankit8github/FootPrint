@@ -111,7 +111,8 @@ attestation. No production executor is authorized.
 
 ## Semantic evidence and preservation
 
-The final ESM artifact passed **71 new cases in 30.45 s**: all 70 immutable
+The final ESM artifact passed **71 new cases in 30.45 s**, repeated after the
+platform guard with **71 passed in 16.48 s**: all 70 immutable
 profiles (29 initial + six survivor selections, each in forward/reverse order)
 and rejection of input above 8 MiB before process launch. These compare the
 entire discovery and assessment canonical SHA-256 values against existing
@@ -121,6 +122,27 @@ No expected results are regenerated. All seven unknown claims remain unknown /
 insufficient. **No semantic hash mismatches were observed for these profiles.**
 The initial CommonJS artifact also passed 71 cases in 24.69 s; frozen lint caught
 its require-style import, which was corrected to ESM without weakening lint.
+Initial push CI at `bd0fe4a73ddffd8ca198df387ee1b0716a79a9c5` exposed an
+additional Linux mypy error on the Windows-only `ctypes.WinDLL` symbol before
+regression execution. An explicit non-Windows fail-closed guard was added to the
+Windows helper; no assertions, baseline workflow or resource limits were relaxed.
+Local `mypy --platform linux` then passed all 53 configured source files.
+
+Initial-head Windows push CI also executed all four constructed benchmarks
+successfully on its faster runner (run
+[45773354099](https://github.com/ankit8github/FootPrint/actions/runs/45773354099),
+job 139751018311; 71 profile/input tests passed in 8.94 s):
+
+| Fixture | Child seconds | Peak RSS KiB | Input bytes | Output bytes |
+| --- | ---: | ---: | ---: | ---: |
+| Primary account | 0.547 | 69,124 | 3,359,465 | 4,882,083 |
+| Distinct commercial | 2.610 | 79,232 | 4,289,466 | 5,012,285 |
+| Unresolved-only | 0.578 | 80,292 | 3,429,465 | 24,059,629 |
+| Duplicates | 0.141 | 64,108 | 3,609,456 | 4,702,302 |
+
+These measured platform differences are retained alongside the local failures.
+They do not establish a portable five-second capacity guarantee or authorize
+resuming the stopped implementation. Final-head CI receipts remain separate.
 
 Local environment: Windows 10 build 26200 (platform-reported), Python 3.11,
 Node 22.15.0, TypeScript 5.9.3, uv 0.9.29, pinned frontend packages and native
@@ -133,7 +155,7 @@ PostgreSQL 17.5 on loopback port 55443. Docker CLI was unavailable locally.
 | Chromium smoke | nine passed in 37.4 s (runner 41.78 s) |
 | Production privacy/rollback preservation | seven scenarios PASS; runner 41.03 s |
 | Existing tenant DB | 434 before and 434 after re-upgrade; see below |
-| New profile/input tests | 71 passed in 30.45 s |
+| New profile/input tests | 71 passed in 30.45 s; final guard repetition 71 in 16.48 s |
 | Frozen Ruff lint/format, strict mypy | PASS; explicit `mypy rule_tests` PASS |
 | Frozen ESLint, TypeScript, client build | PASS after new wrapper ESM correction |
 | OpenAPI/Phase 2/minimized schema checks, client contracts | PASS |
@@ -188,8 +210,9 @@ no complete projection compatibility is claimed.
   conflicts, unpaid invoice, invalid history timestamps, unresolved-only and empty
   durable projections. Their existing approved profile outputs were compared,
   but no new durable adapter exists.
-- Constructed unresolved/duplicate 10,000-row benchmarks after the first stop;
-  complete representative worst-case calibration, memory pressure/kill,
+- Constructed unresolved/duplicate 10,000-row benchmarks **locally** after the
+  first stop (both were subsequently measured in the Windows CI table above).
+  Complete representative worst-case calibration, memory pressure/kill,
   cancellation/interruption, abnormal child exit, malicious/malformed output,
   exactly-at-output-cap and over-output-cap termination, descendant cleanup under
   hostile code, and Linux isolation/enforcement. Only oversized input rejection

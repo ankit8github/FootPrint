@@ -28,6 +28,8 @@ class ExecutionRejected(Exception):
 
 
 def _windows_job(process: subprocess.Popen[bytes]) -> tuple[Any, Any]:
+    if sys.platform != "win32":
+        raise ExecutionRejected("ISOLATION_UNAVAILABLE")
     # A kernel process-commit cap, not merely V8's old-space flag. Attach before
     # supplying evidence; the trusted child initially blocks reading stdin.
     from ctypes import wintypes
