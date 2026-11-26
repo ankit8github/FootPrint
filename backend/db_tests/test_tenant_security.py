@@ -1,5 +1,7 @@
 """Adversarial direct SQL as actual restricted LOGIN roles, never SET ROLE."""
 
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
 from typing import Any
 from uuid import uuid4
 
@@ -806,3 +808,106 @@ def test_deferred_checks_require_owner_until_commit(
     assert error.value.orig.sqlstate == "23514"  # type: ignore[union-attr]
     assert "missing group owner context" in str(error.value.orig)
     assert tenant_snapshot(runtime, own["owner_id"]) == before
+
+
+@pytest.mark.parametrize("kind", ["source-budget", "group-minimum"])
+@pytest.mark.parametrize("isolation", ["READ COMMITTED", "REPEATABLE READ", "SERIALIZABLE"])
+def test_concurrent_bounds(
+    tenants: list[dict[str, Any]], runtime: Engine, kind: str, isolation: str
+) -> None:
+    own = tenants[0]
+    engine = make_engine("fp6_runtime_login")
+    barrier = Barrier(2, timeout=10)
+    identifiers = [uuid4(), uuid4()]
+    if kind == "group-minimum":
+        with owner_transaction(runtime, own["owner_id"]) as conn:
+            insert(
+                conn,
+                "fp6_data.evidence_equivalence",
+                {
+                    "owner_id": own["owner_id"],
+                    "collection_id": own["collection_id"],
+                    "group_id": own["group_id"],
+                    "observation_id": own["o3"],
+                },
+            )
+
+    def worker(index: int) -> str:
+        try:
+            with engine.begin() as conn:
+                conn.exec_driver_sql("SET TRANSACTION ISOLATION LEVEL " + isolation)
+                conn.exec_driver_sql("SET LOCAL lock_timeout='5s'")
+                set_owner(conn, own["owner_id"])
+                conn.exec_driver_sql("SELECT count(*) FROM fp6_data.import_sources")
+                barrier.wait()
+                if kind == "source-budget":
+                    insert(
+                        conn,
+                        "fp6_data.import_sources",
+                        {
+                            "owner_id": own["owner_id"],
+                            "collection_id": own["collection_id"],
+                            "source_id": identifiers[index],
+                            "ordinal": 4 + index,
+                            "record_count": 6000,
+                            "adapter": "email_eml_v1",
+                            "lifecycle": "active",
+                        },
+                    )
+                else:
+                    conn.execute(
+                        text("DELETE FROM fp6_data.evidence_equivalence WHERE observation_id=:id"),
+                        {"id": own["o2"] if index == 0 else own["o3"]},
+                    )
+            return "committed"
+        except DBAPIError as error:
+            return error.orig.sqlstate  # type: ignore[union-attr,no-any-return]
+
+    try:
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            results = list(executor.map(worker, (0, 1)))
+        assert results.count("committed") == 1, results
+        assert set(results) <= {"committed", "23514", "40001"}, results
+        with owner_transaction(runtime, own["owner_id"]) as conn:
+            if kind == "source-budget":
+                assert (
+                    conn.scalar(text("SELECT sum(record_count) FROM fp6_data.import_sources"))
+                    <= 10000
+                )
+            else:
+                assert (
+                    conn.scalar(
+                        text(
+                            "SELECT count(*) FROM fp6_data.evidence_equivalence WHERE group_id=:id"
+                        ),
+                        {"id": own["group_id"]},
+                    )
+                    >= 2
+                )
+    finally:
+        engine.dispose()
+        with owner_transaction(runtime, own["owner_id"]) as conn:
+            if kind == "source-budget":
+                for identifier in identifiers:
+                    conn.execute(
+                        text("DELETE FROM fp6_data.import_sources WHERE source_id=:id"),
+                        {"id": identifier},
+                    )
+            else:
+                for observation in (own["o2"], own["o3"]):
+                    conn.execute(
+                        text(
+                            "INSERT INTO fp6_data.evidence_equivalence VALUES "
+                            "(:owner,:collection,:group_id,:observation) ON CONFLICT DO NOTHING"
+                        ),
+                        {
+                            "owner": own["owner_id"],
+                            "collection": own["collection_id"],
+                            "group_id": own["group_id"],
+                            "observation": observation,
+                        },
+                    )
+                conn.execute(
+                    text("DELETE FROM fp6_data.evidence_equivalence WHERE observation_id=:id"),
+                    {"id": own["o3"]},
+                )

@@ -442,8 +442,9 @@ GRANT SELECT ON ALL TABLES IN SCHEMA fp6_reference TO fp6_runtime;
 CREATE OR REPLACE FUNCTION fp6_context.source_budget() RETURNS trigger
 LANGUAGE plpgsql SET search_path = pg_catalog AS $$
 BEGIN
- PERFORM 1 FROM fp6_data.collections
- WHERE owner_id = NEW.owner_id AND collection_id = NEW.collection_id FOR UPDATE;
+ -- A real row version change also makes Repeatable Read reject stale snapshots.
+ UPDATE fp6_data.collections SET lifecycle=lifecycle
+ WHERE owner_id = NEW.owner_id AND collection_id = NEW.collection_id;
  IF (SELECT COALESCE(sum(record_count),0) FROM fp6_data.import_sources
      WHERE owner_id = NEW.owner_id AND collection_id = NEW.collection_id
        AND source_id <> NEW.source_id) + NEW.record_count > 10000 THEN
@@ -456,8 +457,8 @@ CREATE TRIGGER source_budget BEFORE INSERT OR UPDATE ON fp6_data.import_sources
 CREATE OR REPLACE FUNCTION fp6_context.row_slot() RETURNS trigger
 LANGUAGE plpgsql SET search_path = pg_catalog AS $$
 BEGIN
- PERFORM 1 FROM fp6_data.import_sources WHERE owner_id = NEW.owner_id
- AND collection_id = NEW.collection_id AND source_id = NEW.source_id FOR UPDATE;
+ UPDATE fp6_data.import_sources SET lifecycle=lifecycle WHERE owner_id = NEW.owner_id
+ AND collection_id = NEW.collection_id AND source_id = NEW.source_id;
  IF TG_TABLE_NAME = 'observations' THEN
   IF EXISTS (SELECT 1 FROM fp6_data.excluded_rows WHERE owner_id = NEW.owner_id
       AND collection_id = NEW.collection_id AND source_id = NEW.source_id
@@ -487,6 +488,7 @@ BEGIN
  IF o IS DISTINCT FROM fp6_context.owner_id() THEN
   RAISE EXCEPTION 'missing group owner context' USING ERRCODE='23514';
  END IF;
+ UPDATE fp6_data.collections SET lifecycle=lifecycle WHERE owner_id=o AND collection_id=c;
  IF TG_TABLE_NAME IN ('evidence_groups','evidence_equivalence') THEN
   IF NOT EXISTS (SELECT 1 FROM fp6_data.evidence_groups
    WHERE owner_id=o AND collection_id=c AND group_id=g) THEN RETURN NULL; END IF;
@@ -513,8 +515,8 @@ CREATE CONSTRAINT TRIGGER group_bounds AFTER INSERT OR UPDATE OR DELETE ON fp6_d
 CREATE OR REPLACE FUNCTION fp6_context.alias_budget() RETURNS trigger
 LANGUAGE plpgsql SET search_path = pg_catalog AS $$
 BEGIN
- PERFORM 1 FROM fp6_data.collections
-  WHERE owner_id=NEW.owner_id AND collection_id=NEW.collection_id FOR UPDATE;
+ UPDATE fp6_data.collections SET lifecycle=lifecycle
+  WHERE owner_id=NEW.owner_id AND collection_id=NEW.collection_id;
  IF (SELECT count(*) FROM fp6_data.commercial_alias_members
   WHERE owner_id=NEW.owner_id AND collection_id=NEW.collection_id
     AND observation_id=NEW.observation_id AND group_id<>NEW.group_id) >= 8 THEN

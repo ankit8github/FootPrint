@@ -122,7 +122,7 @@ already works. No raw-hash deduplication or cross-collection correlation exists.
 
 ## Adversarial evidence and threat mapping
 
-The final matrix has **404 cases**, executed in full before and after downgrade /
+The final matrix has **410 cases**, executed in full before and after downgrade /
 re-upgrade. No skips, xfails or raised limits are used. Both A→B and B→A run.
 Every RLS table has populated owner rows and foreign read/count/join/INSERT/
 UPDATE/DELETE attacks. Whole tenant snapshots before/after verify that foreign
@@ -177,9 +177,9 @@ Local test credentials/logs/databases are ignored artifacts, not product files.
 
 | Fresh validation | Result |
 | --- | --- |
-| Tenant upgrade → SQL/constraint/role matrix | 404 cases pass |
+| Tenant upgrade → SQL/constraint/role matrix | 410 cases pass |
 | Recognized disposable downgrade | Succeeds; data/auth/reference schemas removed, all committed ledger receipts byte-for-byte preserved |
-| Re-upgrade → repeated full matrix | 404 cases pass; prior ledger receipts still identical |
+| Re-upgrade → repeated full matrix | 410 cases pass; prior ledger receipts still identical |
 | Original scaffold migration check | Unchanged script passes upgrade, CHECK, downgrade, re-upgrade on its own fresh database; no personal tables |
 | Backend regressions | 1,061 passed; no skips/xfails |
 | Frontend regressions | 284 passed |
@@ -193,7 +193,21 @@ explicit composite reference columns and a too-short strength bound. These were
 corrected before final validation. A test selected an already-unresolved root and
 mistook a duplicate-key denial for its intended union CHECK; selection is now
 explicit. Fresh-key SQLSTATE-specific FK tests were added to prevent that class
-of false evidence. Final privilege/isolation/pool tests reveal no runtime role
+of false evidence.
+
+Final review of initial head `833fd3423cc554f234a7525207e8928b2d2cff8a`
+found an aggregate-bound write-skew defect that its passing tests had missed.
+Two synchronized Repeatable Read transactions both committed source budgets or
+group-member removals against stale snapshots. The two new reproductions failed
+before repair. Source/row/alias budget checks and deferred group minima now
+perform a no-op parent row UPDATE, creating a row version as well as taking a
+lock. Concurrent stale snapshots fail with serialization error; Read Committed
+rechecks current counts. Six barrier-controlled cases (two bounds × Read
+Committed / Repeatable Read / Serializable) pass after repair. No automatic retry
+or deletion workflow is added. This finding concerned within-owner aggregate
+integrity; no cross-tenant persistence or RLS bypass was observed.
+
+Final privilege/isolation/pool tests reveal no runtime role
 bypass, leaked transaction owner or persisted cross-tenant association within
 the exercised model. This is bounded test evidence, not proof of absence.
 
