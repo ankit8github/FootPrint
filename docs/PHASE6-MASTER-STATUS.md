@@ -33,7 +33,7 @@ the stated starting heads, not future work.
 | 6C-03 B: lossless durable adapter | INCOMPLETE / dependent work stopped | PR #13 partial seed/package suite | No accepted deletion-compatible generation lifecycle or complete durable projection | Same schema/lifecycle decision; no implied adoption |
 | 6C-03 C: durable survivors/publication | INCOMPLETE / blocked | Immutable 29 initial / six survivors / 70 profiles remain authoritative | Complete adapter and deletion compatibility required; no partial application writes | Review exact implementation and evidence after prerequisite |
 | 6C-03 D: executor failure safety | PARTIAL; new acceptance matrix FAILS | `verify/phase6-executor-safety`; [boundary report](PHASE6-EXECUTOR-SAFETY-REPORT.md) | C03-NET-01: child can transmit to loopback; no OS network denial | SEC-reviewed isolation design and supported-platform decision |
-| 6C-03 E: full validation | INCOMPLETE; independent regression checks underway | New raw receipts `.local/phase6-master-20261127` | Historical two login failures/native crash remain unresolved; failed network gate | Technical evidence review; no human approval inferred |
+| 6C-03 E: full validation | INCOMPLETE milestone; independent regression matrix executed | [Final readiness report](PHASE6-FINAL-READINESS-REPORT.md), committed receipts and raw `.local/phase6-master-20261127` logs | Historical two login failures/native crash remain unresolved; failed network gate | Technical evidence review; no human approval inferred |
 | 6C-04 transactional deletion | BLOCKED / not implemented | No new stage branch | Mandatory 6C-03 adapter, purge and executor gates fail/unreviewed | PO/SEC/DB lifecycle design acceptance before schema change |
 | 6C-05 consent/lifecycle | BLOCKED / not implemented | No new stage branch | 6C-04; approved policy configuration absent | PO + SEC + LEGAL policy decisions |
 | 6D-01 restore/journal | BLOCKED / not implemented | No new stage branch | 6C-05; approved storage test design; deletion-compatible lifecycle | OPS + DB + SEC; real vendor retention/WAL/restore coverage open |
@@ -45,6 +45,17 @@ The dependency graph is `main → PR #13 → PR #14` for the schema proposal and
 `PR #13 → verify/phase6-executor-safety` for independent rejection evidence.
 No dependency is merged or treated as approved. 6D-03 is considered separately
 from the stopped 6C-04 path; its own mandatory assignment gate remains unmet.
+
+Independent verification commit: **`d437092c416c0fbf57caf6674ce937d3418a454b`**,
+[draft PR #15](https://github.com/ankit8github/FootPrint/pull/15). Local: 1061
+backend, 331 original/indexed/partial package cases, 284 frontend, nine Chromium,
+seven preservation scenarios and 434 + 434 guarded DB cases pass. New boundary
+matrix: **38 pass / one FAIL / zero skips**. Exact code-head CI: ten successes /
+two failed no-network acceptance jobs, all twelve complete. Full CI URLs, archived
+hashes, authoring/browser/tool failures, unresolved historical failures and policy
+limits appear in the final report/receipts. Final documentation-head SHA and its
+fresh checks are bound in PR #15 metadata after observation, never inferred from
+the code-head results. No milestone closure is claimed.
 
 ## Required decisions
 
