@@ -1,0 +1,48 @@
+name: Phase 6C-03 stopped synthetic research evidence
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  shared-rule-evidence:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.9'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.15.0'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.9.29'
+      - name: Install frozen dependencies
+        run: |
+          uv sync --project backend --frozen
+          npm ci --prefix frontend
+      - name: Extract exact pinned pure declarations
+        working-directory: frontend
+        run: node scripts/shared-rules/build.mjs
+      - name: Preserve every base file
+        working-directory: backend
+        run: uv run --frozen python -m scripts.check_phase6c03_preservation
+      - name: Type-check evidence tests
+        working-directory: backend
+        run: uv run --frozen mypy rule_tests
+      - name: Immutable full-output and provenance hashes
+        working-directory: backend
+        run: uv run --frozen pytest -q rule_tests
+      - name: Proposed resource budgets (failure is a stop, never waived)
+        working-directory: backend
+        run: uv run --frozen python -m scripts.benchmark_shared_rules
+      - name: Preserve bounded benchmark receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase6c03-benchmark-${{ github.run_id }}
+          path: |
+            .local/phase6c03-validation/benchmark.json
+            .local/phase6c03-build/provenance.json
