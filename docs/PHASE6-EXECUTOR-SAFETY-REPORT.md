@@ -61,6 +61,9 @@ fresh exact-head CI must execute the committed source independently.
 
 The descendant check is separate from the supervisor's restricted Node launcher;
 it does not grant Node spawn permission or claim hostile breakaway coverage.
+Its Python root and inherited descendant receive only SystemRoot, WINDIR and
+PATH, matching the supervisor's minimal environment rather than inheriting the
+operator's arbitrary environment. No application or auth secret is supplied.
 Unsupported native modules, job-assignment races, active hostile breakaway,
 aggregate descendant committed-memory limits, independent parent memory/JSON
 parse CPU bounds and external network denial remain unproven. The existing job

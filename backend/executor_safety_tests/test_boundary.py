@@ -8,6 +8,7 @@ failed no-network gate. No xfail, fallback, live destination or policy waiver.
 import ctypes
 import hashlib
 import json
+import os
 import socket
 import subprocess
 import sys
@@ -380,6 +381,7 @@ def test_job_kills_inherited_descendant(tmp_path: Path) -> None:
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
+        env={key: os.environ[key] for key in ("SystemRoot", "WINDIR", "PATH") if key in os.environ},
     )
     job = None
     descendant = None
