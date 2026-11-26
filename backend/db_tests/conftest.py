@@ -30,7 +30,7 @@ def runtime() -> Iterator[Engine]:
 
 @pytest.fixture(scope="session")
 def bootstrap() -> Iterator[Engine]:
-    engine = make_engine()
+    engine = make_engine("fp6_bootstrap")
     with engine.connect() as conn:
         require_disposable(conn)
     yield engine

@@ -6,22 +6,7 @@ jobs:
   tenant-isolation:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
-    services:
-      tenant-db:
-        image: postgres:17.12-bookworm
-        env:
-          POSTGRES_USER: fp6_bootstrap
-          POSTGRES_DB: fp6c02_synthetic
-          # Disposable fictional CI cluster only; no production credential.
-          POSTGRES_PASSWORD: fictional-phase6c02-ci-only
-        ports:
-          - 55433:5432
-        options: >-
-          --health-cmd "pg_isready -U fp6_bootstrap -d fp6c02_synthetic"
-          --health-interval 3s --health-timeout 3s --health-retries 20
     env:
-      FP6_SYNTHETIC_ONLY: phase6c02-disposable-fictional-only-v1
-      FP6_TEST_PASSWORD: fictional-phase6c02-ci-only
       FP6_TEST_PORT: '55433'
     steps:
       - uses: actions/checkout@v4
@@ -47,4 +32,5 @@ jobs:
         run: uv run --frozen python -m scripts.check_phase6c02_preservation
       - name: Actual restricted roles and migration roundtrip
         working-directory: backend
-        run: uv run --frozen python -m scripts.check_tenant_database
+        # Launcher generates four independent ephemeral secrets; none in GITHUB_ENV/artifacts.
+        run: uv run --frozen python -m scripts.run_tenant_database

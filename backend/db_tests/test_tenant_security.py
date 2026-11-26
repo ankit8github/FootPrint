@@ -168,7 +168,7 @@ def test_composite_associations(
         if method == "upsert":
             # Exercise the UPDATE branch too: conflicts on the actual primary key
             # update references; for changed PKs the attempted INSERT must deny.
-            admin_engine = make_engine()
+            admin_engine = make_engine("fp6_bootstrap")
             with admin_engine.connect() as admin:
                 pk = (
                     admin.execute(

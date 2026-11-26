@@ -57,6 +57,10 @@ Provision cluster roles only in a fresh recognized disposable cluster/database.
 Ephemeral test LOGIN roles use distinct connections/passwords, never SET ROLE from
 the superuser for adversarial evidence. Bootstrap superuser only provisions roles
 and executes fixture setup; migrations execute as owner through migrator context.
+The remediation launcher independently generates four ephemeral credentials;
+connection helpers require an explicit allowlisted login and its own credential
+input, with no shared fallback. The trusted fixture controller needs all four
+for setup and catalog evidence; a runtime-only connection needs only its own.
 Revoke PUBLIC schema/function defaults, schema CREATE and database TEMP/CREATE
 for test logins; inspect memberships and privileges, not just role flags.
 

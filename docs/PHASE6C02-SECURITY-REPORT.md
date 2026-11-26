@@ -142,32 +142,36 @@ must map them to fixed external errors without bind/constraint details.
 
 ## Reproduction and migration results
 
+Credential-remediation update: the original 410-case results below describe the
+pre-remediation implementation. The current launcher generates independent
+bootstrap/migration/runtime/auth credentials and runs those same 410 cases plus
+bounded credential regressions. Current results and F01 disposition are recorded
+in `PHASE6C02-AI-ASSURANCE.md`; no production assurance is implied.
+
 Use a new dedicated cluster each time; the runner refuses an existing provisioned
-database/role set. This example is local-only Docker, with an untracked generated
-test password. The original scaffold Compose/CI job is independent and unchanged.
+database/role set. The launcher starts a loopback-only disposable PostgreSQL
+17.12 Docker container, generates four independent in-memory synthetic passwords,
+redacts child diagnostics and removes its own container/volume on exit. It never
+writes credentials to GITHUB_ENV or uploads them as artifacts. The original
+scaffold Compose/CI job is independent and unchanged.
 
 ```powershell
-$env:FP6_SYNTHETIC_ONLY = 'phase6c02-disposable-fictional-only-v1'
-$env:FP6_TEST_PASSWORD = [guid]::NewGuid().ToString('N') + [guid]::NewGuid().ToString('N')
-$env:FP6_TEST_PORT = '55433'
-docker run --name fp6c02-disposable --detach `
-  -e POSTGRES_USER=fp6_bootstrap -e POSTGRES_DB=fp6c02_synthetic `
-  -e "POSTGRES_PASSWORD=$env:FP6_TEST_PASSWORD" `
-  -p 127.0.0.1:55433:5432 postgres:17.12-bookworm
-# Wait for pg_isready to succeed before running the next command.
-docker exec fp6c02-disposable pg_isready -U fp6_bootstrap -d fp6c02_synthetic
 Set-Location backend
 uv sync --frozen
-uv run --frozen python -m scripts.check_tenant_database
+uv run --frozen python -m scripts.run_tenant_database
 uv run --frozen python -m scripts.check_phase6c02_preservation
+# Native Windows PostgreSQL 17 alternative, also a NEW cluster each invocation:
+# uv run --frozen python -m scripts.run_tenant_database --postgres-bin 'C:/Program Files/PostgreSQL/17/bin'
 ```
 
-For already provisioned **synthetic** review databases only, set the same test
-environment and run `uv run --frozen pytest db_tests -q`. Do not substitute an
-application/real database or run generic Alembic downgrade. The CI workflow
-`.github/workflows/phase6c02.yml` gives the equivalent fresh PostgreSQL 17.12
-service setup with no production secrets. It runs lint, format, both type-check
-scopes, preservation and the full migration/test runner separately from scaffold.
+The lower-level runner requires explicit `FP6_BOOTSTRAP_PASSWORD`,
+`FP6_MIGRATION_PASSWORD`, `FP6_RUNTIME_PASSWORD`, `FP6_AUTH_PASSWORD`, the fictional
+opt-in marker and loopback port. There is no shared-password fallback. Prefer
+the launcher; do not substitute an application/real database or run generic
+Alembic downgrade. The separate `.github/workflows/phase6c02.yml` uses the fresh
+PostgreSQL 17.12 launcher with no production secrets. It runs lint, format, both
+type-check scopes, preservation and the full migration/test runner separately
+from scaffold.
 
 Local validation used PostgreSQL **17.5**, Python 3.11, Node **22.15.0**, uv
 **0.9.29** and frozen dependencies. CI supplies the pinned PostgreSQL **17.12**

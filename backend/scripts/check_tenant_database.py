@@ -12,7 +12,7 @@ from experiments.tenant_db import migrate, provision_fresh, test_engine
 
 
 def main() -> None:
-    bootstrap = test_engine()
+    bootstrap = test_engine("fp6_bootstrap")
     with bootstrap.begin() as conn:
         provision_fresh(conn)
     bootstrap.dispose()
@@ -22,7 +22,7 @@ def main() -> None:
     if result.returncode:
         raise SystemExit(result.returncode)
     # The test ledger includes real committed fictional receipts. Preserve it.
-    bootstrap = test_engine()
+    bootstrap = test_engine("fp6_bootstrap")
     with bootstrap.connect() as conn:
         before = conn.exec_driver_sql(
             "SELECT * FROM fp6_ledger.deletion_journal ORDER BY owner_id,event_id"

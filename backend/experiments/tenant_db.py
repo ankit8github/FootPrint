@@ -5,6 +5,7 @@ UUIDs. This is privileged test tooling, not a production connection factory.
 """
 
 import os
+import re
 from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
@@ -18,12 +19,33 @@ DATABASE = "fp6c02_synthetic"
 MARKER = "phase6c02-disposable-fictional-only-v1"
 ROOT = Path(__file__).resolve().parents[1]
 ROLES = ("fp6_owner", "fp6_migrator", "fp6_runtime", "fp6_auth", "fp6_restore")
+LOGIN_ENV = {
+    "fp6_bootstrap": "FP6_BOOTSTRAP_PASSWORD",
+    "fp6_migration_login": "FP6_MIGRATION_PASSWORD",
+    "fp6_runtime_login": "FP6_RUNTIME_PASSWORD",
+    "fp6_auth_login": "FP6_AUTH_PASSWORD",
+}
 
 
-def test_engine(user: str = "fp6_bootstrap", *, pooled: bool = False) -> Engine:
+def credential_for(user: str) -> str:
+    """Read only the explicitly selected fictional role's credential; no fallback."""
+    if user not in LOGIN_ENV:
+        raise RuntimeError("Unrecognized synthetic login")
+    password = os.environ.get(LOGIN_ENV[user], "")
+    if re.fullmatch(r"[0-9a-f]{64}", password) is None:
+        raise RuntimeError("Missing or invalid role-specific synthetic credential")
+    return password
+
+
+def require_distinct_credentials() -> None:
+    if len({credential_for(user) for user in LOGIN_ENV}) != len(LOGIN_ENV):
+        raise RuntimeError("Synthetic login credentials must be distinct")
+
+
+def test_engine(user: str, *, pooled: bool = False) -> Engine:
     if os.environ.get("FP6_SYNTHETIC_ONLY") != MARKER:
         raise RuntimeError("Explicit disposable synthetic opt-in required")
-    password = os.environ["FP6_TEST_PASSWORD"]
+    password = credential_for(user)
     return create_engine(
         URL.create(
             "postgresql+psycopg",
@@ -36,6 +58,7 @@ def test_engine(user: str = "fp6_bootstrap", *, pooled: bool = False) -> Engine:
         pool_size=1 if pooled else 5,
         max_overflow=0,
         hide_parameters=True,
+        connect_args={"connect_timeout": 3},
     )
 
 
@@ -154,8 +177,20 @@ def provision_fresh(conn: Connection) -> None:
     """Once only, as bootstrap on a NEW database in a dedicated test cluster."""
     if os.environ.get("FP6_SYNTHETIC_ONLY") != MARKER:
         raise RuntimeError("Synthetic opt-in required")
+    require_distinct_credentials()
     if conn.scalar(text("SELECT current_database()")) != DATABASE:
         raise RuntimeError("Unrecognized database")
+    # Bootstrap-only password DDL must not enter statement/error/slow-query logs.
+    for setting, value in (
+        ("log_statement", "none"),
+        ("log_min_error_statement", "panic"),
+        ("log_min_duration_statement", "-1"),
+        ("log_min_duration_sample", "-1"),
+        ("log_transaction_sample_rate", "0"),
+    ):
+        conn.execute(
+            text("SELECT set_config(:setting, :value, true)"), {"setting": setting, "value": value}
+        )
     objects = conn.scalar(
         text(
             "SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace "
@@ -188,14 +223,19 @@ def provision_fresh(conn: Connection) -> None:
 
     for capability in ("migrator", "runtime", "auth"):
         login = "migration" if capability == "migrator" else capability
-        raw.execute(
-            sql.SQL(
-                "CREATE ROLE {} LOGIN INHERIT NOSUPERUSER NOBYPASSRLS NOCREATEDB "
-                "NOCREATEROLE NOREPLICATION PASSWORD {}"
-            ).format(
-                sql.Identifier(f"fp6_{login}_login"), sql.Literal(os.environ["FP6_TEST_PASSWORD"])
+        try:
+            raw.execute(
+                sql.SQL(
+                    "CREATE ROLE {} LOGIN INHERIT NOSUPERUSER NOBYPASSRLS NOCREATEDB "
+                    "NOCREATEROLE NOREPLICATION PASSWORD {}"
+                ).format(
+                    sql.Identifier(f"fp6_{login}_login"),
+                    sql.Literal(credential_for(f"fp6_{login}_login")),
+                )
             )
-        )
+        except Exception:
+            # Driver/server diagnostics must not echo password-bearing DDL.
+            raise RuntimeError("Synthetic login provisioning failed") from None
         conn.exec_driver_sql(f"GRANT fp6_{capability} TO fp6_{login}_login")
     conn.exec_driver_sql(f"REVOKE ALL ON DATABASE {DATABASE} FROM PUBLIC")
     conn.exec_driver_sql(
