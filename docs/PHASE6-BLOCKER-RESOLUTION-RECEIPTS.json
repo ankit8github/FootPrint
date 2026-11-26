@@ -1,0 +1,651 @@
+{
+  "date_local": "2026-11-27",
+  "timezone": "Asia/Calcutta",
+  "status": "STOP_BOTH_BLOCKERS_OPEN",
+  "base": "e269f048f6e6e5c2c2c83df32828f413139384d6",
+  "branch": "design/phase6-blocker-resolution",
+  "preserved_git_blobs": 320,
+  "preserved_previous_snapshot_files": 444,
+  "original_assertions_modified": false,
+  "schema_or_application_activated": false,
+  "host_policy_changed": false,
+  "checks": {
+    "all-proof-format": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.525,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "18e6d980f3240b191032244b3052f2ba69c5625810c41885654eb7d5488ac1e1",
+      "log_bytes": 43,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/all-proof-format.log"
+    },
+    "all-proof-lint": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.151,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "log_bytes": 19,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/all-proof-lint.log"
+    },
+    "all-proof-types": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 2.23,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "99975e74c5bd8c59dbd76416883dec96fa1f0ec4bd773414008db49a168eb443",
+      "log_bytes": 453,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/all-proof-types.log"
+    },
+    "current-unsafe-benchmark": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.benchmark_rule_packages"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 120.0,
+      "seconds": 15.811,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "82fdd601dfb558cb33de84db3fbe300d7c3d0e4c225f9291a99ed8c0149a7e8c",
+      "log_bytes": 2015,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/current-unsafe-benchmark.log"
+    },
+    "final-model-tests": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 2.685,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "99f138db89c22cc2eafd776f8c118ae7d981d09d501c87850dfd202011d91357",
+      "log_bytes": 101,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/final-model-tests.log"
+    },
+    "final-native-probe": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "blocker_proofs.windows_probe"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 30.0,
+      "seconds": 0.64,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "61e10a782c1571ce38b07ce756427a5be43beea6ae50ced1facc4acdc3c4b7e2",
+      "log_bytes": 133,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/final-native-probe.log"
+    },
+    "final-proof-format": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.231,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "e5d285e654af339bd79aedd43f7389a16ff483c0cdb5376a5926eb5a93d4a4d4",
+      "log_bytes": 27,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/final-proof-format.log"
+    },
+    "final-proof-lint": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "."
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.308,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "log_bytes": 19,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/final-proof-lint.log"
+    },
+    "final-proof-types": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 9.074,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "90377c8fd97127580c93ac5740d596c9ebc9db94dafa6560ee11fe16b4460c62",
+      "log_bytes": 44,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/final-proof-types.log"
+    },
+    "isolated-candidate-benchmark": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "blocker_proofs.benchmark_candidate"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 30.0,
+      "seconds": 0.671,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "6efe245d2d110b7116cb39ffad9f17838ff9127faf23d8a1da2bef357cbd2207",
+      "log_bytes": 707,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/isolated-candidate-benchmark.log"
+    },
+    "lifecycle-model-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 2.251,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "6e2f062fdabcc5123738bee87c2f5e6b8f59a667a2cdc80703746e3e30346699",
+      "log_bytes": 101,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/lifecycle-model-final.log"
+    },
+    "lifecycle-model": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "-s",
+        "blocker_tests",
+        "--junitxml=../.local/phase6-blocker-resolution-20261127/lifecycle-model.junit.xml"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 2.228,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "7f6768db2fce5f0dcdf6a92b215fc6537479c575c71064c2d6cb91483430fd5f",
+      "log_bytes": 41,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/lifecycle-model.log"
+    },
+    "linux-probe-local": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "blocker_proofs.linux_network_probe"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 30.0,
+      "seconds": 0.319,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "124af622a326e8d94a662e095beea3b1f5b4cefa8609e632e562d549a6b96120",
+      "log_bytes": 91,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/linux-probe-local.log"
+    },
+    "model-format": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.746,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "ecadcab6ba8db65f26e491b8a5abf181e94e6e96cf96718dc2e4c83e7c8ab2c5",
+      "log_bytes": 44,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/model-format.log"
+    },
+    "native-probe": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "blocker_proofs.windows_probe"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 30.0,
+      "seconds": 0.666,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "61e10a782c1571ce38b07ce756427a5be43beea6ae50ced1facc4acdc3c4b7e2",
+      "log_bytes": 133,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/native-probe.log"
+    },
+    "network-reproduction": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "-s",
+        "executor_safety_tests/test_boundary.py::test_no_network_gate_with_loopback_only",
+        "--junitxml=../.local/phase6-blocker-resolution-20261127/network-reproduction.junit.xml"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 45.0,
+      "seconds": 10.529,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "21bed38cf4614a512f96bfa9063d660171e610d5dd462e86547bcf833bfa0eee",
+      "log_bytes": 2377,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/network-reproduction.log"
+    },
+    "original-parity": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "rule_tests",
+        "completion_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 180.0,
+      "seconds": 112.293,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "b77cf74b77527a8be568a8384eb66340a7b2473ea67d79f2a854468f60f58609",
+      "log_bytes": 357,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/original-parity.log"
+    },
+    "probe-format": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "blocker_proofs"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 3.57,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "10869b88a75066aa23546ef1f95fcd4678c3fb92a56ed46ef91688052b67976a",
+      "log_bytes": 42,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/probe-format.log"
+    },
+    "probe-lint": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "blocker_proofs"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.181,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "log_bytes": 19,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/probe-lint.log"
+    },
+    "proof-format-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.716,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "be228cc22ccf7a5e14a1482327c7e542160d0dd5947a71e13b821729bde1746f",
+      "log_bytes": 43,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/proof-format-final.log"
+    },
+    "proof-lint-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.132,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "log_bytes": 19,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/proof-lint-final.log"
+    },
+    "proof-lint": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.172,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "2bad62238fc334d95f4dbdcadf12d3a30195256e65eb8ca546941ce249c18695",
+      "log_bytes": 1856,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/proof-lint.log"
+    },
+    "proof-types-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 3.181,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "718df785efbbd4b57e63b5f64aff2c5b5592e433447681f759b307f97a3ec96a",
+      "log_bytes": 44,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/proof-types-final.log"
+    },
+    "proof-types": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 5.039,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "88e731ab64c053aa787a5039070c2946387efac07ad87147cef1bb293522bdd0",
+      "log_bytes": 168,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/proof-types.log"
+    },
+    "quality-format-03": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.12,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "3926259571176267c7245e8c4a1e66910d34ad08ab95185aab4f02656f937034",
+      "log_bytes": 23,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/quality-format-03.log"
+    },
+    "quality-lint-03": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.202,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "de26b989e058b70a20a11e5e12397f60b805e6fe2c62a40af8c71fa51f131bd0",
+      "log_bytes": 813,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/quality-lint-03.log"
+    },
+    "quality-linux-types": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "--platform",
+        "linux",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 7.677,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "90377c8fd97127580c93ac5740d596c9ebc9db94dafa6560ee11fe16b4460c62",
+      "log_bytes": 44,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/quality-linux-types.log"
+    },
+    "quality-types-03": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "blocker_proofs",
+        "blocker_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.796,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "90377c8fd97127580c93ac5740d596c9ebc9db94dafa6560ee11fe16b4460c62",
+      "log_bytes": 44,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/quality-types-03.log"
+    },
+    "unchanged-pr13": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.check_phase6_master_preservation"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.962,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "84d406637c280b144c9b3b6483f9c5219144f2283f3113c104e930dd69c6b99a",
+      "log_bytes": 77,
+      "raw_log": ".local/phase6-blocker-resolution-20261127/unchanged-pr13.log"
+    }
+  },
+  "observed_claims": {
+    "original_no_network_assertion": "FAIL connected=true received_count=1",
+    "native_candidate": "STOP CreateProcessW winerror=2 before resume",
+    "isolated_capacity_samples": 0,
+    "linux_probe_on_windows": "STOP LINUX_X86_64_REQUIRED",
+    "sqlite_model_cases": 19,
+    "sqlite_model_scope": "not PostgreSQL/RLS/auth/account erasure/independent journal",
+    "unchanged_rule_package_cases": 223,
+    "actual_full_linux_node_boundary": "NOT TESTED"
+  },
+  "unsafe_current_supervisor_benchmark": [
+    {
+      "fixture": "primary_account",
+      "rows": 10000,
+      "status": "PASS",
+      "child_seconds": 0.36603849999664817,
+      "supervisor_seconds": 0.5497967999981483,
+      "peak_rss_kib": 79960,
+      "input_bytes": 3359465,
+      "output_bytes": 4882129,
+      "child_pid": 5212,
+      "child_exit": 0,
+      "validation_seconds": 1.2210161999973934,
+      "total_seconds": 2.0526239999962854,
+      "result_sha256": "c337c86030421d72a9c85e48b947f49601c87f8fe94d1a9501150b10d68f0f86",
+      "discovery_sha256": "ea30ddf5cc8f68d512c44e21562bc4f139381876d1e918e43979d9d4d390799c"
+    },
+    {
+      "fixture": "commercial_distinct",
+      "rows": 10000,
+      "status": "PASS",
+      "child_seconds": 0.7370527000020957,
+      "supervisor_seconds": 0.9101869000005536,
+      "peak_rss_kib": 90776,
+      "input_bytes": 4289466,
+      "output_bytes": 5012331,
+      "child_pid": 15120,
+      "child_exit": 0,
+      "validation_seconds": 1.07320140000229,
+      "total_seconds": 2.785004500001378,
+      "result_sha256": "46c75bd81a4c82a98128db22773934ccc7b229ab96d865a39a022f863fc68d57",
+      "discovery_sha256": "f65a81491cb086fc879792d3b0c47148efe5d7b0ab71ddbe47b126ddc0bafccf"
+    },
+    {
+      "fixture": "unresolved",
+      "rows": 10000,
+      "status": "PASS",
+      "child_seconds": 0.7533284000019194,
+      "supervisor_seconds": 1.7928787999990163,
+      "peak_rss_kib": 128516,
+      "input_bytes": 3429465,
+      "output_bytes": 24089650,
+      "child_pid": 16612,
+      "child_exit": 0,
+      "validation_seconds": 0.41642399999545887,
+      "total_seconds": 2.503345099998114,
+      "result_sha256": "c1167ed1e80916f820d25e7c335d748024d22261ae194553a4182fc5bab68bde",
+      "discovery_sha256": "c93d4c5dc0bb8b68d04a39368a2a6a30feadf189e48c1bb6e46643e48517422c"
+    },
+    {
+      "fixture": "duplicates",
+      "rows": 10000,
+      "status": "PASS",
+      "child_seconds": 0.28096289999666624,
+      "supervisor_seconds": 0.43311520000133896,
+      "peak_rss_kib": 74128,
+      "input_bytes": 3609456,
+      "output_bytes": 4702348,
+      "child_pid": 20128,
+      "child_exit": 0,
+      "validation_seconds": 0.8172153999985312,
+      "total_seconds": 1.7596313999965787,
+      "result_sha256": "df2973709298e8795ef947b9041fe350780767a98754739741eb7dd3913e5c6e",
+      "discovery_sha256": "19f34b33de4cc1b2139840958f3d8b7695ca5d15f335e5daa1d7071c2821168a"
+    }
+  ],
+  "reviewed_original_sql": [
+    {
+      "ref": "49268baa18af77f020b6dbc9d8f27e89558ed6c3",
+      "path": "backend/provenance_migrations/versions/c03_comp01_0001.sql",
+      "sha256": "4776848bfb4f481c4fe642479233175941c0ec8ae5d03424be6ef7a932812530"
+    },
+    {
+      "ref": "2038c65554501b7f0a099976ea07b75606cb7ff7",
+      "path": "backend/tenant_migrations/versions/6c02_0001.sql",
+      "sha256": "4dafe2cd2cfc7448bd4014f6de558edcb43599fa88d7bb14b071a189109c86e4"
+    }
+  ],
+  "local_new_source_sha256": {
+    "backend/blocker_proofs/benchmark_candidate.py": "5284d09d1d1915539b36625323a8778bd7a7a6b6dade449287964ba948888937",
+    "backend/blocker_proofs/lifecycle_model.py": "445dac5bd4189625795d92b693ab8a1832b98aca1e1051be4fa41836adab77d1",
+    "backend/blocker_proofs/linux_network_probe.py": "bb863b5ab1bb76ed342b37daf9cdd39fba817d3f7354f3d9d5d3c92043455f17",
+    "backend/blocker_proofs/windows_probe.py": "1989cb7fcfad2ea36fe07e2f8d2b206b8935a7d4d2c8df78091972c925db0ba2",
+    "backend/blocker_proofs/__init__.py": "dd080799f04cd1352a9eaa99f5329add2ce9841121cd1403bb4a6beb8b1e86d0",
+    "backend/blocker_tests/test_lifecycle_model.py": "57d82058cee57b0d9001d1ba7bc779c769d4849f27af44f2e646220be93e1883",
+    "backend/blocker_proofs/lifecycle_proposal.sql": "b46d9e39904f0e9ada2399484933ce78501141608f358b21c8364442f7bab716",
+    "backend/blocker_proofs/isolation-profile-proposal.json": "89772ed74e9259cd16bd3a62f918aac8d15bc94d6d6861b1dd61a4831b25c690"
+  },
+  "ci": "Fresh exact-head outcomes are recorded separately in draft metadata and final delivery; no CI result is invented in this pre-publication receipt."
+}

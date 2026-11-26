@@ -1,0 +1,56 @@
+{
+  "status": "REVIEW_REQUIRED_NOT_EXECUTABLE_CONFIGURATION",
+  "profile_id": "linux-offline-v1-proposal",
+  "platform": {
+    "os": "linux",
+    "architecture": "x86_64",
+    "kernel_minimum_proposed": "6.6",
+    "cgroup_v2_required": true,
+    "dedicated_offline_vm_without_nic": true,
+    "windows_native_supported": false
+  },
+  "pins_requiring_build_and_review": {
+    "image_sha256": null,
+    "runtime_sha256": null,
+    "runner_sha256": null,
+    "final_default_deny_seccomp_sha256": null
+  },
+  "worker": {
+    "revision_synthetic_candidate_only": "indexed-r1",
+    "manifest_sha256": "7485ac86c2cd9502e1414d68df7a930ae531b209706d44b8161a736ec7e24055",
+    "worker_sha256": "f4170b61857e2ae673332e4d57cd01cab5214ede7f4c3b3abef390221258670a",
+    "pure_sha256": "5e980c1c1856226ef6b2ce35b9b4eb651d5860139ba6041a4ffe76ffb262d1e7",
+    "node_version": "22.15.0"
+  },
+  "limits": {
+    "worker_wall_seconds": 5,
+    "memory_max_bytes": 268435456,
+    "memory_swap_max_bytes": 0,
+    "memory_oom_group": 1,
+    "pids_max_proposed_including_threads": 64,
+    "input_max_bytes": 8388608,
+    "output_max_bytes": 33554432,
+    "diagnostics_max_bytes": 8192,
+    "decode_phase_seconds_proposed": 5,
+    "decode_memory_shares_same_256_mib_cgroup_sequentially": true,
+    "decode_max_depth_proposed": 32,
+    "decode_max_tokens_proposed": 2000000,
+    "native_broker_memory_max_mib_proposed": 64,
+    "cleanup_deadline_seconds_proposed": 1,
+    "concurrent_jobs_proposed": 1,
+    "queued_jobs_proposed": 0
+  },
+  "start_invariants": [
+    "configure_and_read_back_cgroup_limits_before_worker_exists",
+    "fresh_user_pid_mount_ipc_network_namespaces_with_no_routes_or_nic",
+    "readonly_pinned_image_no_host_mounts_sockets_credentials_or_resolver_broker",
+    "only_three_anonymous_pipes_inherited_environment_allowlist",
+    "drop_all_capabilities_no_new_privs",
+    "install_final_abi_checked_default_deny_seccomp_before_execve",
+    "deny_socket_network_unix_broker_io_uring_ptrace_bpf_setns_mount_escape",
+    "allow_only_thread_clones_process_fork_vfork_denied_clone3_returns_enosys",
+    "untrusted_code_cannot_move_out_of_cgroup_or_acquire_new_privileges",
+    "worker_then_decoder_run_sequentially_under_same_aggregate_limit",
+    "kill_cgroup_reap_all_processes_and_observe_populated_zero_before_release"
+  ]
+}
