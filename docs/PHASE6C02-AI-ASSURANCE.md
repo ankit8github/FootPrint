@@ -388,6 +388,9 @@ The trusted fixture controller still needs all four credentials for bootstrap,
 migrations and catalog assertions. This is not process isolation against that
 controller, a host administrator or Docker administrator. A dedicated regression
 removes the other three inputs and confirms a runtime-only connection still works.
+All four valid-login cases also remove the other three credential inputs. Setup
+aliases `PGPASSWORD` and `POSTGRES_PASSWORD` are omitted from the regression child
+environment, so they cannot supply a hidden bootstrap fallback.
 No production connection factory, secret manager or identity provider is added.
 Broader diagnostic disclosure remains NOT TESTED as recorded above; the narrow
 password-DDL handling does not close that assessment.
@@ -410,8 +413,8 @@ No production vulnerability closure or production G-S3 completion is claimed.
 
 | Fresh local validation | Result / retained artifact |
 | --- | --- |
-| PostgreSQL 17.5 fresh upgrade and full suite | **434 passed in 27.84s** in `.local/phase6c02-remediation/database-roundtrip.log` |
-| Guarded downgrade, re-upgrade and full suite | **434 passed in 26.83s**, complete committed ledger tuples equal before/after; final runner PASS |
+| PostgreSQL 17.5 fresh upgrade and full suite | **434 passed in 43.18s** in `.local/phase6c02-remediation/database-final.log` |
+| Guarded downgrade, re-upgrade and full suite | **434 passed in 34.78s**, complete committed ledger tuples equal before/after; final runner PASS |
 | Existing backend tests | **1,061 passed in 267.54s**; `.local/phase6c02-remediation/backend.json`, all nine commands exit 0 |
 | Frontend / Chromium / preservation | **284 / nine / seven passed**; `.local/phase6c02-remediation/frontend.json`, all ten commands exit 0 |
 | Frozen quality checks | Ruff lint/format, default and explicit DB-test mypy, contracts, corpus/minimized export, admission checks, build, pip-audit and npm audit pass |
@@ -419,9 +422,29 @@ No production vulnerability closure or production G-S3 completion is claimed.
 
 No skips, xfails or assertion relaxations were introduced. Existing performance
 budgets remain **FAILED**, despite the seven passing preservation scenarios.
-Fresh CI will be checked after publication; no pre-remediation run is substituted
-for remediation CI. Exact published head and current push/PR receipts are recorded
+An earlier successful remediation run also passed 434 twice (27.84s / 26.83s),
+retained separately in `database-roundtrip.log`. The final run additionally removes
+the other three inputs for each valid login and omits setup password aliases.
+No pre-remediation run is substituted for remediation CI. Exact published head
+and current push/PR receipts are recorded
 in PR metadata and the delivery response, avoiding a commit embedding its own SHA.
+
+Fresh first-publication CI at
+`61612ce9e4c08ff340d9fdf015b3456daeab6816` was verified through job statuses,
+every step and decoded logs; all jobs and GitGuardian passed:
+
+| Remediation run | Verified evidence |
+| --- | --- |
+| [PR tenant 45763765005](https://github.com/ankit8github/FootPrint/actions/runs/45763765005) | 434 passed twice (16.17s / 16.12s), ledger retained, all 252 base files preserved |
+| [Push tenant 45763759868](https://github.com/ankit8github/FootPrint/actions/runs/45763759868) | 434 passed twice (11.85s / 11.79s), ledger retained, all 252 base files preserved |
+| [PR regressions 45763765014](https://github.com/ankit8github/FootPrint/actions/runs/45763765014) | 1,061 backend, 284 frontend, nine Chromium, seven preservation; frozen gates and original scaffold roundtrip pass |
+| [Push regressions 45763759790](https://github.com/ankit8github/FootPrint/actions/runs/45763759790) | Same counts/gates and original scaffold roundtrip pass |
+
+These receipts identify that first publication exactly. The subsequent final
+publication adds only the stronger own-input tests, omission of setup password
+aliases from the regression child, and this evidence update. Its own push/PR CI
+must also pass and is recorded against the final head in PR metadata/delivery;
+the first-publication receipts are not represented as tests of a different SHA.
 
 Unexecuted guard corruption, concurrency combinations, physical
 reconnect/proxy, diagnostic-channel, production endpoint and operational scenarios
@@ -434,3 +457,33 @@ The launcher now sends setup output to DEVNULL. The newly created cluster was
 stopped after checking its path and port; its files and failure log
 `.local/phase6c02-remediation/database.log` were retained. A fresh cluster is used
 for the corrected run. This failed setup is not counted as a passing DB run.
+
+Changed files relative to the expected pre-remediation head (10 files):
+
+- `.github/workflows/phase6c02.yml`: replace the static service credential with
+  the fresh, generated-credential launcher; original `phase0.yml` is unchanged.
+- `backend/experiments/tenant_db.py`: explicit role-specific credential selection,
+  distinctness guard and password-DDL diagnostic handling.
+- `backend/db_tests/conftest.py` and `test_tenant_security.py`: explicit bootstrap
+  login selection only; all original 410 assertions retained.
+- `backend/db_tests/test_tenant_credentials.py`: the bounded 24-case matrix.
+- `backend/scripts/check_tenant_database.py`: explicit bootstrap login selection.
+- `backend/scripts/run_tenant_database.py`: independent credential generation,
+  fresh disposable startup, redaction, minimized child environment and cleanup.
+- `docs/PHASE6C02-PLAN.md`, `PHASE6C02-SECURITY-REPORT.md` and this preserved
+  assurance report: credential model, corrected commands and evidence/disposition.
+
+Reproduce only the authorized fictional regression run from `backend`:
+
+```powershell
+uv run --frozen python -m scripts.run_tenant_database
+# Native Windows alternative, with no Docker dependency:
+uv run --frozen python -m scripts.run_tenant_database --postgres-bin 'C:/Program Files/PostgreSQL/17/bin'
+uv run --frozen python -m scripts.check_phase6c02_preservation
+```
+
+Each launcher invocation creates a new recognized fictional database/role set;
+it does not adopt an existing cluster or read `.env`. Do not run generic
+destructive Alembic commands, substitute real data or extend this matrix to
+other credentials. The NOT TESTED limitations, TM-01/02/04 boundaries and open
+G-S3/human-review gates above remain in force.

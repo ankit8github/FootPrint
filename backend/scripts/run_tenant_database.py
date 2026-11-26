@@ -167,7 +167,11 @@ def main() -> None:
         result = subprocess.run(
             [sys.executable, "-m", "scripts.check_tenant_database"],
             cwd=ROOT,
-            env=env,
+            env={
+                key: value
+                for key, value in env.items()
+                if key not in ("PGPASSWORD", "POSTGRES_PASSWORD")
+            },
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,

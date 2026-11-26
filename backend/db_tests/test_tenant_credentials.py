@@ -20,7 +20,10 @@ def test_credentials_are_distinct() -> None:
 
 
 @pytest.mark.parametrize("login", LOGINS)
-def test_own_credential_connects(login: str) -> None:
+def test_own_credential_connects(login: str, monkeypatch: pytest.MonkeyPatch) -> None:
+    for other, variable in LOGIN_ENV.items():
+        if other != login:
+            monkeypatch.delenv(variable)
     engine = make_engine(login)
     try:
         with engine.connect() as conn:
