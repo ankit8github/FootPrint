@@ -1,0 +1,71 @@
+{
+  "schema": "phase6c03-implementation-packages-v1",
+  "semantic_registry_sha256": "333c513165273846a4645c74ba604900266d88e10fb6eda1848e0195949b0699",
+  "semantic_versions": {
+    "schema": "minimized-evidence-v1",
+    "parser": "phase2-normalized-v1",
+    "feature": "email_features_v1",
+    "fusion": "relationship_fusion_v1",
+    "context": "email_context_v1",
+    "assessment": "sensitivity_rules_v1"
+  },
+  "engine_sha256": {
+    "features/assessments/assessments.ts": "197788808939e68d14ca1abb510d34c5a12071c5976acaa4f0c3d9eb0440df05",
+    "features/assessments/explanations.ts": "b32684b80a276021d69e8f142fd2536c67c9940619c9b12c0eb430b144806498",
+    "features/assessments/types.ts": "f53799635788baa90edaf25e0077371eb7a826ab0a344336cd020e62ce0d1754",
+    "features/discovery/discovery.ts": "6acc5c197b5f694df3b0c0ba888fbd5ba6b5ecca1cbba64e9d446103f5f489c0",
+    "features/discovery/types.ts": "8eaac986c27fddc84b54d9eae4830ed8dd06eb7a2b9dcc7c5351fa6c9d7d3e4e",
+    "features/imports/approved-sources.json": "4c5a2b4e17bd118aefb5df2e8ece888bd318e6f551f593ef105db4b9c6dfd2d5",
+    "features/imports/parsers.ts": "d2217ba3521032a801ccf5d48907434a6d4ae52ce196f63ade91e2d0b7c85b90",
+    "phase2.generated.ts": "6d8f8a659045dbdf2a0b9fc0d2d4faa12cdb152ce98c2499029ce5a440f35244"
+  },
+  "selections": {
+    "features/discovery/discovery.ts": [
+      "linkEvidence"
+    ],
+    "features/assessments/assessments.ts": [
+      "safeEventId",
+      "has",
+      "commercial",
+      "matches",
+      "result",
+      "assessDiscovery"
+    ],
+    "features/imports/parsers.ts": [
+      "registrableDomain"
+    ],
+    "features/assessments/explanations.ts": [
+      "EXPLANATIONS",
+      "LIMITATIONS",
+      "RATIONALES"
+    ]
+  },
+  "node": "22.15.0",
+  "typescript": "5.9.3",
+  "tldts": "7.5.5",
+  "normalized_lock_sha256": "cbdc95545ea0a4487e335689c912059972933e0940c2d8fabf68d3e9683769a0",
+  "psl_sha256": "820f3347bb0e224c797cc0cd73d4f20a0e904f0849f86e57e063a7f8414b5055",
+  "source_sha256": {
+    "frontend/scripts/shared-rules/build-packages.mjs": "2368a8c2f2f10e9cf5fbabd6db95ce277ec51ee8833c4280f6f12e1628966feb",
+    "frontend/scripts/shared-rules/package-worker.mjs": "c4c6a131b94dcfa0207b9c2c54fff13b1c727eff492cb245797863e99322e7d4",
+    "frontend/scripts/shared-rules/indexing-transforms.mjs": "b1a0e456b02b9d9ae4a38dc47ee5601f7fa47e7c081d73debf9a048595a87b52",
+    "frontend/src/features/actions/directory.ts": "ce37f517eb05d3d872f6eefa4f25e4d553a767d770d5c1619421fbf27c8d634e",
+    "backend/experiments/minimized_contract.py": "5e9a92203657138f959e863f0a961f65b2eb7fbd08c89a53ca69ae73e9ed3770",
+    "backend/experiments/indexing_validation.py": "8e1ef0cf90ba836435c8c0f75925ba2f20099af5571697d3514959982bb4c72d"
+  },
+  "packages": {
+    "historical-v1": {
+      "worker_sha256": "69fcc47c8b0890c488900b4afe875aa7ce19faa6e257a691ad371fd53edff064",
+      "pure_sha256": "73dbb73013b2a8ff0c364312adb6820b02a6de9ccb0d60ffd7adc9bc8cd58bb5",
+      "validator": "MinimizedBatch",
+      "historical_source_head": "580fddd8f081182a21bde60eb24d26005115e47f"
+    },
+    "indexed-r1": {
+      "worker_sha256": "f4170b61857e2ae673332e4d57cd01cab5214ede7f4c3b3abef390221258670a",
+      "pure_sha256": "5e980c1c1856226ef6b2ce35b9b4eb651d5860139ba6041a4ffe76ffb262d1e7",
+      "validator": "IndexedBatch",
+      "equivalent_to": "historical-v1"
+    }
+  },
+  "synthetic_only": true
+}

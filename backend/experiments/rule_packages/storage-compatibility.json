@@ -1,0 +1,18 @@
+{
+  "status": "STOP",
+  "finding": "C03-COMP-01",
+  "requirement": "Retain the exact selected implementation revision and artifact identity with owner/collection/generation provenance, including empty generations.",
+  "available_generation_columns": ["owner_id", "collection_id", "generation"],
+  "collection_semantic_versions_are_fixed": true,
+  "historical_revision": "historical-v1",
+  "proposed_revision": "indexed-r1",
+  "same_semantic_versions": true,
+  "different_worker_bytes": true,
+  "lossless_existing_typed_target": null,
+  "schema_change_authorized": false,
+  "durable_projection_enabled": false,
+  "resolution_requires_owner_review": [
+    "Approve a separately scoped future typed generation-to-package binding migration; no such migration is implemented here.",
+    "Review an alternative explicit provenance/version strategy and prove its lossless mapping without overwriting historical pins or widening existing contracts."
+  ]
+}

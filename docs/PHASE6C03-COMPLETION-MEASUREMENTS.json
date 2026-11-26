@@ -1,0 +1,92 @@
+{
+  "implementation": "indexed-r1",
+  "status": "four successful model-level measurements; phase STOPPED at C03-COMP-01",
+  "limits": {
+    "child_seconds": 5,
+    "committed_memory_bytes": 268435456,
+    "input_bytes": 8388608,
+    "output_bytes": 33554432
+  },
+  "workload": "constructed model-level, not newly admitted catalog data",
+  "source_log_sha256": "7d273a49ae654db6e3021a97d0dccc5fe39dc6dc63caded4ba50014a89259e5a",
+  "command_receipt": {
+    "command": [
+      "backend/.venv/Scripts/python.exe",
+      ".local/phase6c03-completion-20261126/stagea_probe.py"
+    ],
+    "cwd": ".",
+    "timeout_seconds": 120.0,
+    "seconds": 9.835,
+    "status": "PASS",
+    "exit_code": 0,
+    "log_sha256": "7d273a49ae654db6e3021a97d0dccc5fe39dc6dc63caded4ba50014a89259e5a",
+    "log_bytes": 2019
+  },
+  "recovery_note": "Outer command receipt reused the probe JSON filename; numeric rows recovered exactly from retained complete stdout, without rerunning.",
+  "rows": [
+    {
+      "fixture": "primary_account",
+      "rows": 10000,
+      "status": "PASS",
+      "child_seconds": 0.22745660000146017,
+      "supervisor_seconds": 0.3280445999989752,
+      "peak_rss_kib": 79500,
+      "input_bytes": 3359465,
+      "output_bytes": 4882129,
+      "child_pid": 23316,
+      "child_exit": 0,
+      "validation_seconds": 0.3125510999998369,
+      "total_seconds": 0.7455412000017532,
+      "result_sha256": "c337c86030421d72a9c85e48b947f49601c87f8fe94d1a9501150b10d68f0f86",
+      "discovery_sha256": "ea30ddf5cc8f68d512c44e21562bc4f139381876d1e918e43979d9d4d390799c"
+    },
+    {
+      "fixture": "commercial_distinct",
+      "rows": 10000,
+      "status": "PASS",
+      "child_seconds": 0.3033813000001828,
+      "supervisor_seconds": 0.46223190000091563,
+      "peak_rss_kib": 90620,
+      "input_bytes": 4289466,
+      "output_bytes": 5012331,
+      "child_pid": 10132,
+      "child_exit": 0,
+      "validation_seconds": 0.32079760000124224,
+      "total_seconds": 1.2170947000013257,
+      "result_sha256": "46c75bd81a4c82a98128db22773934ccc7b229ab96d865a39a022f863fc68d57",
+      "discovery_sha256": "f65a81491cb086fc879792d3b0c47148efe5d7b0ab71ddbe47b126ddc0bafccf"
+    },
+    {
+      "fixture": "unresolved",
+      "rows": 10000,
+      "status": "PASS",
+      "child_seconds": 0.5178675000024668,
+      "supervisor_seconds": 1.4872135000005073,
+      "peak_rss_kib": 129452,
+      "input_bytes": 3429465,
+      "output_bytes": 24089650,
+      "child_pid": 13576,
+      "child_exit": 0,
+      "validation_seconds": 0.5507746000002953,
+      "total_seconds": 2.379496500001551,
+      "result_sha256": "c1167ed1e80916f820d25e7c335d748024d22261ae194553a4182fc5bab68bde",
+      "discovery_sha256": "c93d4c5dc0bb8b68d04a39368a2a6a30feadf189e48c1bb6e46643e48517422c"
+    },
+    {
+      "fixture": "duplicates",
+      "rows": 10000,
+      "status": "PASS",
+      "child_seconds": 0.17611349999788217,
+      "supervisor_seconds": 0.3108262999994622,
+      "peak_rss_kib": 74340,
+      "input_bytes": 3609456,
+      "output_bytes": 4702348,
+      "child_pid": 23456,
+      "child_exit": 0,
+      "validation_seconds": 0.5830301999994845,
+      "total_seconds": 1.1969687999990128,
+      "result_sha256": "df2973709298e8795ef947b9041fe350780767a98754739741eb7dd3913e5c6e",
+      "discovery_sha256": "19f34b33de4cc1b2139840958f3d8b7695ca5d15f335e5daa1d7071c2821168a"
+    }
+  ]
+}

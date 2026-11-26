@@ -1,0 +1,42 @@
+{
+  "status": "STOPPED_INCOMPLETE",
+  "base": "2038c65554501b7f0a099976ea07b75606cb7ff7",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "node": "22.15.0",
+  "fixture_scope": "constructed model-valid unit data, NOT approved catalog or raw-parser output",
+  "limits": {"wall_seconds": 5, "process_committed_memory_mib": 256, "input_mib": 8, "output_mib": 32},
+  "initial_artifact_sha256": "8615b245400297c4e721505e84f01bbe49f844f2e4080805488ceff1d0076e56",
+  "final_artifact_sha256": "69fcc47c8b0890c488900b4afe875aa7ce19faa6e257a691ad371fd53edff064",
+  "runs": [
+    {
+      "artifact": "initial_commonjs",
+      "results": [
+        {"fixture": "primary_account", "rows": 10000, "status": "PASS", "seconds": 4.094, "peak_rss_kib": 64208, "input_bytes": 3359465, "output_bytes": 4882083},
+        {"fixture": "commercial_distinct", "rows": 10000, "status": "STOP", "reason": "DEADLINE", "input_bytes": 4289466, "seconds": null, "peak_rss_kib": null, "output_bytes": null}
+      ]
+    },
+    {
+      "artifact": "final_esm",
+      "results": [
+        {"fixture": "primary_account", "rows": 10000, "status": "PASS", "seconds": 2.516, "peak_rss_kib": 66932, "input_bytes": 3359465, "output_bytes": 4882083},
+        {"fixture": "commercial_distinct", "rows": 10000, "status": "STOP", "reason": "DEADLINE", "input_bytes": 4289466, "seconds": null, "peak_rss_kib": null, "output_bytes": null}
+      ]
+    }
+  ],
+  "null_meaning": "NOT MEASURED on killed child; not zero",
+  "not_tested_locally_after_stop": ["unresolved", "duplicates"],
+  "initial_head_ci": {
+    "head": "bd0fe4a73ddffd8ca198df387ee1b0716a79a9c5",
+    "run": 45773354099,
+    "job": 139751018311,
+    "results": [
+      {"fixture": "primary_account", "status": "PASS", "seconds": 0.547, "peak_rss_kib": 69124, "input_bytes": 3359465, "output_bytes": 4882083},
+      {"fixture": "commercial_distinct", "status": "PASS", "seconds": 2.61, "peak_rss_kib": 79232, "input_bytes": 4289466, "output_bytes": 5012285},
+      {"fixture": "unresolved", "status": "PASS", "seconds": 0.578, "peak_rss_kib": 80292, "input_bytes": 3429465, "output_bytes": 24059629},
+      {"fixture": "duplicates", "status": "PASS", "seconds": 0.141, "peak_rss_kib": 64108, "input_bytes": 3609456, "output_bytes": 4702302}
+    ]
+  },
+  "host_scheduling_controlled": false,
+  "adapter_implemented": false,
+  "production_approval": false
+}
