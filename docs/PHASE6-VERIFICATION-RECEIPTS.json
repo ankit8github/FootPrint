@@ -1,0 +1,1508 @@
+{
+  "status": "STOP",
+  "date_local": "2026-11-27",
+  "timezone": "Asia/Calcutta",
+  "code_commit": "d437092c416c0fbf57caf6674ce937d3418a454b",
+  "branch": "verify/phase6-executor-safety",
+  "pr": "https://github.com/ankit8github/FootPrint/pull/15",
+  "local_checks": {
+    "backend-audit": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pip-audit"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 120.0,
+      "seconds": 19.785,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "4e4757ff226a44b5c448b1c4624619419c22d5272463dc19510b4754871a72f9",
+      "log_bytes": 32,
+      "raw_log": ".local/phase6-master-20261127/backend-audit.log"
+    },
+    "backend-format": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.247,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "b9c42ab730b3ec46d996590cb7f201570f0bce338e726101a812cebed681ca58",
+      "log_bytes": 882,
+      "raw_log": ".local/phase6-master-20261127/backend-format.log"
+    },
+    "backend-full": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "--junitxml=../.local/phase6-master-20261127/backend-full.junit.xml"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 1200.0,
+      "seconds": 484.769,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "08688acbb935a78c8369fa7d2ca970cfd33f4230067f85577906fef2273abc51",
+      "log_bytes": 1249,
+      "raw_log": ".local/phase6-master-20261127/backend-full.log",
+      "junit": {
+        "tests": 1061.0,
+        "failures": 0.0,
+        "errors": 0.0,
+        "skipped": 0.0,
+        "time": 480.008
+      }
+    },
+    "backend-lint": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "."
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.345,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "b0a3820faa29fdb38a40fce7955fadab49a35c40ad83eb8a38067874e4639e09",
+      "log_bytes": 1831,
+      "raw_log": ".local/phase6-master-20261127/backend-lint.log"
+    },
+    "backend-linux-types": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "--platform",
+        "linux"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 180.0,
+      "seconds": 50.454,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "94052817dfe271c9180d5fb69d1a5187415e233dec083b3d4a14ff2067e6dba0",
+      "log_bytes": 45,
+      "raw_log": ".local/phase6-master-20261127/backend-linux-types.log"
+    },
+    "backend-types": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 180.0,
+      "seconds": 45.336,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "94052817dfe271c9180d5fb69d1a5187415e233dec083b3d4a14ff2067e6dba0",
+      "log_bytes": 45,
+      "raw_log": ".local/phase6-master-20261127/backend-types.log"
+    },
+    "boundary-01": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "-s",
+        "executor_safety_tests",
+        "--junitxml=../.local/phase6-master-20261127/boundary-01.junit.xml"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 15.047,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "631d4f9e2a3c7b2c9efb7f2eff3438651ee52ad41d658e193e7a9c26b2da0af6",
+      "log_bytes": 12786,
+      "raw_log": ".local/phase6-master-20261127/boundary-01.log",
+      "junit": {
+        "tests": 38.0,
+        "failures": 4.0,
+        "errors": 0.0,
+        "skipped": 0.0,
+        "time": 12.609
+      }
+    },
+    "boundary-02": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "-s",
+        "executor_safety_tests",
+        "--junitxml=../.local/phase6-master-20261127/boundary-02.junit.xml"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 17.753,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "1003b085a9637ee3810bd44d729efbcb28afd3418c2310788b3e3a72dac8608c",
+      "log_bytes": 4344,
+      "raw_log": ".local/phase6-master-20261127/boundary-02.log",
+      "junit": {
+        "tests": 39.0,
+        "failures": 1.0,
+        "errors": 0.0,
+        "skipped": 0.0,
+        "time": 16.045
+      }
+    },
+    "boundary-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "-s",
+        "executor_safety_tests",
+        "--junitxml=../.local/phase6-master-20261127/boundary-final.junit.xml"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 22.514,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "78f7493f21d8b84ca38764854dbe4d0ef719fa2aedfce0238e206f181fcf8d42",
+      "log_bytes": 4339,
+      "raw_log": ".local/phase6-master-20261127/boundary-final.log",
+      "junit": {
+        "tests": 39.0,
+        "failures": 1.0,
+        "errors": 0.0,
+        "skipped": 0.0,
+        "time": 19.957
+      }
+    },
+    "chromium-cache": {
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:smoke"
+      ],
+      "cwd": "frontend",
+      "timeout_seconds": 180.0,
+      "seconds": 49.453,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "deb5c9a6bf6b4ccb5a31b31a62277d2f9892b92faa1f8e0b5a78a8dcd8ad4bf6",
+      "log_bytes": 2084,
+      "raw_log": ".local/phase6-master-20261127/chromium-cache.log"
+    },
+    "chromium": {
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:smoke"
+      ],
+      "cwd": "frontend",
+      "timeout_seconds": 180.0,
+      "seconds": 50.111,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "7d9bb781f491e49dbb72524c95c9fdcf1da8607956bb683ab0411cbe62c4b366",
+      "log_bytes": 15695,
+      "raw_log": ".local/phase6-master-20261127/chromium.log"
+    },
+    "commit-format": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.119,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "363910bec9208f1bd80af852c16d0262b268cf6f523e2c5e0f1ccef8ecd55e9d",
+      "log_bytes": 27,
+      "raw_log": ".local/phase6-master-20261127/commit-format.log"
+    },
+    "commit-quality": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "."
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.125,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "log_bytes": 19,
+      "raw_log": ".local/phase6-master-20261127/commit-quality.log"
+    },
+    "commit-types": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "executor_safety_tests",
+        "scripts/check_phase6_master_preservation.py"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 14.371,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "281a094c39385b4d7b53e5db635f52158036861433c2a4975b9039e77a627a24",
+      "log_bytes": 44,
+      "raw_log": ".local/phase6-master-20261127/commit-types.log"
+    },
+    "contracts": {
+      "command": [
+        "npm.cmd",
+        "run",
+        "contracts:check"
+      ],
+      "cwd": "frontend",
+      "timeout_seconds": 90.0,
+      "seconds": 10.498,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "ea8c461751d5c019c566af588db9de215a99061090e4449b2763aec4696a07dd",
+      "log_bytes": 79,
+      "raw_log": ".local/phase6-master-20261127/contracts.log"
+    },
+    "corpus": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.validate_corpus"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 1.648,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "92b279a086d9af9a1932e9d5dd4130f1f67ea5781c6f1c943d44570b9912ed5b",
+      "log_bytes": 3087,
+      "raw_log": ".local/phase6-master-20261127/corpus.log"
+    },
+    "final-test-quality": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "executor_safety_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 1.764,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "0c37c4158c91ef55c724ba017bf6465f26018199badb08e3ff13f98acdf056c2",
+      "log_bytes": 44,
+      "raw_log": ".local/phase6-master-20261127/final-test-quality.log"
+    },
+    "frontend-audit": {
+      "command": [
+        "npm.cmd",
+        "audit",
+        "--audit-level=low"
+      ],
+      "cwd": "frontend",
+      "timeout_seconds": 90.0,
+      "seconds": 8.963,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3",
+      "log_bytes": 24,
+      "raw_log": ".local/phase6-master-20261127/frontend-audit.log"
+    },
+    "frontend-build": {
+      "command": [
+        "npm.cmd",
+        "run",
+        "build"
+      ],
+      "cwd": "frontend",
+      "timeout_seconds": 180.0,
+      "seconds": 19.996,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "631bc85a5aadc07c09534420ad40ee5928b0a7553c9f8080f464f3b289b36507",
+      "log_bytes": 966,
+      "raw_log": ".local/phase6-master-20261127/frontend-build.log"
+    },
+    "frontend-quality": {
+      "command": [
+        "npm.cmd",
+        "run",
+        "lint"
+      ],
+      "cwd": "frontend",
+      "timeout_seconds": 120.0,
+      "seconds": 32.812,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "d57da57adde3b6b334e5ac09a0041808e2d98c897327a0ece3aa4157e7574138",
+      "log_bytes": 44,
+      "raw_log": ".local/phase6-master-20261127/frontend-quality.log"
+    },
+    "frontend-unit": {
+      "command": [
+        "npm.cmd",
+        "test"
+      ],
+      "cwd": "frontend",
+      "timeout_seconds": 180.0,
+      "seconds": 45.121,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "2b3749abc575c312ae1e96e21c4ac0eb483990844acec94f3ce4ed8d52f7c9ca",
+      "log_bytes": 551,
+      "raw_log": ".local/phase6-master-20261127/frontend-unit.log"
+    },
+    "login-triage-02": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "../.local/phase6-master-20261127/login_triage.py"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 180.0,
+      "seconds": 4.78,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "927bcd804c773bb28afd15b43f5c5cf961711449ff7dd508d2ce7e26c8ba1a76",
+      "log_bytes": 3619,
+      "raw_log": ".local/phase6-master-20261127/login-triage-02.log"
+    },
+    "login-triage": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "../.local/phase6-master-20261127/login_triage.py"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 180.0,
+      "seconds": 1.412,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "e625d06d07ccea4c3a8c7ddecfffa883ddb4115ea2475a4fedb85c945abfd4b6",
+      "log_bytes": 320,
+      "raw_log": ".local/phase6-master-20261127/login-triage.log"
+    },
+    "minimized-schema": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.export_minimized",
+        "--check"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 3.537,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log_bytes": 0,
+      "raw_log": ".local/phase6-master-20261127/minimized-schema.log"
+    },
+    "new-format-02": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "executor_safety_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.087,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "10869b88a75066aa23546ef1f95fcd4678c3fb92a56ed46ef91688052b67976a",
+      "log_bytes": 42,
+      "raw_log": ".local/phase6-master-20261127/new-format-02.log"
+    },
+    "new-format": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "executor_safety_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.151,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "10869b88a75066aa23546ef1f95fcd4678c3fb92a56ed46ef91688052b67976a",
+      "log_bytes": 42,
+      "raw_log": ".local/phase6-master-20261127/new-format.log"
+    },
+    "new-style-02": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "executor_safety_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.084,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "log_bytes": 19,
+      "raw_log": ".local/phase6-master-20261127/new-style-02.log"
+    },
+    "new-style": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "executor_safety_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.618,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "9cd79e45ad492d6cf91424adfbf5e1a02eea7e182ddb8dea95ec4c35b1186b90",
+      "log_bytes": 2662,
+      "raw_log": ".local/phase6-master-20261127/new-style.log"
+    },
+    "new-types": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "mypy",
+        "executor_safety_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 15.064,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "2e04b82950cb6568b3818686e475ca4b33af3f5054e89a5f4cf6996105767afa",
+      "log_bytes": 646,
+      "raw_log": ".local/phase6-master-20261127/new-types.log"
+    },
+    "openapi": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.export_openapi",
+        "--check"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 2.419,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log_bytes": 0,
+      "raw_log": ".local/phase6-master-20261127/openapi.log"
+    },
+    "parity-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "-s",
+        "rule_tests",
+        "indexing_tests",
+        "completion_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 240.0,
+      "seconds": 178.869,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "d1fbac83290a5b6763e9a333f08687785556ae35349196e98e20ed2e786019d3",
+      "log_bytes": 5353,
+      "raw_log": ".local/phase6-master-20261127/parity-final.log"
+    },
+    "phase2-contract": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.export_phase2",
+        "--check"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 2.881,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log_bytes": 0,
+      "raw_log": ".local/phase6-master-20261127/phase2-contract.log"
+    },
+    "preservation-tool-format": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "scripts/check_phase6_master_preservation.py"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.146,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "413a709001976657cb743636fd34e48fc41d8d302d665460d3f874b3313da127",
+      "log_bytes": 19,
+      "raw_log": ".local/phase6-master-20261127/preservation-tool-format.log"
+    },
+    "preservation": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.check_indexing_preservation"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 4.806,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "9df491c4714b678e56d0f44ea2da6709c7d0bdbdf251d821445227d98ca12325",
+      "log_bytes": 50,
+      "raw_log": ".local/phase6-master-20261127/preservation.log"
+    },
+    "preserved-pr13": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.check_phase6_master_preservation"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.744,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "84d406637c280b144c9b3b6483f9c5219144f2283f3113c104e930dd69c6b99a",
+      "log_bytes": 77,
+      "raw_log": ".local/phase6-master-20261127/preserved-pr13.log"
+    },
+    "privacy-rollback": {
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:performance",
+        "--",
+        "--baseline"
+      ],
+      "cwd": "frontend",
+      "timeout_seconds": 240.0,
+      "seconds": 51.08,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "d9f9f7ca8935b118111a9217e5df5d2fb3435f5ca03b237da8b2630b00a4e192",
+      "log_bytes": 2590,
+      "raw_log": ".local/phase6-master-20261127/privacy-rollback.log"
+    },
+    "registry": {
+      "command": [
+        "node",
+        "scripts/admission/generate.mjs"
+      ],
+      "cwd": "frontend",
+      "timeout_seconds": 120.0,
+      "seconds": 4.234,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "93c57cc3e696a4b1321bd3735b288bb833eaed88e05eefaa5ad358ab3259ee01",
+      "log_bytes": 182,
+      "raw_log": ".local/phase6-master-20261127/registry.log"
+    },
+    "tenant-database": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "scripts.run_tenant_database",
+        "--postgres-bin",
+        "C:\\Program Files\\PostgreSQL\\17\\bin"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 600.0,
+      "seconds": 182.942,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "ed7e16543b613af3888721a0f264533aedc9177452f9890eab2fb5ae3148f216",
+      "log_bytes": 1262,
+      "raw_log": ".local/phase6-master-20261127/tenant-database.log"
+    },
+    "test-format-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "executor_safety_tests"
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 60.0,
+      "seconds": 0.794,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "10869b88a75066aa23546ef1f95fcd4678c3fb92a56ed46ef91688052b67976a",
+      "log_bytes": 42,
+      "raw_log": ".local/phase6-master-20261127/test-format-final.log"
+    },
+    "unit-format-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.261,
+      "status": "FAIL",
+      "exit_code": 1,
+      "log_sha256": "70e5c65f688c22a1a248c7c43bb7232ff08abac89d660891d2a3e1da99ba2306",
+      "log_bytes": 792,
+      "raw_log": ".local/phase6-master-20261127/unit-format-final.log"
+    },
+    "unit-quality-final": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "."
+      ],
+      "cwd": "backend",
+      "timeout_seconds": 90.0,
+      "seconds": 0.608,
+      "status": "PASS",
+      "exit_code": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "log_bytes": 19,
+      "raw_log": ".local/phase6-master-20261127/unit-quality-final.log"
+    }
+  },
+  "historical_findings": {
+    "native": {
+      "path": ".local/phase6c03-adoption-review/parity.json",
+      "sha256": "5c5a6928f0f44506ae309fa4accea6e12a8415a2cefcee0e2b702c094a3514b8",
+      "exit_code": 3221225477,
+      "seconds": 21.449,
+      "first_lines": [
+        "....................................................................Windows fatal exception: page error",
+        "",
+        "Current thread 0x000043f4 (most recent call first):",
+        "  File \"C:\\Users\\debru\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\inspect.py\", line 290 in ismodule",
+        "  File \"C:\\Users\\debru\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\inspect.py\", line 988 in getmodule",
+        "  File \"C:\\Users\\debru\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\inspect.py\", line 1071 in findsource",
+        "  File \"I:\\FootPrint\\backend\\.venv\\Lib\\site-packages\\_pytest\\_code\\source.py\", line 130 in findsource",
+        "  File \"I:\\FootPrint\\backend\\.venv\\Lib\\site-packages\\_pytest\\_code\\code.py\", line 107 in fullsource",
+        "  File \"I:\\FootPrint\\backend\\.venv\\Lib\\site-packages\\_pytest\\_code\\code.py\", line 294 in getsource"
+      ],
+      "cause": "NOT ESTABLISHED; traceback rendering crash does not identify the initial assertion"
+    },
+    "backend.json": {
+      "path": ".local/phase6c03-indexing-validation/backend.json",
+      "sha256": "1e1e4b07e2c75b64eec7e9a49afbe6640d1ffe4af8e69d1750514e1e6a08eedb",
+      "exit_code": 1,
+      "seconds": 389.432,
+      "last_lines": [
+        "=========================== short test summary info ===========================",
+        "FAILED tests/test_ownership_security.py::test_cursors_counts_filters_and_b_only_metadata_changes",
+        "1 failed, 1060 passed in 385.27s (0:06:25)"
+      ],
+      "cause": "NOT ESTABLISHED; successful present-day runs are not remediation"
+    },
+    "backend-continuation.json": {
+      "path": ".local/phase6c03-indexing-validation/backend-continuation.json",
+      "sha256": "e9180b90c0b139ff74905ebd94363772cc55fd5f05e2e2faa40671644f756997",
+      "exit_code": 1,
+      "seconds": 561.623,
+      "last_lines": [
+        "=========================== short test summary info ===========================",
+        "FAILED tests/test_minimized_admission.py::test_every_complete_registered_envelope_is_validation_only[a-d30911944817063ed7d8749559a46bc403202cda320f1a4b0f603da6b5ca6bb1]",
+        "1 failed, 1060 passed in 556.89s (0:09:16)"
+      ],
+      "cause": "NOT ESTABLISHED; successful present-day runs are not remediation"
+    }
+  },
+  "ci": {
+    "code_commit_archive_receipt": {
+      "head": "d437092c416c0fbf57caf6674ce937d3418a454b",
+      "runs": [
+        {
+          "id": 45878086258,
+          "name": "Phase 6C-02 disposable tenant database",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45878086258",
+          "archive_sha256": "1ba31a96529540acb1ab64ade38294884b805fc70610b7bdb4bb139106dadb1e",
+          "archive_bytes": 22387,
+          "key_evidence_lines": [
+            {
+              "file": "0_tenant-isolation.txt",
+              "line": "2026-11-26T18:42:56.0353442Z All checks passed!"
+            },
+            {
+              "file": "0_tenant-isolation.txt",
+              "line": "2026-11-26T18:43:02.6687598Z PASS: 193 historical blobs and all 252 base files unchanged"
+            },
+            {
+              "file": "0_tenant-isolation.txt",
+              "line": "2026-11-26T18:43:44.3094468Z 434 passed in 11.71s"
+            },
+            {
+              "file": "0_tenant-isolation.txt",
+              "line": "2026-11-26T18:43:44.3097994Z 434 passed in 11.54s"
+            },
+            {
+              "file": "0_tenant-isolation.txt",
+              "line": "2026-11-26T18:43:44.3098434Z PASS: restricted-role SQL, upgrade/downgrade/re-upgrade; ledger retained"
+            },
+            {
+              "file": "tenant-isolation/6_Frozen lint and types.txt",
+              "line": "2026-11-26T18:42:56.0353406Z All checks passed!"
+            },
+            {
+              "file": "tenant-isolation/7_Protected historical and Phase 6C-01 bytes.txt",
+              "line": "2026-11-26T18:43:02.6687590Z PASS: 193 historical blobs and all 252 base files unchanged"
+            },
+            {
+              "file": "tenant-isolation/8_Actual restricted roles and migration roundtrip.txt",
+              "line": "2026-11-26T18:43:44.3094465Z 434 passed in 11.71s"
+            },
+            {
+              "file": "tenant-isolation/8_Actual restricted roles and migration roundtrip.txt",
+              "line": "2026-11-26T18:43:44.3097990Z 434 passed in 11.54s"
+            },
+            {
+              "file": "tenant-isolation/8_Actual restricted roles and migration roundtrip.txt",
+              "line": "2026-11-26T18:43:44.3098431Z PASS: restricted-role SQL, upgrade/downgrade/re-upgrade; ledger retained"
+            }
+          ],
+          "full_evidence_line_count": 10
+        },
+        {
+          "id": 45878086624,
+          "name": "Phase 6 independent executor acceptance",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45878086624",
+          "archive_sha256": "02a1cb7c218e09f0ca86fbebe73964ed15cee1397e4e607bdfabf1ce7a3d5e19",
+          "archive_bytes": 27603,
+          "key_evidence_lines": [
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:43:13.2072391Z All checks passed!"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:43:19.4661284Z PASS: all 312 blobs from 511dfee080d3bcd3c68aaa35ec1474700ff0cf63 unchanged"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:43:31.8601175Z network_connected=True received_count=1"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:43:36.9881938Z             print(f\"network_connected={payload['result']['connected']} received_count={len(received)}\")"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:43:36.9882429Z >           assert payload[\"result\"][\"connected\"] is False, \"NO_NETWORK_GATE_FAILED\""
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:43:36.9882776Z E           AssertionError: NO_NETWORK_GATE_FAILED"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:43:36.9884264Z FAILED executor_safety_tests/test_boundary.py::test_no_network_gate_with_loopback_only - AssertionError: NO_NETWORK_GATE_FAILED"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:43:36.9884879Z 1 failed, 38 passed in 14.90s"
+            },
+            {
+              "file": "executor-acceptance/7_Independent test quality.txt",
+              "line": "2026-11-26T18:43:13.2072353Z All checks passed!"
+            },
+            {
+              "file": "executor-acceptance/8_Unchanged protected inventory.txt",
+              "line": "2026-11-26T18:43:19.4661255Z PASS: all 312 blobs from 511dfee080d3bcd3c68aaa35ec1474700ff0cf63 unchanged"
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:43:31.8601146Z network_connected=True received_count=1"
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:43:36.9881931Z             print(f\"network_connected={payload['result']['connected']} received_count={len(received)}\")"
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:43:36.9882427Z >           assert payload[\"result\"][\"connected\"] is False, \"NO_NETWORK_GATE_FAILED\""
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:43:36.9882774Z E           AssertionError: NO_NETWORK_GATE_FAILED"
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:43:36.9884258Z FAILED executor_safety_tests/test_boundary.py::test_no_network_gate_with_loopback_only - AssertionError: NO_NETWORK_GATE_FAILED"
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:43:36.9884877Z 1 failed, 38 passed in 14.90s"
+            }
+          ],
+          "full_evidence_line_count": 16
+        },
+        {
+          "id": 45878086632,
+          "name": "Phase 6C-03 stopped implementation revision evidence",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45878086632",
+          "archive_sha256": "7b70469680b6296895e599d2fd7e3637d91fab2f32b06e173142e7a88c6d7d27",
+          "archive_bytes": 31526,
+          "key_evidence_lines": [
+            {
+              "file": "0_stopped-candidate-evidence.txt",
+              "line": "2026-11-26T18:43:18.1596903Z found 0 vulnerabilities"
+            },
+            {
+              "file": "0_stopped-candidate-evidence.txt",
+              "line": "2026-11-26T18:43:21.5320652Z All checks passed!"
+            },
+            {
+              "file": "0_stopped-candidate-evidence.txt",
+              "line": "2026-11-26T18:43:30.0306332Z PASS: all 285 pre-experiment Git blobs unchanged"
+            },
+            {
+              "file": "0_stopped-candidate-evidence.txt",
+              "line": "2026-11-26T18:43:57.3138273Z 152 passed in 25.65s"
+            },
+            {
+              "file": "stopped-candidate-evidence/6_Frozen dependencies.txt",
+              "line": "2026-11-26T18:43:18.1596899Z found 0 vulnerabilities"
+            },
+            {
+              "file": "stopped-candidate-evidence/8_Stopped candidate quality and preservation.txt",
+              "line": "2026-11-26T18:43:21.5320623Z All checks passed!"
+            },
+            {
+              "file": "stopped-candidate-evidence/8_Stopped candidate quality and preservation.txt",
+              "line": "2026-11-26T18:43:30.0306282Z PASS: all 285 pre-experiment Git blobs unchanged"
+            },
+            {
+              "file": "stopped-candidate-evidence/9_Full package parity and partial seed-codec evidence.txt",
+              "line": "2026-11-26T18:43:57.3138268Z 152 passed in 25.65s"
+            }
+          ],
+          "full_evidence_line_count": 16
+        },
+        {
+          "id": 45878086507,
+          "name": "Phase 6C-03 stopped synthetic research evidence",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45878086507",
+          "archive_sha256": "00af0658a5e50b5a2dae73e63dbe37e3508b7bd7e9e7bf2b931500600dc1d6a5",
+          "archive_bytes": 27312,
+          "key_evidence_lines": [
+            {
+              "file": "0_shared-rule-evidence.txt",
+              "line": "2026-11-26T18:43:17.1732180Z found 0 vulnerabilities"
+            },
+            {
+              "file": "0_shared-rule-evidence.txt",
+              "line": "2026-11-26T18:43:29.9516312Z PASS: 193 historical blobs and all 252 base files unchanged"
+            },
+            {
+              "file": "0_shared-rule-evidence.txt",
+              "line": "2026-11-26T18:43:29.9516900Z PASS: all 270 Phase 6C-03 baseline blobs unchanged, including schema/RLS/ledger/tests"
+            },
+            {
+              "file": "0_shared-rule-evidence.txt",
+              "line": "2026-11-26T18:43:47.3696232Z 71 passed in 9.75s"
+            },
+            {
+              "file": "shared-rule-evidence/6_Install frozen dependencies.txt",
+              "line": "2026-11-26T18:43:17.1732176Z found 0 vulnerabilities"
+            },
+            {
+              "file": "shared-rule-evidence/8_Preserve every base file.txt",
+              "line": "2026-11-26T18:43:29.9516309Z PASS: 193 historical blobs and all 252 base files unchanged"
+            },
+            {
+              "file": "shared-rule-evidence/8_Preserve every base file.txt",
+              "line": "2026-11-26T18:43:29.9516898Z PASS: all 270 Phase 6C-03 baseline blobs unchanged, including schema/RLS/ledger/tests"
+            },
+            {
+              "file": "shared-rule-evidence/10_Immutable full-output and provenance hashes.txt",
+              "line": "2026-11-26T18:43:47.3696228Z 71 passed in 9.75s"
+            }
+          ],
+          "full_evidence_line_count": 16
+        },
+        {
+          "id": 45878086416,
+          "name": "Phase 6C-03 isolated indexing evidence",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45878086416",
+          "archive_sha256": "f0278406b1c96384e2d525d2c1b567d698f5b9118612886a8817db0dbdd61328",
+          "archive_bytes": 40176,
+          "key_evidence_lines": [
+            {
+              "file": "0_indexing-evidence.txt",
+              "line": "2026-11-26T18:43:16.5900690Z found 0 vulnerabilities"
+            },
+            {
+              "file": "0_indexing-evidence.txt",
+              "line": "2026-11-26T18:43:24.1214021Z PASS: all 285 pre-experiment Git blobs unchanged"
+            },
+            {
+              "file": "0_indexing-evidence.txt",
+              "line": "2026-11-26T18:43:24.2929329Z All checks passed!"
+            },
+            {
+              "file": "0_indexing-evidence.txt",
+              "line": "2026-11-26T18:43:44.5757984Z 108 passed in 6.66s"
+            },
+            {
+              "file": "indexing-evidence/6_Install frozen dependencies.txt",
+              "line": "2026-11-26T18:43:16.5900684Z found 0 vulnerabilities"
+            },
+            {
+              "file": "indexing-evidence/9_Protected blobs and frozen checks.txt",
+              "line": "2026-11-26T18:43:24.1213990Z PASS: all 285 pre-experiment Git blobs unchanged"
+            },
+            {
+              "file": "indexing-evidence/9_Protected blobs and frozen checks.txt",
+              "line": "2026-11-26T18:43:24.2929290Z All checks passed!"
+            },
+            {
+              "file": "indexing-evidence/11_Full immutable and negative parity matrix.txt",
+              "line": "2026-11-26T18:43:44.5757979Z 108 passed in 6.66s"
+            }
+          ],
+          "full_evidence_line_count": 248
+        },
+        {
+          "id": 45878086428,
+          "name": "PV1 synthetic checks",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45878086428",
+          "archive_sha256": "acdc665499978fb4ab18ea20f8b8658786dd31cb2582ad6d3518e4467264bb58",
+          "archive_bytes": 52337,
+          "key_evidence_lines": [
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:43:07.7491795Z found 0 vulnerabilities"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:43:07.8690416Z All checks passed!"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:44:49.0647352Z 1061 passed in 93.85s (0:01:33)"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:44:52.4770260Z No known vulnerabilities found"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:45:07.4211421Z found 0 vulnerabilities"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:46:14.6828053Z   9 passed (10.1s)"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:46:32.3992467Z PASS seven production privacy/rollback scenarios; proposed performance budgets remain FAILED."
+            },
+            {
+              "file": "scaffold/6_Install locked dependencies.txt",
+              "line": "2026-11-26T18:43:07.7491792Z found 0 vulnerabilities"
+            },
+            {
+              "file": "scaffold/7_Python checks.txt",
+              "line": "2026-11-26T18:43:07.8690385Z All checks passed!"
+            },
+            {
+              "file": "scaffold/7_Python checks.txt",
+              "line": "2026-11-26T18:44:49.0647349Z 1061 passed in 93.85s (0:01:33)"
+            },
+            {
+              "file": "scaffold/7_Python checks.txt",
+              "line": "2026-11-26T18:44:52.4770210Z No known vulnerabilities found"
+            },
+            {
+              "file": "scaffold/8_Client checks.txt",
+              "line": "2026-11-26T18:45:07.4211366Z found 0 vulnerabilities"
+            },
+            {
+              "file": "scaffold/11_Browser smoke.txt",
+              "line": "2026-11-26T18:46:14.6828038Z   9 passed (10.1s)"
+            },
+            {
+              "file": "scaffold/12_Production privacy and rollback preservation.txt",
+              "line": "2026-11-26T18:46:32.3992428Z PASS seven production privacy/rollback scenarios; proposed performance budgets remain FAILED."
+            }
+          ],
+          "full_evidence_line_count": 14
+        },
+        {
+          "id": 45877720347,
+          "name": "Phase 6 independent executor acceptance",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45877720347",
+          "archive_sha256": "6579790a144516dab514c30587fff4814bfcd2b163c281c182c0dd3d50fdce58",
+          "archive_bytes": 26339,
+          "key_evidence_lines": [
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:40:19.1691837Z All checks passed!"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:40:26.1507915Z PASS: all 312 blobs from 511dfee080d3bcd3c68aaa35ec1474700ff0cf63 unchanged"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:40:38.0191217Z network_connected=True received_count=1"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:40:43.1821362Z             print(f\"network_connected={payload['result']['connected']} received_count={len(received)}\")"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:40:43.1822358Z >           assert payload[\"result\"][\"connected\"] is False, \"NO_NETWORK_GATE_FAILED\""
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:40:43.1823074Z E           AssertionError: NO_NETWORK_GATE_FAILED"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:40:43.1826365Z FAILED executor_safety_tests/test_boundary.py::test_no_network_gate_with_loopback_only - AssertionError: NO_NETWORK_GATE_FAILED"
+            },
+            {
+              "file": "0_executor-acceptance.txt",
+              "line": "2026-11-26T18:40:43.1827666Z 1 failed, 38 passed in 14.94s"
+            },
+            {
+              "file": "executor-acceptance/7_Independent test quality.txt",
+              "line": "2026-11-26T18:40:19.1691791Z All checks passed!"
+            },
+            {
+              "file": "executor-acceptance/8_Unchanged protected inventory.txt",
+              "line": "2026-11-26T18:40:26.1507888Z PASS: all 312 blobs from 511dfee080d3bcd3c68aaa35ec1474700ff0cf63 unchanged"
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:40:38.0191195Z network_connected=True received_count=1"
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:40:43.1821358Z             print(f\"network_connected={payload['result']['connected']} received_count={len(received)}\")"
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:40:43.1822354Z >           assert payload[\"result\"][\"connected\"] is False, \"NO_NETWORK_GATE_FAILED\""
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:40:43.1823070Z E           AssertionError: NO_NETWORK_GATE_FAILED"
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:40:43.1826354Z FAILED executor_safety_tests/test_boundary.py::test_no_network_gate_with_loopback_only - AssertionError: NO_NETWORK_GATE_FAILED"
+            },
+            {
+              "file": "executor-acceptance/9_Real process acceptance including mandatory no-network gate.txt",
+              "line": "2026-11-26T18:40:43.1827662Z 1 failed, 38 passed in 14.94s"
+            }
+          ],
+          "full_evidence_line_count": 16
+        },
+        {
+          "id": 45877720242,
+          "name": "Phase 6C-02 disposable tenant database",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45877720242",
+          "archive_sha256": "0f7b843e6ce0393ce447955c997961bf7173953928b6d032a6d728eb57116e87",
+          "archive_bytes": 21542,
+          "key_evidence_lines": [
+            {
+              "file": "0_tenant-isolation.txt",
+              "line": "2026-11-26T18:40:08.4927997Z All checks passed!"
+            },
+            {
+              "file": "0_tenant-isolation.txt",
+              "line": "2026-11-26T18:40:14.6896543Z PASS: 193 historical blobs and all 252 base files unchanged"
+            },
+            {
+              "file": "0_tenant-isolation.txt",
+              "line": "2026-11-26T18:40:55.1836764Z 434 passed in 11.40s"
+            },
+            {
+              "file": "0_tenant-isolation.txt",
+              "line": "2026-11-26T18:40:55.1839423Z 434 passed in 11.40s"
+            },
+            {
+              "file": "0_tenant-isolation.txt",
+              "line": "2026-11-26T18:40:55.1839722Z PASS: restricted-role SQL, upgrade/downgrade/re-upgrade; ledger retained"
+            },
+            {
+              "file": "tenant-isolation/6_Frozen lint and types.txt",
+              "line": "2026-11-26T18:40:08.4927980Z All checks passed!"
+            },
+            {
+              "file": "tenant-isolation/7_Protected historical and Phase 6C-01 bytes.txt",
+              "line": "2026-11-26T18:40:14.6896539Z PASS: 193 historical blobs and all 252 base files unchanged"
+            },
+            {
+              "file": "tenant-isolation/8_Actual restricted roles and migration roundtrip.txt",
+              "line": "2026-11-26T18:40:55.1836761Z 434 passed in 11.40s"
+            },
+            {
+              "file": "tenant-isolation/8_Actual restricted roles and migration roundtrip.txt",
+              "line": "2026-11-26T18:40:55.1839421Z 434 passed in 11.40s"
+            },
+            {
+              "file": "tenant-isolation/8_Actual restricted roles and migration roundtrip.txt",
+              "line": "2026-11-26T18:40:55.1839720Z PASS: restricted-role SQL, upgrade/downgrade/re-upgrade; ledger retained"
+            }
+          ],
+          "full_evidence_line_count": 10
+        },
+        {
+          "id": 45877720287,
+          "name": "Phase 6C-03 stopped synthetic research evidence",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45877720287",
+          "archive_sha256": "83cd12c9b77616cef96a73c81e0e654767c1a2933b1149f98dea1e06f4e48ade",
+          "archive_bytes": 26542,
+          "key_evidence_lines": [
+            {
+              "file": "0_shared-rule-evidence.txt",
+              "line": "2026-11-26T18:40:22.4931856Z found 0 vulnerabilities"
+            },
+            {
+              "file": "0_shared-rule-evidence.txt",
+              "line": "2026-11-26T18:40:31.8549232Z PASS: 193 historical blobs and all 252 base files unchanged"
+            },
+            {
+              "file": "0_shared-rule-evidence.txt",
+              "line": "2026-11-26T18:40:31.8549576Z PASS: all 270 Phase 6C-03 baseline blobs unchanged, including schema/RLS/ledger/tests"
+            },
+            {
+              "file": "0_shared-rule-evidence.txt",
+              "line": "2026-11-26T18:40:44.5494328Z 71 passed in 7.58s"
+            },
+            {
+              "file": "shared-rule-evidence/6_Install frozen dependencies.txt",
+              "line": "2026-11-26T18:40:22.4931853Z found 0 vulnerabilities"
+            },
+            {
+              "file": "shared-rule-evidence/8_Preserve every base file.txt",
+              "line": "2026-11-26T18:40:31.8549230Z PASS: 193 historical blobs and all 252 base files unchanged"
+            },
+            {
+              "file": "shared-rule-evidence/8_Preserve every base file.txt",
+              "line": "2026-11-26T18:40:31.8549574Z PASS: all 270 Phase 6C-03 baseline blobs unchanged, including schema/RLS/ledger/tests"
+            },
+            {
+              "file": "shared-rule-evidence/10_Immutable full-output and provenance hashes.txt",
+              "line": "2026-11-26T18:40:44.5494325Z 71 passed in 7.58s"
+            }
+          ],
+          "full_evidence_line_count": 16
+        },
+        {
+          "id": 45877720261,
+          "name": "Phase 6C-03 stopped implementation revision evidence",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45877720261",
+          "archive_sha256": "15888bdcbfcbd1808f57ba1d2050bfa40ffba569819b26d9fa7e68b6bfda92a5",
+          "archive_bytes": 30732,
+          "key_evidence_lines": [
+            {
+              "file": "0_stopped-candidate-evidence.txt",
+              "line": "2026-11-26T18:40:28.4500201Z found 0 vulnerabilities"
+            },
+            {
+              "file": "0_stopped-candidate-evidence.txt",
+              "line": "2026-11-26T18:40:31.9017762Z All checks passed!"
+            },
+            {
+              "file": "0_stopped-candidate-evidence.txt",
+              "line": "2026-11-26T18:40:40.6086444Z PASS: all 285 pre-experiment Git blobs unchanged"
+            },
+            {
+              "file": "0_stopped-candidate-evidence.txt",
+              "line": "2026-11-26T18:41:08.7568339Z 152 passed in 26.47s"
+            },
+            {
+              "file": "stopped-candidate-evidence/6_Frozen dependencies.txt",
+              "line": "2026-11-26T18:40:28.4500184Z found 0 vulnerabilities"
+            },
+            {
+              "file": "stopped-candidate-evidence/8_Stopped candidate quality and preservation.txt",
+              "line": "2026-11-26T18:40:31.9017709Z All checks passed!"
+            },
+            {
+              "file": "stopped-candidate-evidence/8_Stopped candidate quality and preservation.txt",
+              "line": "2026-11-26T18:40:40.6086396Z PASS: all 285 pre-experiment Git blobs unchanged"
+            },
+            {
+              "file": "stopped-candidate-evidence/9_Full package parity and partial seed-codec evidence.txt",
+              "line": "2026-11-26T18:41:08.7568334Z 152 passed in 26.47s"
+            }
+          ],
+          "full_evidence_line_count": 16
+        },
+        {
+          "id": 45877720221,
+          "name": "Phase 6C-03 isolated indexing evidence",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45877720221",
+          "archive_sha256": "e18f0a2e54a815004a297ece5e8f72212f241d27eaf25b9660d98829e0b60ed8",
+          "archive_bytes": 39284,
+          "key_evidence_lines": [
+            {
+              "file": "0_indexing-evidence.txt",
+              "line": "2026-11-26T18:40:25.1933008Z found 0 vulnerabilities"
+            },
+            {
+              "file": "0_indexing-evidence.txt",
+              "line": "2026-11-26T18:40:32.1699870Z PASS: all 285 pre-experiment Git blobs unchanged"
+            },
+            {
+              "file": "0_indexing-evidence.txt",
+              "line": "2026-11-26T18:40:32.3168118Z All checks passed!"
+            },
+            {
+              "file": "0_indexing-evidence.txt",
+              "line": "2026-11-26T18:40:48.4451286Z 108 passed in 4.72s"
+            },
+            {
+              "file": "indexing-evidence/6_Install frozen dependencies.txt",
+              "line": "2026-11-26T18:40:25.1932974Z found 0 vulnerabilities"
+            },
+            {
+              "file": "indexing-evidence/9_Protected blobs and frozen checks.txt",
+              "line": "2026-11-26T18:40:32.1699818Z PASS: all 285 pre-experiment Git blobs unchanged"
+            },
+            {
+              "file": "indexing-evidence/9_Protected blobs and frozen checks.txt",
+              "line": "2026-11-26T18:40:32.3168073Z All checks passed!"
+            },
+            {
+              "file": "indexing-evidence/11_Full immutable and negative parity matrix.txt",
+              "line": "2026-11-26T18:40:48.4451283Z 108 passed in 4.72s"
+            }
+          ],
+          "full_evidence_line_count": 248
+        },
+        {
+          "id": 45877720178,
+          "name": "PV1 synthetic checks",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "d437092c416c0fbf57caf6674ce937d3418a454b",
+          "html_url": "https://github.com/ankit8github/FootPrint/actions/runs/45877720178",
+          "archive_sha256": "5937bd02063936944a9e10fe4a5c7a7585ade5ce5dafbd7b4a5cb31c7c3bc7d6",
+          "archive_bytes": 51517,
+          "key_evidence_lines": [
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:40:20.6885321Z found 0 vulnerabilities"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:40:20.8402714Z All checks passed!"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:42:04.2677663Z 1061 passed in 95.26s (0:01:35)"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:42:07.9845554Z No known vulnerabilities found"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:42:22.4054681Z found 0 vulnerabilities"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:43:31.1064522Z   9 passed (10.1s)"
+            },
+            {
+              "file": "0_scaffold.txt",
+              "line": "2026-11-26T18:43:48.8437987Z PASS seven production privacy/rollback scenarios; proposed performance budgets remain FAILED."
+            },
+            {
+              "file": "scaffold/6_Install locked dependencies.txt",
+              "line": "2026-11-26T18:40:20.6885315Z found 0 vulnerabilities"
+            },
+            {
+              "file": "scaffold/7_Python checks.txt",
+              "line": "2026-11-26T18:40:20.8402660Z All checks passed!"
+            },
+            {
+              "file": "scaffold/7_Python checks.txt",
+              "line": "2026-11-26T18:42:04.2677660Z 1061 passed in 95.26s (0:01:35)"
+            },
+            {
+              "file": "scaffold/7_Python checks.txt",
+              "line": "2026-11-26T18:42:07.9845501Z No known vulnerabilities found"
+            },
+            {
+              "file": "scaffold/8_Client checks.txt",
+              "line": "2026-11-26T18:42:22.4054633Z found 0 vulnerabilities"
+            },
+            {
+              "file": "scaffold/11_Browser smoke.txt",
+              "line": "2026-11-26T18:43:31.1064511Z   9 passed (10.1s)"
+            },
+            {
+              "file": "scaffold/12_Production privacy and rollback preservation.txt",
+              "line": "2026-11-26T18:43:48.8437949Z PASS seven production privacy/rollback scenarios; proposed performance budgets remain FAILED."
+            }
+          ],
+          "full_evidence_line_count": 14
+        }
+      ]
+    }
+  },
+  "preserved_snapshot": {
+    "files": 444,
+    "changed": [],
+    "snapshot_sha256": "ff9f72113099aeb4dbd455a22f9700e1bef1922ecf0d1cca7229b706f0f7e920"
+  },
+  "preserved_git_blobs": {
+    "pr13": 312,
+    "main": 270,
+    "original_workflows": 5
+  },
+  "limitations": [
+    "No accepted durable adapter, deletion-compatible provenance schema or lifecycle.",
+    "No OS network denial: acceptance assertion failed locally and in push/PR CI.",
+    "No new deletion/consent race suite or independent journal/restore/operations drill: dependent paths blocked.",
+    "No new 93-case schema run on this independent branch; exact-head PR14 source/SQL/CI evidence remains separate.",
+    "Original Docker scaffold roundtrip not run locally; required CI executes it separately.",
+    "Historical local login/native failures and proposed frontend performance-budget failures remain open.",
+    "No independent assessor, signed policy/retention/hosting/legal acceptance, live destination verification or real-user authorization."
+  ]
+}

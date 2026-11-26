@@ -1,0 +1,45 @@
+name: Phase 6 independent executor acceptance
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  executor-acceptance:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.9'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.15.0'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.9.29'
+      - name: Frozen dependencies
+        run: uv sync --project backend --frozen
+      - name: Independent test quality
+        working-directory: backend
+        run: |
+          uv run --frozen ruff check executor_safety_tests
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen ruff format --check executor_safety_tests
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen mypy executor_safety_tests
+      - name: Unchanged protected inventory
+        working-directory: backend
+        run: uv run --frozen python -m scripts.check_phase6_master_preservation
+      - name: Real process acceptance including mandatory no-network gate
+        working-directory: backend
+        run: |
+          New-Item -ItemType Directory -Force ../.local/phase6-executor-ci | Out-Null
+          uv run --frozen pytest -q -s executor_safety_tests --junitxml=../.local/phase6-executor-ci/acceptance.xml
+      - name: Preserve failure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase6-executor-acceptance-${{ github.run_id }}
+          path: .local/phase6-executor-ci/
