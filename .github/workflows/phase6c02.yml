@@ -1,0 +1,50 @@
+name: Phase 6C-02 disposable tenant database
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  tenant-isolation:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    services:
+      tenant-db:
+        image: postgres:17.12-bookworm
+        env:
+          POSTGRES_USER: fp6_bootstrap
+          POSTGRES_DB: fp6c02_synthetic
+          # Disposable fictional CI cluster only; no production credential.
+          POSTGRES_PASSWORD: fictional-phase6c02-ci-only
+        ports:
+          - 55433:5432
+        options: >-
+          --health-cmd "pg_isready -U fp6_bootstrap -d fp6c02_synthetic"
+          --health-interval 3s --health-timeout 3s --health-retries 20
+    env:
+      FP6_SYNTHETIC_ONLY: phase6c02-disposable-fictional-only-v1
+      FP6_TEST_PASSWORD: fictional-phase6c02-ci-only
+      FP6_TEST_PORT: '55433'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.9'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.9.29'
+      - name: Install frozen backend
+        run: uv sync --project backend --frozen
+      - name: Frozen lint and types
+        working-directory: backend
+        run: |
+          uv run --frozen ruff check .
+          uv run --frozen ruff format --check .
+          uv run --frozen mypy
+          uv run --frozen mypy db_tests
+      - name: Protected historical and Phase 6C-01 bytes
+        working-directory: backend
+        run: uv run --frozen python -m scripts.check_phase6c02_preservation
+      - name: Actual restricted roles and migration roundtrip
+        working-directory: backend
+        run: uv run --frozen python -m scripts.check_tenant_database
