@@ -1,0 +1,65 @@
+name: Phase 6C-03 isolated indexing evidence
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  indexing-evidence:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.9'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.15.0'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.9.29'
+      - name: Install frozen dependencies
+        run: |
+          uv sync --project backend --frozen
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm ci --prefix frontend
+      - name: Separate pinned and indexed artifacts
+        run: |
+          node frontend/scripts/shared-rules/build.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node frontend/scripts/shared-rules/build-indexing.mjs
+      - name: Runner hardware receipt
+        run: |
+          Get-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,TotalVisibleMemorySize,FreePhysicalMemory | ConvertTo-Json -Compress
+          Get-CimInstance Win32_Processor | Select-Object Name,NumberOfCores,NumberOfLogicalProcessors,MaxClockSpeed | ConvertTo-Json -Compress
+      - name: Protected blobs and frozen checks
+        working-directory: backend
+        run: |
+          uv run --frozen python -m scripts.check_indexing_preservation
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen ruff check .
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen ruff format --check .
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          uv run --frozen mypy indexing_tests
+      - name: Type-check isolated copies and build scripts
+        working-directory: frontend
+        run: |
+          npx eslint scripts/shared-rules/build-indexing.mjs scripts/shared-rules/indexing-transforms.mjs scripts/shared-rules/test-indexing.mjs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npx tsc --noEmit --strict --skipLibCheck --target es2022 --module esnext --moduleResolution bundler ../.local/phase6c03-indexing-build/indexed/copy.ts
+      - name: Full immutable and negative parity matrix
+        working-directory: backend
+        run: uv run --frozen pytest -q -x indexing_tests
+      - name: Paired unchanged-limit capacity measurements
+        working-directory: backend
+        run: uv run --frozen python -m scripts.benchmark_indexing
+      - name: Numeric receipts only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase6c03-indexing-${{ github.run_id }}
+          path: |
+            .local/phase6c03-indexing-*/measurements.json
+            .local/phase6c03-indexing-build/*/provenance.json
